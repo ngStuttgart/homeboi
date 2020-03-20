@@ -13,7 +13,7 @@ async function bootstrap() {
   const app: NestExpressApplication = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
-  const port = process.env.port || 3333;
+  const port = process.env.PORT || 3333;
 
   app.useStaticAssets(join(__dirname, '..', 'homeboi'));
 
