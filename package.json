@@ -18,6 +18,8 @@
     "affected:lint": "nx affected:lint",
     "affected:dep-graph": "nx affected:dep-graph",
     "affected": "nx affected",
+    "build:client": "ng build --prod homeboi",
+    "build:server": "ng build --prod api",
     "format": "nx format:write",
     "format:write": "nx format:write",
     "format:check": "nx format:check",
@@ -25,7 +27,9 @@
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
+    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
+    "heroku-postbuild": "run-p build:server build:client",
+    "start:heroku": "node dist/apps/api/main.js"
   },
   "private": true,
   "dependencies": {
