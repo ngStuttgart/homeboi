@@ -8,6 +8,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
+import { CustomHttpFilter } from './app/filter/custom-http.filter';
 
 async function bootstrap() {
   const app: NestExpressApplication = await NestFactory.create(AppModule);
@@ -16,6 +17,7 @@ async function bootstrap() {
   const port = process.env.PORT || 3333;
 
   app.useStaticAssets(join(__dirname, '..', 'homeboi'));
+  app.useGlobalFilters(app.get(CustomHttpFilter));
 
   await app.listen(port, () => {
     console.log('Listening at http://localhost:' + port + '/' + globalPrefix);
