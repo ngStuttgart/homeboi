@@ -1,25 +1,5 @@
-<header>
-  <mat-toolbar>
-    <button mat-raised-button>Kategorien</button>
-    <mat-form-field class="search-field">
-      <mat-icon inline="true" matPrefix>search</mat-icon>
-      <input type="text" matInput placeholder="Suche">
-    </mat-form-field>
-    <a mat-raised-button color="accent" class="inserat-button" routerLink="inserat">Inserat anlegen</a>
-    <button mat-icon-button>
-      <mat-icon>local_grocery_store</mat-icon>
-    </button>
-    <button mat-icon-button>
-      <mat-icon>mail_outline</mat-icon>
-    </button>
-    <button mat-icon-button>
-      <mat-icon>favorite_outline</mat-icon>
-    </button>
-    <button mat-icon-button>
-      <mat-icon>account_circle</mat-icon>
-    </button>
-  </mat-toolbar>
-</header>
+<homeboi-header [showInseratButton]="true"></homeboi-header>
+
 <ng-container *ngIf="products$ | async as products; else loading">
   <table *ngIf="products.length; else noProducts" mat-table [dataSource]="productsDatabase" class="mat-elevation-z0 products-table">
     <ng-container matColumnDef="title">

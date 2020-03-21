@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SharedProductCardModule } from '@homeboi/shared/product-card';
+import { SharedHeaderModule } from '@homeboi/shared/header';
 
 @NgModule({
   declarations: [UserComponent],
@@ -20,7 +21,8 @@ import { SharedProductCardModule } from '@homeboi/shared/product-card';
     MatInputModule,
     MatButtonModule,
     MatToolbarModule,
-    SharedProductCardModule
+    SharedProductCardModule,
+    SharedHeaderModule
   ]
 })
 export class UserModule {}

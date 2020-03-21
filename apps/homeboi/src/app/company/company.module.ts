@@ -18,6 +18,7 @@ import { Base64urlModule } from '@homeboi/shared/base64url';
 import { EffectsModule } from '@ngrx/effects';
 import { CompanyEffects } from './+state/company.effects';
 import { MatChipsModule } from '@angular/material/chips';
+import { SharedHeaderModule } from '@homeboi/shared/header';
 import { MatTableModule } from '@angular/material/table';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -44,6 +45,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     StoreModule.forFeature('company', companyReducer),
     EffectsModule.forFeature([CompanyEffects]),
     MatChipsModule,
+    SharedHeaderModule,
     CdkTableModule,
     MatTableModule,
     MatProgressSpinnerModule,

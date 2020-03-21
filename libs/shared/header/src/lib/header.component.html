@@ -1,0 +1,31 @@
+<header>
+  <mat-toolbar [class.show-searchbar]="showSearchbar">
+    <button class="show--desktop" mat-raised-button>Kategorien</button>
+    <button class="show--mobile" mat-icon-button>
+      <mat-icon>filter_list</mat-icon>
+    </button>
+    <div class="suche search-field search-field--desktop" [class.show]="showSearchbar">
+      <mat-icon>search</mat-icon>
+      <input type="text" placeholder="Suche" />
+    </div>
+    <button class="search-field search-field--mobile" mat-icon-button (click)="toggleSearchbar()">
+      <mat-icon>search</mat-icon>
+    </button>
+    <a *ngIf="showInseratButton" mat-raised-button color="accent" class="inserat-button show--desktop" [routerLink]="'inserat'">
+      Inserat anlegen
+    </a>
+    <a *ngIf="showInseratButton" mat-raised-button color="accent" class="inserat-button show--mobile" [routerLink]="'inserat'">
+      <mat-icon>add</mat-icon>
+      Inserat
+    </a>
+    <button mat-icon-button>
+      <mat-icon>local_grocery_store</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon>mail_outline</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </mat-toolbar>
+</header>
