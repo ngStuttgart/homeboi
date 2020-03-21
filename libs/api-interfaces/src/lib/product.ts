@@ -33,3 +33,10 @@ export enum PaymentDuration {
   MONTHLY = 'MONTHLY',
   ONCE = 'ONCE',
 }
+
+export interface ProductQuery {
+  title?: string;
+  productType?: ProductType[];
+  priceMin?: number;
+  priceMax?: number;
+}
