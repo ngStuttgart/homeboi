@@ -6,5 +6,6 @@ export interface Notification {
 
 export enum NotificationType {
   BOOKING = 'BOOKING',
-  RETURN_PRODUCT = 'RETURN_PRODUCT'
+  RETURN_PRODUCT = 'RETURN_PRODUCT',
+  RATED = 'RATED'
 }
