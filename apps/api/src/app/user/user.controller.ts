@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, HttpStatus, Post, Res } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post, Res, UnauthorizedException } from '@nestjs/common';
 import { Response } from 'express';
 import { LoginPostDto } from './dto/login.post.dto';
 import { UserService } from './user.service';
@@ -14,6 +14,9 @@ export class UserController {
   @HttpCode(HttpStatus.OK)
   async login(@Body() credentials: LoginPostDto, @Res() response: Response) {
     const userResponse = await this.userService.login(credentials.email, credentials.password);
+    if (!userResponse) {
+      throw new UnauthorizedException();
+    }
     const absolutlySecureLogin = Buffer.from(JSON.stringify({
       password: userResponse.password,
       email: userResponse.email
