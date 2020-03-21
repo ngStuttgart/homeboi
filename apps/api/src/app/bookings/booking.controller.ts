@@ -7,6 +7,7 @@ import { BookingEntity } from '../entities/booking.entity';
 import { NotificationGateway } from '../shared/notification.gateway';
 import { NotificationType } from '@homeboi/api-interfaces';
 import { RatingPostDto } from './dto/rating.post.dto';
+import { RatingEntity } from '../entities/rating.entity';
 
 @Controller('bookings')
 export class BookingController {
@@ -54,7 +55,7 @@ export class BookingController {
     return this.bookingsService.deleteBooking(bookingId);
   }
   @Post(':id/ratings')
-  async createRating(@Param('id') bookingId: string, @User() user: UserEntity, @Body() rating: RatingPostDto): Promise<void> {
-    this.bookingsService.createRatingForBooking(bookingId, rating, user.userId);
+  async createRating(@Param('id') bookingId: string, @User() user: UserEntity, @Body() rating: RatingPostDto): Promise<RatingEntity> {
+    return await this.bookingsService.createRatingForBooking(bookingId, rating, user.userId);
   }
 }

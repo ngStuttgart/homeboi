@@ -22,7 +22,7 @@ export class BookingService {
     booking.product = createBookingDto.productId as any;
     booking.end = createBookingDto.end;
     booking.start = createBookingDto.start;
-    this.setProductAvailable(createBookingDto.productId, false);
+    await this.setProductAvailable(createBookingDto.productId, false);
     return await bookingRepository.save(booking);
   }
 
@@ -33,7 +33,7 @@ export class BookingService {
         where: { id: bookingId },
         relations: ['product']
       })).product.id;
-      this.setProductAvailable(productId, true);
+      await this.setProductAvailable(productId, true);
       return true;
     } else {
       throw new NotFoundException();
