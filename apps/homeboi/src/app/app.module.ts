@@ -23,6 +23,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { ShowPictureDialogComponent } from './dialogs/show-picture-dialog/show-picture-dialog.component';
 import { Base64urlModule } from '@homeboi/shared/base64url';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     StoreModule.forRoot({ app: appReducer }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     MatSelectModule,
+    MatToolbarModule,
+    MatIconModule,
     Base64urlModule,
     MatDialogModule
   ],
