@@ -18,6 +18,12 @@ mat-card {
   @media(max-width: 500px) {
     margin: 0.25em;
   }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 form {

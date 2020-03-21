@@ -1,5 +1,8 @@
 <h1>Registrierung</h1>
 <mat-card>
+  <div class="logo">
+    <img alt="logo" src="./assets/logo.png">
+  </div>
   <p>Um einen Account zu erstellen, benötigen wir noch ein paar Daten von dir.</p>
   <form #ngForm="ngForm" (submit)="submit()" [formGroup]="signupGroup">
     <mat-form-field class="account-type">
