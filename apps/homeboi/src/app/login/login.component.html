@@ -1,0 +1,32 @@
+<h1>Welcome to homeboi!</h1>
+
+<mat-card>
+  <form [formGroup]="inputGroup" (submit)="submit()">
+    <mat-form-field>
+      <input
+        formControlName="email"
+        type="text"
+        placeholder="E-Mail"
+        matInput
+        required
+      />
+      <mat-error>Bitte korrekte E-Mail eingeben</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        formControlName="password"
+        type="password"
+        placeholder="Passwort"
+        matInput
+        required
+      />
+      <mat-error>Bitte Passwort eingeben</mat-error>
+    </mat-form-field>
+    <mat-error *ngIf="loginError$ | async">E-Mail oder Kennwort falsch</mat-error>
+    <button mat-raised-button type="submit" color="primary">Anmelden</button>
+  </form>
+  <div>
+    Sie haben noch keinen Account?
+    <a routerLink="/signup">Hier Account erstellen.</a>
+  </div>
+</mat-card>

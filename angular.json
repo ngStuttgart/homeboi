@@ -25,7 +25,10 @@
               "apps/homeboi/src/favicon.ico",
               "apps/homeboi/src/assets"
             ],
-            "styles": ["apps/homeboi/src/styles.scss"],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "apps/homeboi/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
