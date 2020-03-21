@@ -20,7 +20,8 @@ export class AppEffects {
             catchError(() => {
               this.store.dispatch(loginErrorAction({loginError: 'error'}));
               return throwError('error');
-            })
+            }),
+            tap(({accountType}) => this.router.navigateByUrl(`/${accountType.toLowerCase()}`))
           )
         ),
         map(user => loginSuccessAction({ user }))

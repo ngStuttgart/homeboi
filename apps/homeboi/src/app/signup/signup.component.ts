@@ -40,7 +40,7 @@ export class SignupComponent {
 
   submit(): void {
     if (this.signupGroup.valid) {
-      this.store.dispatch(signupAction({ signup: this.signupGroup.value }));
+      this.store.dispatch(signupAction({ signup: this.signupGroup.getRawValue() }));
     }
   }
 }
