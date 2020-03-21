@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { combineLatest, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { Product, ProductQuery } from '@homeboi/api-interfaces';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../+state/app.reducer';
@@ -16,7 +16,7 @@ export class UserComponent implements OnInit {
   products$: Observable<Product[]> = this.store.pipe(
     select(selectProducts)
   );
-  filter$ = new Subject<ProductQuery>();
+  filter$ = new BehaviorSubject<ProductQuery>({});
 
   filteredProducts$ = combineLatest([this.products$, this.filter$]).pipe(map(this.filterProducts));
 
@@ -25,7 +25,6 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(getProductsAction());
-    this.filter$.next();
   }
 
   filter(productQuery: ProductQuery): void {
