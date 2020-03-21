@@ -1,13 +1,39 @@
 <header>
   <mat-toolbar [class.show-searchbar]="showSearchbar">
     <img alt="logo" class="logo" src="./assets/logo.png" />
+    <button class="show--desktop" mat-raised-button (click)="showFilter = !showFilter">Kategorien</button>
+    <mat-expansion-panel *ngIf="showFilter">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Nach Produkten filtern
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-form-field>
+        <mat-label>Kategorien</mat-label>
+        <mat-select [formControl]="formGroup.get('productType')" multiple>
+          <mat-option *ngFor="let type of productTypes" [value]="type.key">{{type.value}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Preis min</mat-label>
+        <input matInput type="text" [formControl]="formGroup.get('priceMin')" placeholder="Preis min"/>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Preis max</mat-label>
+        <input matInput type="text" [formControl]="formGroup.get('priceMax')" placeholder="Preis max"/>
+      </mat-form-field>
+    </mat-expansion-panel>
+    <button class="show--mobile" mat-icon-button>
     <button *ngIf="showInputBar" class="show--desktop" mat-raised-button>Kategorien</button>
     <button *ngIf="showInputBar" class="show--mobile" mat-icon-button>
       <mat-icon>filter_list</mat-icon>
     </button>
     <div *ngIf="showInputBar" class="suche search-field search-field--desktop" [class.show]="showSearchbar">
       <mat-icon>search</mat-icon>
-      <input type="text" placeholder="Suche"/>
+      <input type="text" [formControl]="formGroup.get('title')" placeholder="Suche"/>
     </div>
     <button *ngIf="showInputBar" class="search-field search-field--mobile" mat-icon-button (click)="toggleSearchbar()">
       <mat-icon>search</mat-icon>

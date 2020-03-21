@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Product } from '@homeboi/api-interfaces';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { Product, ProductQuery } from '@homeboi/api-interfaces';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../+state/app.reducer';
 import { selectProducts } from '../+state/app.selectors';
 import { getProductsAction } from '../+state/app.actions';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'homeboi-user',
@@ -14,11 +15,36 @@ import { getProductsAction } from '../+state/app.actions';
 export class UserComponent implements OnInit {
   products$: Observable<Product[]> = this.store.pipe(
     select(selectProducts)
-  )
+  );
+  filter$ = new BehaviorSubject<ProductQuery>({});
 
-  constructor(private store: Store<AppState>) {}
+  filteredProducts$ = combineLatest([this.products$, this.filter$]).pipe(map(this.filterProducts));
+
+  constructor(private store: Store<AppState>) {
+  }
 
   ngOnInit(): void {
     this.store.dispatch(getProductsAction());
+  }
+
+  filter(productQuery: ProductQuery): void {
+    this.filter$.next(productQuery);
+  }
+
+  private filterProducts([products, query]): Product[] {
+    let filtered: Product[] = products;
+    if (query.title) {
+      filtered = filtered.filter(product => product.title.toLowerCase().startsWith(query.title.toLowerCase()));
+    }
+    if (query.productType && query.productType.length > 0) {
+      filtered = filtered.filter(product => query.productType.includes(product.productType));
+    }
+    if (query.priceMin) {
+      filtered = filtered.filter(product => product.price >= query.priceMin);
+    }
+    if (query.priceMax) {
+      filtered = filtered.filter(product => product.price <= query.priceMax);
+    }
+    return filtered;
   }
 }

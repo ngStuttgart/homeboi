@@ -1,8 +1,8 @@
-<homeboi-header></homeboi-header>
+<homeboi-header (productQuery)="filter($event)"></homeboi-header>
 
 <main>
   <homeboi-product-card
-    *ngFor="let product of products$ | async"
+    *ngFor="let product of filteredProducts$ | async"
     [product]="product"
   >
   </homeboi-product-card>

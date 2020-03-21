@@ -13,6 +13,16 @@ mat-toolbar {
   }
 }
 
+mat-expansion-panel {
+  position: absolute;
+  top: 67px;
+  z-index: 1;
+
+  mat-form-field + mat-form-field {
+    margin-left: 0.5em;
+  }
+}
+
 .suche {
   background-color: white;
   border: 1px solid grey;
