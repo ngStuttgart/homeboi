@@ -272,6 +272,35 @@
           "styleext": "scss"
         }
       }
+    },
+    "shared-payment-duration-pipe": {
+      "root": "libs/shared/payment-duration-pipe",
+      "sourceRoot": "libs/shared/payment-duration-pipe/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/payment-duration-pipe/tsconfig.lib.json",
+              "libs/shared/payment-duration-pipe/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/payment-duration-pipe/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/payment-duration-pipe/jest.config.js",
+            "tsConfig": "libs/shared/payment-duration-pipe/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
