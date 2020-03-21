@@ -1,0 +1,93 @@
+<h1>Yeah!</h1>
+<p>Was möchtest du vermieten?</p>
+
+<mat-card>
+  <form #ngForm="ngForm" (submit)="submit()" [formGroup]="inseratGroup">
+    <div class="bild">
+      <input
+        #bild
+        class="bild__input"
+        formControlName="image"
+        type="file"
+        placeholder="Bild"
+      />
+      <div role="button" class="bild__kachel" (click)="bild.click()">
+        <mat-icon>add_a_photo</mat-icon>
+      </div>
+    </div>
+    <mat-form-field>
+      <input
+        formControlName="title"
+        type="text"
+        placeholder="Titel"
+        matInput
+        required
+      />
+      <mat-error>Eingabe erforderlich</mat-error>
+    </mat-form-field>
+    <mat-form-field class="product-type">
+      <mat-label>Art des Produkts</mat-label>
+      <mat-select formControlName="productType">
+        <mat-option *ngFor="let productType of productTypes" [value]="productType.value">
+          {{productType.viewValue}}
+        </mat-option>
+      </mat-select>
+      <mat-error>Bitte Produkttyp auswählen</mat-error>
+    </mat-form-field>
+    <mat-form-field class="beschreibung">
+      <textarea formControlName="description" matInput placeholder="Beschreibung"></textarea>
+      <mat-error>Eingabe erforderlich</mat-error>
+    </mat-form-field>
+    <div class="masse-area">
+      <mat-form-field>
+        <input
+          formControlName="width"
+          type="text"
+          placeholder="Breite"
+          matInput
+          required
+        />
+        <mat-error>Eingabe erforderlich</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          formControlName="height"
+          type="text"
+          placeholder="Höhe"
+          matInput
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          formControlName="depth"
+          type="text"
+          placeholder="Tiefe"
+          matInput
+          required
+        />
+        <mat-error>Eingabe erforderlich</mat-error>
+      </mat-form-field>
+    </div>
+    <mat-form-field>
+      <input
+        formControlName="price"
+        type="text"
+        placeholder="Preis"
+        matInput
+        required
+      />
+      <mat-error>Eingabe erforderlich</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        formControlName="paymentDuration"
+        type="text"
+        placeholder="Zahlungsdauer"
+        matInput
+        required
+      />
+      <mat-error>Eingabe erforderlich</mat-error>
+    </mat-form-field>
+    <button mat-raised-button [disabled]="ngForm.valid && ngForm.submitted" type="submit" color="primary">Inserat einstellen</button>
+  </form>
+</mat-card>
