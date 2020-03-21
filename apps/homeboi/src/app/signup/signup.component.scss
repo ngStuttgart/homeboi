@@ -1,0 +1,22 @@
+:host {
+  display: grid;
+  place-items: center;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1em;
+}
+
+button {
+  grid-column: span 2;
+}
+
+.account-type {
+  grid-column: span 2;
+}
+
+mat-form-field {
+  min-width: 300px;
+}
