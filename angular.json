@@ -301,6 +301,38 @@
           }
         }
       }
+    },
+    "shared-product-type": {
+      "projectType": "library",
+      "root": "libs/shared/product-type",
+      "sourceRoot": "libs/shared/product-type/src",
+      "prefix": "homeboi",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/product-type/tsconfig.lib.json",
+              "libs/shared/product-type/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/shared/product-type/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/product-type/jest.config.js",
+            "tsConfig": "libs/shared/product-type/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/shared/product-type/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

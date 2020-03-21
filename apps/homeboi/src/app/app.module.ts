@@ -20,9 +20,17 @@ import { AppEffects } from './+state/app.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { MatSelectModule } from '@angular/material/select';
+import { ShowPictureDialogComponent } from './dialogs/show-picture-dialog/show-picture-dialog.component';
+import { Base64urlModule } from '@homeboi/shared/base64url';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, SignupComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    SignupComponent,
+    ShowPictureDialogComponent
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -36,7 +44,9 @@ import { MatSelectModule } from '@angular/material/select';
     EffectsModule.forRoot([AppEffects]),
     StoreModule.forRoot({ app: appReducer }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    MatSelectModule
+    MatSelectModule,
+    Base64urlModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

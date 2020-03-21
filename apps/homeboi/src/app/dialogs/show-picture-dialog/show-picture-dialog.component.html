@@ -1,0 +1,11 @@
+<div class="dialog">
+  <div matDialogTitle>
+    {{product.title}}
+  </div>
+  <div matDialogContent>
+    <img alt="Produktbild" [src]="product.image | base64url">
+  </div>
+  <div matDialogActions>
+    <button mat-raised-button color="primary" (click)="close()">Schließen</button>
+  </div>
+</div>
