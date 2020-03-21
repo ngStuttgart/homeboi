@@ -10,6 +10,10 @@ export class BookingService {
   constructor() {
   }
 
+  public async getAllBookings(): Promise<BookingEntity[]> {
+    return getRepository(BookingEntity).find();
+  }
+
   public async createNewBooking(createBookingDto: BookingPostDto, user: UserEntity): Promise<BookingEntity> {
     const bookingRepository = getRepository(BookingEntity);
     // Todo: Check if booking already exists for date and product
@@ -19,6 +23,10 @@ export class BookingService {
     booking.end = createBookingDto.end;
     booking.start = createBookingDto.start;
     return await bookingRepository.save(booking);
+  }
+
+  public async handBackBooking(bookingId: string): Promise<boolean> {
+    return (await getRepository(BookingEntity).update({ id: bookingId }, { end: new Date() })).affected === 1;
   }
 
   public async deleteBooking(bookingId: string) {
