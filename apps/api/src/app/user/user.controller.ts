@@ -18,7 +18,7 @@ export class UserController {
       password: userResponse.password,
       email: userResponse.email
     })).toString('base64');
-    response.setHeader('Set-Cookie', `homeboi-login=${absolutlySecureLogin}`);
+    response.setHeader('Set-Cookie', `homeboi-login=${absolutlySecureLogin}; Path=/; Max-Age=6000;`);
     delete userResponse.password;
     response.json(userResponse);
   }

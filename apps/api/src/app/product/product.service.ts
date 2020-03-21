@@ -5,6 +5,7 @@ import { ProductPostDto } from './dto/product.post.dto';
 import { ProductPutDto } from './dto/product.put.dto';
 import { TagService } from '../tag/tag.service';
 import { TagEntity } from '../entities/tag.entity';
+import { UserEntity } from '../entities/user.entity';
 
 @Injectable()
 export class ProductService {
@@ -12,17 +13,22 @@ export class ProductService {
   }
 
   async getAllProducts(): Promise<ProductEntity[]> {
-    return await getRepository(ProductEntity).find() || [];
+    return await getRepository(ProductEntity).find({ relations: ['tags'] }) || [];
+  }
+
+  async getAllProductsForUser(user: UserEntity): Promise<ProductEntity[]> {
+    return await getRepository(ProductEntity).find({ where: { user }, relations: ['tags'] });
   }
 
   async getProductById(productId): Promise<ProductEntity> {
     return await getRepository(ProductEntity).findOne(productId);
   }
 
-  async createProduct(productDto: ProductPostDto): Promise<ProductEntity> {
+  async createProduct(productDto: ProductPostDto, userId: string): Promise<ProductEntity> {
     if (productDto) {
       const product = new ProductEntity();
       product.productType = productDto.productType;
+      product.user = userId as any;
       product.description = productDto.description;
       product.title = productDto.title;
       product.tags = await this.saveAndUpdateTags(productDto.tags);
@@ -39,10 +45,11 @@ export class ProductService {
     }
   }
 
-  async updateProduct(productDto: ProductPutDto): Promise<ProductEntity> {
+  async updateProduct(productDto: ProductPutDto, userId: string): Promise<ProductEntity> {
     const product = await getRepository(ProductEntity).findOne({ id: productDto.id });
     if (product) {
       product.productType = productDto.productType;
+      product.user = userId as any;
       product.description = productDto.description;
       product.title = productDto.title;
       product.tags = await this.saveAndUpdateTags(productDto.tags);
@@ -60,7 +67,7 @@ export class ProductService {
   }
 
   async deleteProduct(productId: string): Promise<boolean> {
-    return (await getRepository(ProductEntity).delete({id: productId})).affected === 1;
+    return (await getRepository(ProductEntity).delete({ id: productId })).affected === 1;
   }
 
   private async saveAndUpdateTags(newTags: string[]): Promise<TagEntity[]> {

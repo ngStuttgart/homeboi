@@ -7,6 +7,8 @@ export class ProductPutDto implements Product {
   @ApiProperty({ enum: ProductType })
   productType: ProductType;
   @ApiProperty()
+  user: string;
+  @ApiProperty()
   depth: number;
   @ApiProperty()
   description: string;
