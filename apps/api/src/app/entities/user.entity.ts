@@ -1,11 +1,10 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 import { AccountType, Signup } from '@homeboi/api-interfaces';
 import { AddressEntity } from './address.entity';
 
 @Entity()
 export class UserEntity implements Omit<Signup, 'accountType'> {
-
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn()
   email: string;
 
   @Column()
