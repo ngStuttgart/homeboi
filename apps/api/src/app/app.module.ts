@@ -16,6 +16,7 @@ import { ProductEntity } from './entities/product.entity';
 import { RatingEntity } from './entities/rating.entity';
 import { TagEntity } from './entities/tag.entity';
 import { ProductModule } from './product/product.module';
+import { TagModule } from './tag/tag.module';
 
 @Module({
   imports: [
@@ -31,7 +32,8 @@ import { ProductModule } from './product/product.module';
       synchronize: true
     }),
     UserModule,
-    ProductModule
+    ProductModule,
+    TagModule
   ],
   controllers: [AppController],
   providers: [
