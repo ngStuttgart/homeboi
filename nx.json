@@ -23,6 +23,9 @@
     },
     "api-interfaces": {
       "tags": []
+    },
+    "shared-product-card": {
+      "tags": []
     }
   }
 }

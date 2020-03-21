@@ -4,3 +4,4 @@ export * from './lib/signup';
 export * from './lib/booking';
 export * from './lib/rating';
 export * from './lib/notification';
+export * from './lib/product';
