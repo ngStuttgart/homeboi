@@ -12,6 +12,10 @@ export const selectUserId = createSelector(
   selectApp,
   ({ user }: AppState) => user?.userId
 );
+export const selectUserAccountType = createSelector(
+  selectApp,
+  ({ user }: AppState) => user?.accountType
+);
 export const selectProducts = createSelector(
   selectApp,
   ({ products }: AppState) => products

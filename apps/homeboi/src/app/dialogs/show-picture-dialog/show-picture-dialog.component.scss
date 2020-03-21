@@ -8,6 +8,7 @@
   img {
     max-height: calc(#{$max-height} - 200px);
     max-width: $max-width;
+    width: 100%;
     object-fit: contain;
   }
 }
