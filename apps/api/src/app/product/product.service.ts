@@ -15,11 +15,7 @@ export class ProductService {
 
   async getProductById(productId) {
     const productRepository = getRepository(ProductEntity);
-    return await productRepository.find({
-      where: {
-        id: productId
-      }
-    });
+    return await productRepository.findOne(productId);
   }
 
 }
