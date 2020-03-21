@@ -1,8 +1,11 @@
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
 import {
+  getNotificationsSuccessAction,
   getProductsSuccessAction,
   loginErrorAction,
-  loginSuccessAction, resetNotificationsAction, setNotificationAction
+  loginSuccessAction,
+  resetNotificationsAction,
+  setNotificationAction
 } from './app.actions';
 import { Notification, Product, Signup } from '@homeboi/api-interfaces';
 
@@ -49,7 +52,7 @@ export const reducer: ActionReducer<AppState> = createReducer(
   ),
   on(
     setNotificationAction,
-    (state: AppState, {notification}): AppState => ({
+    (state: AppState, { notification }): AppState => ({
       ...state,
       notifications: [...(state.notifications || []), notification]
     })
@@ -59,6 +62,13 @@ export const reducer: ActionReducer<AppState> = createReducer(
     (state): AppState => ({
       ...state,
       notifications: undefined
+    })
+  ),
+  on(
+    getNotificationsSuccessAction,
+    (state: AppState, { notifications }): AppState => ({
+      ...state,
+      notifications
     })
   )
 );

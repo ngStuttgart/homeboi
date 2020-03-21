@@ -69,6 +69,15 @@ mat-expansion-panel {
   }
 }
 
+.align-right {
+  float: right;
+
+  &::after {
+    content: " ";
+    clear: both;
+  }
+}
+
 .inserat-button {
   margin: 0 3em;
 

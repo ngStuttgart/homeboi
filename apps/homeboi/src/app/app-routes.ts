@@ -22,7 +22,7 @@ export const APP_ROUTES: Routes = [
   },
   {
     path: 'notifications',
-    loadChildren: () => import('./notifactions/notifications.module').then(m => m.NotificationsModule)
+    loadChildren: () => import('./notifications/notifications.module').then(m => m.NotificationsModule)
   },
   {
     path: '**',
