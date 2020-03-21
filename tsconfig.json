@@ -16,7 +16,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@homeboi/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@homeboi/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@homeboi/shared/base64url": ["libs/shared/base64url/src/index.ts"],
+      "@homeboi/shared/product-card": ["libs/shared/product-card/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

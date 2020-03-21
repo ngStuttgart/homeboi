@@ -1,10 +1,8 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CustomHttpFilter, joinPathFactory } from './filter/custom-http.filter';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { join } from 'path';
 import { UserModule } from './user/user.module';
 import { UserEntity } from './entities/user.entity';
 import { AddressEntity } from './entities/address.entity';
@@ -44,10 +42,6 @@ import { BookingModule } from './bookings/booking.module';
   ]
 })
 export class AppModule implements NestModule {
-  constructor() {
-    console.log(join(__dirname, '../../../**/*.entity{.ts,.js}'));
-  }
-
   configure(consumer: MiddlewareConsumer) {
     //consumer.apply(CookieParserMiddleware)
     //  .forRoutes('');

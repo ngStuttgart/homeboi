@@ -1,0 +1,8 @@
+<mat-card *ngIf="product as product">
+  <img [src]="product.image" [alt]="product.title" />
+  <div>
+    {{ product.title }}
+    {{ product.description }}
+    {{ product.price }}
+  </div>
+</mat-card>

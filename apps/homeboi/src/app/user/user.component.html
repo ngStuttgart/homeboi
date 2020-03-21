@@ -1,1 +1,29 @@
-<p>user works!</p>
+<header>
+  <mat-toolbar>
+    <button mat-raised-button>Kategorien</button>
+    <mat-form-field class="search-field">
+      <mat-icon inline="true" matPrefix>search</mat-icon>
+      <input type="text" matInput placeholder="Suche" />
+    </mat-form-field>
+    <button mat-icon-button>
+      <mat-icon>local_grocery_store</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon>mail_outline</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon>favorite_outline</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </mat-toolbar>
+</header>
+
+<main>
+  <homeboi-product-card
+    *ngFor="let product of products$ | async"
+    [product]="product"
+  >
+  </homeboi-product-card>
+</main>

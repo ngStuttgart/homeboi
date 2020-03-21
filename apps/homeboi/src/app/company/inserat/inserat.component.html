@@ -1,19 +1,35 @@
 <h1>Yeah!</h1>
 <p>Was möchtest du vermieten?</p>
 
-<mat-card>
-  <form #ngForm="ngForm" (submit)="submit()" [formGroup]="inseratGroup">
-    <div class="bild">
-      <input
-        #bild
-        class="bild__input"
-        formControlName="image"
-        type="file"
-        placeholder="Bild"
-      />
-      <div role="button" class="bild__kachel" (click)="bild.click()">
-        <mat-icon>add_a_photo</mat-icon>
-      </div>
+<mat-card *ngIf="product$ | async as product">
+  <form (submit)="submit()" [formGroup]="inseratGroup">
+    <div class="image">
+      <ng-container *ngIf="product.image; else uploadImage">
+        <img
+          [src]="product.image | base64url"
+          alt="Inseratbild"
+          class="product-image"
+        />
+        <button mat-icon-button (click)="deleteImage()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </ng-container>
+      <ng-template #uploadImage>
+        <input
+          #imageUploadInput
+          class="input"
+          type="file"
+          placeholder="Bild"
+          accept="image/*"
+          (change)="uploadFile($event)"
+        />
+        <div role="button" class="kachel" (click)="imageUploadInput.click()">
+          <mat-icon>add_a_photo</mat-icon>
+        </div>
+      </ng-template>
+      <mat-error *ngIf="imageCtrl.touched && imageCtrl.invalid">
+        Bitte laden Sie ein Foto hoch
+      </mat-error>
     </div>
     <mat-form-field>
       <input
@@ -28,22 +44,30 @@
     <mat-form-field class="product-type">
       <mat-label>Art des Produkts</mat-label>
       <mat-select formControlName="productType">
-        <mat-option *ngFor="let productType of productTypes" [value]="productType.value">
-          {{productType.viewValue}}
+        <mat-option
+          *ngFor="let productType of productTypes"
+          [value]="productType.value"
+        >
+          {{ productType.viewValue }}
         </mat-option>
       </mat-select>
       <mat-error>Bitte Produkttyp auswählen</mat-error>
     </mat-form-field>
     <mat-form-field class="beschreibung">
-      <textarea formControlName="description" matInput placeholder="Beschreibung"></textarea>
+      <textarea
+        formControlName="description"
+        matInput
+        placeholder="Beschreibung"
+        required
+      ></textarea>
       <mat-error>Eingabe erforderlich</mat-error>
     </mat-form-field>
     <div class="masse-area">
       <mat-form-field>
         <input
           formControlName="width"
-          type="text"
-          placeholder="Breite"
+          type="number"
+          placeholder="Breite (cm)"
           matInput
           required
         />
@@ -52,16 +76,16 @@
       <mat-form-field>
         <input
           formControlName="height"
-          type="text"
-          placeholder="Höhe"
+          type="number"
+          placeholder="Höhe (cm)"
           matInput
         />
       </mat-form-field>
       <mat-form-field>
         <input
           formControlName="depth"
-          type="text"
-          placeholder="Tiefe"
+          type="number"
+          placeholder="Tiefe (cm)"
           matInput
           required
         />
@@ -71,8 +95,8 @@
     <mat-form-field>
       <input
         formControlName="price"
-        type="text"
-        placeholder="Preis"
+        type="number"
+        placeholder="Preis (EUR)"
         matInput
         required
       />
@@ -88,6 +112,13 @@
       />
       <mat-error>Eingabe erforderlich</mat-error>
     </mat-form-field>
-    <button mat-raised-button [disabled]="ngForm.valid && ngForm.submitted" type="submit" color="primary">Inserat einstellen</button>
+    <button
+      mat-raised-button
+      [disabled]="productSubmitted$ | async"
+      type="submit"
+      color="primary"
+    >
+      Inserat einstellen
+    </button>
   </form>
 </mat-card>

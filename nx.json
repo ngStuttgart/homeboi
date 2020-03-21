@@ -23,6 +23,12 @@
     },
     "api-interfaces": {
       "tags": []
+    },
+    "shared-base64url": {
+      "tags": []
+    },
+    "shared-product-card": {
+      "tags": []
     }
   }
 }

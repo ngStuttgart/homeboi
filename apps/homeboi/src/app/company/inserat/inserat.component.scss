@@ -13,17 +13,23 @@ mat-form-field {
   min-width: 300px;
 }
 
-.bild {
+.image {
   grid-column: span 2;
 
-  &__input {
+  .product-image {
+    height: 300px;
+    width: 100%;
+    object-fit: contain;
+  }
+
+  .input {
     display: none;
   }
 
-  &__kachel {
+  .kachel {
     display: grid;
     place-items: center;
-    height: 100px;
+    height: 300px;
     background-color: lightgrey;
     cursor: pointer;
   }
@@ -41,5 +47,5 @@ button {
   grid-column: span 2;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: .5em;
+  grid-gap: 0.5em;
 }
