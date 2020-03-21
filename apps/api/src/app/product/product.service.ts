@@ -6,18 +6,19 @@ import { ProductPutDto } from './dto/product.put.dto';
 import { TagService } from '../tag/tag.service';
 import { TagEntity } from '../entities/tag.entity';
 import { UserEntity } from '../entities/user.entity';
+import { Product } from '@homeboi/api-interfaces';
 
 @Injectable()
 export class ProductService {
   constructor(private tagService: TagService) {
   }
 
-  async getAllProducts(): Promise<ProductEntity[]> {
-    return await getRepository(ProductEntity).find({ relations: ['tags'] }) || [];
+  async getAllProducts(): Promise<Product[]> {
+    return this.mapToProduct(await getRepository(ProductEntity).find({ relations: ['tags'] })) || [];
   }
 
-  async getAllProductsForUser(user: UserEntity): Promise<ProductEntity[]> {
-    return await getRepository(ProductEntity).find({ where: { user }, relations: ['tags'] });
+  async getAllProductsForUser(user: UserEntity): Promise<Product[]> {
+    return this.mapToProduct(await getRepository(ProductEntity).find({ where: { user }, relations: ['tags'] }));
   }
 
   async getProductById(productId): Promise<ProductEntity> {
@@ -81,6 +82,13 @@ export class ProductService {
       }
     }
     return tags;
+  }
+
+  private mapToProduct(productEntity: ProductEntity[]): Product[] {
+    return productEntity.map(product => ({
+      ...product,
+      tags: product.tags.map(tag => tag.value)
+    }));
   }
 
 }

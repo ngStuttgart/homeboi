@@ -5,6 +5,7 @@ import { ProductPutDto } from './dto/product.put.dto';
 import { ProductEntity } from '../entities/product.entity';
 import { User } from '../shared/user.decorator';
 import { UserEntity } from '../entities/user.entity';
+import { Product } from '@homeboi/api-interfaces';
 
 @Controller('products')
 export class ProductController {
@@ -13,12 +14,12 @@ export class ProductController {
   }
 
   @Get('')
-  async getAllProducts(): Promise<ProductEntity[]> {
+  async getAllProducts(): Promise<Product[]> {
     return this.productService.getAllProducts();
   }
 
   @Get('foruser')
-  async getAllProductsForUser(@User() user: UserEntity): Promise<ProductEntity[]> {
+  async getAllProductsForUser(@User() user: UserEntity): Promise<Product[]> {
     return this.productService.getAllProductsForUser(user);
   }
 
