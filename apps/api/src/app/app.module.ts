@@ -14,7 +14,7 @@ import { TagEntity } from './entities/tag.entity';
 import { ProductModule } from './product/product.module';
 import { TagModule } from './tag/tag.module';
 import { BookingModule } from './bookings/booking.module';
-import { NotificationService } from './shared/notification.service';
+import { NotificationModule } from './shared/notification.module';
 
 @Module({
   imports: [
@@ -32,14 +32,14 @@ import { NotificationService } from './shared/notification.service';
     UserModule,
     ProductModule,
     TagModule,
-    BookingModule
+    BookingModule,
+    NotificationModule
   ],
   controllers: [AppController],
   providers: [
     AppService,
     joinPathFactory,
-    CustomHttpFilter,
-    NotificationService
+    CustomHttpFilter
   ]
 })
 export class AppModule implements NestModule {
