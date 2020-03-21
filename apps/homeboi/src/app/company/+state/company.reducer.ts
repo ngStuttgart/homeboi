@@ -1,7 +1,7 @@
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
 import { Product } from '@homeboi/api-interfaces';
 import {
-  addImageAction,
+  addImageAction, getProductsSuccessAction,
   resetImageAction,
   resetProductAction,
   setProductAction,
@@ -12,11 +12,13 @@ import {
 export interface CompanyState {
   product: Partial<Product>;
   productSubmitted: boolean;
+  products?: Product[];
 }
 
 export const initialCompanyState: CompanyState = {
   product: {},
-  productSubmitted: false
+  productSubmitted: false,
+  products: undefined
 };
 
 export function companyReducer(state, action: Action) {
@@ -77,5 +79,9 @@ const reducer: ActionReducer<CompanyState> = createReducer(
       productSubmitted: false,
       product: {}
     })
-  )
+  ),
+  on(getProductsSuccessAction, (state, {products}): CompanyState => ({
+    ...state,
+    products
+  }))
 );

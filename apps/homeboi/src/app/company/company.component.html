@@ -20,5 +20,57 @@
     </button>
   </mat-toolbar>
 </header>
+<ng-container *ngIf="products$ | async as products; else loading">
+  <table *ngIf="products.length; else noProducts" mat-table [dataSource]="productsDatabase" class="mat-elevation-z0 products-table">
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef> Titel </th>
+      <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+    </ng-container>
 
-<p>content</p>
+    <ng-container matColumnDef="productType">
+      <th mat-header-cell *matHeaderCellDef> Produkttyp </th>
+      <td mat-cell *matCellDef="let element"> {{element.productType | productType}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Preis </th>
+      <td mat-cell *matCellDef="let element"> {{element.price | currency:'EUR'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="paymentDuration">
+      <th mat-header-cell *matHeaderCellDef> Zahlung </th>
+      <td mat-cell *matCellDef="let element"> {{element.paymentDuration | paymentDuration}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="options">
+      <th mat-header-cell *matHeaderCellDef> Optionen </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button matTooltip="Show picture" (click)="showPicture(element)">
+          <mat-icon>insert_photo</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="Edit">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <ng-template #noProducts>
+    <mat-card class="mat-elevation-z0">
+      <h1>Keine Produkte angelegt</h1>
+      <mat-card-content>
+        <p>
+          Klicke im Menü oben auf "Inserat anlegen" um dein erstes Inserat anzulegen.<br>
+          Danach werden dir alle deine Inserate hier angezeigt.
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+</ng-container>
+<ng-template #loading>
+  <div class="loading">
+    <mat-spinner color="primary"></mat-spinner>
+  </div>
+</ng-template>

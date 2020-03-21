@@ -11,7 +11,7 @@ export class BookingService {
   }
 
   public async getAllBookings(): Promise<BookingEntity[]> {
-    return getRepository(BookingEntity).find();
+    return getRepository(BookingEntity).find({ relations: ['user', 'product'] });
   }
 
   public async createNewBooking(createBookingDto: BookingPostDto, user: UserEntity): Promise<BookingEntity> {

@@ -17,3 +17,9 @@ export const submitProductAction = createAction('[COMPANY] submitProduct');
 export const submitProductSuccessAction = createAction(
   '[COMPANY] submitProductSuccess'
 );
+
+export const getProductsAction = createAction('[COMPANY] getProducts');
+export const getProductsSuccessAction = createAction(
+  '[COMPANY] getProductsSuccess',
+  props<{products: Product[]}>()
+);

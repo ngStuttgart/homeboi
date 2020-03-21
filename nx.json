@@ -32,6 +32,9 @@
     },
     "shared-payment-duration-pipe": {
       "tags": []
+    },
+    "shared-product-type": {
+      "tags": []
     }
   }
 }

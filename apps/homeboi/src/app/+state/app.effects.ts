@@ -10,13 +10,12 @@ import {
   signupAction,
   signupSuccessAction
 } from './app.actions';
-import { catchError, exhaustMap, filter, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, exhaustMap, filter, map, tap } from 'rxjs/operators';
 import { Product, Signup } from '@homeboi/api-interfaces';
 import { Router } from '@angular/router';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { AppState } from './app.reducer';
 import { throwError } from 'rxjs';
-import { selectUserId } from './app.selectors';
 
 @Injectable({ providedIn: 'root' })
 export class AppEffects {
