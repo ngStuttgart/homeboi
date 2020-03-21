@@ -3,6 +3,8 @@ import { ProductService } from './product.service';
 import { ProductPostDto } from './dto/product.post.dto';
 import { ProductPutDto } from './dto/product.put.dto';
 import { ProductEntity } from '../entities/product.entity';
+import { User } from '../shared/user.decorator';
+import { UserEntity } from '../entities/user.entity';
 
 @Controller('products')
 export class ProductController {
@@ -15,19 +17,24 @@ export class ProductController {
     return this.productService.getAllProducts();
   }
 
+  @Get('foruser')
+  async getAllProductsForUser(@User() user: UserEntity): Promise<ProductEntity[]> {
+    return this.productService.getAllProductsForUser(user);
+  }
+
   @Get(':id')
   async getProductById(@Param('id') productId: string): Promise<ProductEntity> {
     return this.productService.getProductById(productId);
   }
 
   @Post()
-  async createProduct(@Body() product: ProductPostDto): Promise<ProductEntity> {
-    return this.productService.createProduct(product);
+  async createProduct(@Body() product: ProductPostDto, @User() user: UserEntity): Promise<ProductEntity> {
+    return this.productService.createProduct(product, user.userId);
   }
 
   @Put()
-  async updateProduct(@Body() product: ProductPutDto): Promise<ProductEntity> {
-    return this.productService.updateProduct(product);
+  async updateProduct(@Body() product: ProductPutDto, @User() user: UserEntity): Promise<ProductEntity> {
+    return this.productService.updateProduct(product, user.userId);
   }
 
   @Delete(':productId')
