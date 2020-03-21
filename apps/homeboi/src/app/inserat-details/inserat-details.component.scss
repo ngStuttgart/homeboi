@@ -1,0 +1,22 @@
+@mixin grid-span-full {
+  grid-column: -1 / 1;
+}
+
+section {
+  display: block;
+  max-width: 900px;
+  margin: 0 auto;
+  margin-top: 15px;
+
+  .wrapper {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 10px;
+    background-color: #fff;
+    color: #444;
+  }
+}
+
+.measures-table {
+  margin-bottom: 15px;
+}

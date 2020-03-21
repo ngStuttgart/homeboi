@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { InseratDetailsComponent } from './inserat-details.component';
 import { InseratDetailsRoutingModule } from './inserat-details-routing.module';
 import { SharedHeaderModule } from '@homeboi/shared/header';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -11,7 +14,10 @@ import { SharedHeaderModule } from '@homeboi/shared/header';
   imports: [
     CommonModule,
     InseratDetailsRoutingModule,
-    SharedHeaderModule
+    SharedHeaderModule,
+    MatCardModule,
+    MatButtonModule,
+    MatChipsModule
   ]
 })
 export class InseratDetailsModule {}
