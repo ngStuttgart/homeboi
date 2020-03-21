@@ -59,6 +59,10 @@ export class ProductService {
     }
   }
 
+  async deleteProduct(productId: string): Promise<boolean> {
+    return (await getRepository(ProductEntity).delete({id: productId})).affected === 1;
+  }
+
   private async saveAndUpdateTags(newTags: string[]): Promise<TagEntity[]> {
     let tags = [];
     for (const tag of newTags) {
