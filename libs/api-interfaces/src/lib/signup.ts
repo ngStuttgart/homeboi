@@ -2,9 +2,8 @@ import { AccountType } from './account-type';
 import { Credentials } from './credentials';
 
 export interface Signup extends Credentials {
-  userId: string;
+  userId?: string;
   accountType: AccountType;
-  userId: string;
   name: string;
   address: Address;
   contactPerson?: string;
