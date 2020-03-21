@@ -8,7 +8,6 @@ import { join } from 'path';
 import { UserModule } from './user/user.module';
 import { UserEntity } from './entities/user.entity';
 import { AddressEntity } from './entities/address.entity';
-import { AuthenticationMiddleware } from './shared/authentication.middleware';
 import { CookieParserMiddleware } from '@nest-middlewares/cookie-parser';
 import { BookingEntity } from './entities/booking.entity';
 import { NotificationEntity } from './entities/notification.entity';
@@ -17,6 +16,7 @@ import { RatingEntity } from './entities/rating.entity';
 import { TagEntity } from './entities/tag.entity';
 import { ProductModule } from './product/product.module';
 import { TagModule } from './tag/tag.module';
+import { BookingModule } from './bookings/booking.module';
 
 @Module({
   imports: [
@@ -33,7 +33,8 @@ import { TagModule } from './tag/tag.module';
     }),
     UserModule,
     ProductModule,
-    TagModule
+    TagModule,
+    BookingModule
   ],
   controllers: [AppController],
   providers: [
@@ -48,9 +49,7 @@ export class AppModule implements NestModule {
   }
 
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(CookieParserMiddleware).forRoutes('user');
-    consumer
-      .apply(AuthenticationMiddleware)
-      .forRoutes('product');
+    //consumer.apply(CookieParserMiddleware)
+    //  .forRoutes('');
   }
 }
