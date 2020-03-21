@@ -11,7 +11,12 @@ export class TagService {
 
   async getAllTags() {
     const tagRepository = getRepository(TagEntity);
-    return await tagRepository.find()
+    return await tagRepository.find();
+  }
+
+  async getTagByValue(value: string) {
+    const tagRepository = getRepository(TagEntity);
+    return await tagRepository.findOne({ value });
   }
 
   async createTag(createTag: TagPostDto) {
@@ -23,7 +28,7 @@ export class TagService {
 
   async deleteTag(tagId: string) {
     const tagRepository = getRepository(TagEntity);
-    return await tagRepository.delete({id: tagId});
+    return await tagRepository.delete({ id: tagId });
   }
 
 }
