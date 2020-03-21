@@ -14,8 +14,7 @@ export class BookingController {
 
   constructor(
     private readonly bookingsService: BookingService,
-    private readonly notificationGateway: NotificationGateway) {
-  }
+    private readonly notificationGateway: NotificationGateway) { }
 
   @Get('')
   async getAllBookings(): Promise<BookingEntity[]> {

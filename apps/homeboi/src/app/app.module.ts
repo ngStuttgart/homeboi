@@ -25,6 +25,7 @@ import { Base64urlModule } from '@homeboi/shared/base64url';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { RxNgZoneSchedulerModule } from 'ngx-rxjs-zone-scheduler';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatToolbarModule,
     MatIconModule,
     Base64urlModule,
-    MatDialogModule
+    MatDialogModule,
+    RxNgZoneSchedulerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
