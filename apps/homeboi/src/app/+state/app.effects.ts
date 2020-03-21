@@ -59,10 +59,9 @@ export class AppEffects {
   products$ = createEffect(() =>
     this.actions$.pipe(
       ofType(getProductsAction),
-      switchMap(() => this.store.pipe(select(selectUserId))),
       filter(Boolean),
-      exhaustMap((userId: string) =>
-        this.httpClient.get<Product[]>(`/api/user/${userId}/products`)
+      exhaustMap(() =>
+        this.httpClient.get<Product[]>(`/api/products`)
       ),
       map((products: Product[]) =>
         getProductsSuccessAction({ products: products })

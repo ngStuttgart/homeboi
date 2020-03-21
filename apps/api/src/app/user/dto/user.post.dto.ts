@@ -2,7 +2,7 @@ import { Signup } from '@homeboi/api-interfaces';
 import { ApiProperty } from '@nestjs/swagger';
 import { AddressDto } from './address.dto';
 
-export class UserPostDto implements Omit<Signup, 'accountType'> {
+export class UserPostDto implements Omit<Signup, 'accountType' | 'userId'> {
   @ApiProperty({ enum: ['USER', 'COMPANY'] })
   accountType: string;
 

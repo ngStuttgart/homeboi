@@ -1,22 +1,23 @@
 :host {
-  display: grid;
-  place-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 0.5em;
+}
+
+mat-card {
+  margin: 3em;
+
+  @media(max-width: 500px) {
+    margin: 0.25em;
+  }
 }
 
 form {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: 1em;
-}
-
-button {
-  grid-column: span 2;
-}
-
-.account-type {
-  grid-column: span 2;
-}
-
-mat-form-field {
-  min-width: 300px;
 }
