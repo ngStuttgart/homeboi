@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
+  getProductsAction,
+  getProductsSuccessAction,
   submitProductAction,
   submitProductSuccessAction
 } from './company.actions';
@@ -27,6 +29,14 @@ export class CompanyEffects {
       ),
     { useEffectsErrorHandler: true }
   );
+
+  getProducts$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(getProductsAction),
+      switchMap(() => this.httpClient.get<Product[]>('/api/products/foruser')),
+      map(products => getProductsSuccessAction({products}))
+    ),
+    { useEffectsErrorHandler: true });
 
   constructor(private actions$: Actions, private httpClient: HttpClient, private store: Store<CompanyState>, private router: Router) {}
 }

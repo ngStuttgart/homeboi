@@ -1,3 +1,7 @@
+:host {
+  display: grid;
+}
+
 mat-toolbar {
   display: flex;
   align-items: center;
@@ -11,4 +15,15 @@ mat-toolbar {
 
 .inserat-button {
   margin: 0 3em;
+}
+
+.products-table {
+  margin: 20px;
+}
+
+.loading {
+  display: grid;
+  place-items: center;
+  margin-top: 30%;
+  height: 100%;
 }

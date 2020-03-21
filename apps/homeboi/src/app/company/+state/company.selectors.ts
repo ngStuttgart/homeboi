@@ -13,3 +13,8 @@ export const selectProductSubmitted = createSelector(
   selectCompany,
   ({ productSubmitted }: CompanyState): boolean => productSubmitted
 );
+
+export const selectProducts = createSelector(
+  selectCompany,
+  ({products}: CompanyState) => products
+);

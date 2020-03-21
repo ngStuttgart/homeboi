@@ -1,0 +1,13 @@
+.dialog {
+  $max-height: 100vh;
+  $max-width: 80vh;
+
+  max-height: $max-height;
+  max-width: $max-width;
+
+  img {
+    max-height: calc(#{$max-height} - 200px);
+    max-width: $max-width;
+    object-fit: contain;
+  }
+}

@@ -58,8 +58,7 @@
         formControlName="description"
         matInput
         placeholder="Beschreibung"
-        required
-      ></textarea>
+        required></textarea>
       <mat-error>Eingabe erforderlich</mat-error>
     </mat-form-field>
     <div class="masse-area">
@@ -69,8 +68,7 @@
           type="number"
           placeholder="Breite (cm)"
           matInput
-          required
-        />
+          required/>
         <mat-error>Eingabe erforderlich</mat-error>
       </mat-form-field>
       <mat-form-field>
@@ -78,8 +76,7 @@
           formControlName="height"
           type="number"
           placeholder="Höhe (cm)"
-          matInput
-        />
+          matInput/>
       </mat-form-field>
       <mat-form-field>
         <input
@@ -87,8 +84,7 @@
           type="number"
           placeholder="Tiefe (cm)"
           matInput
-          required
-        />
+          required/>
         <mat-error>Eingabe erforderlich</mat-error>
       </mat-form-field>
     </div>
@@ -98,8 +94,7 @@
         type="number"
         placeholder="Preis (EUR)"
         matInput
-        required
-      />
+        required/>
       <span matSuffix>&nbsp; €</span>
       <mat-error>Eingabe erforderlich</mat-error>
     </mat-form-field>
@@ -132,16 +127,14 @@
     <button
       mat-raised-button
       type="button"
-      routerLink="../"
-    >
+      routerLink="../">
       zurück
     </button>
     <button
       mat-raised-button
       [disabled]="productSubmitted$ | async"
       type="submit"
-      color="primary"
-    >
+      color="primary">
       Inserat einstellen
     </button>
   </form>
