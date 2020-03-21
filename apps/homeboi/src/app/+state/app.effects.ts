@@ -10,7 +10,7 @@ import {
   signupAction,
   signupSuccessAction
 } from './app.actions';
-import { catchError, exhaustMap, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, exhaustMap, filter, map, switchMap, tap } from 'rxjs/operators';
 import { Product, Signup } from '@homeboi/api-interfaces';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
@@ -60,6 +60,7 @@ export class AppEffects {
     this.actions$.pipe(
       ofType(getProductsAction),
       switchMap(() => this.store.pipe(select(selectUserId))),
+      filter(Boolean),
       exhaustMap((userId: string) =>
         this.httpClient.get<Product[]>(`/api/user/${userId}/products`)
       ),

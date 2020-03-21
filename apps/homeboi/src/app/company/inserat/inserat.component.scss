@@ -15,6 +15,8 @@ mat-form-field {
 
 .image {
   grid-column: span 2;
+  display: flex;
+  flex-direction: column;
 
   .product-image {
     height: 300px;
@@ -24,6 +26,10 @@ mat-form-field {
 
   .input {
     display: none;
+  }
+
+  .delete-image {
+    align-self: center;
   }
 
   .kachel {
@@ -40,6 +46,10 @@ mat-form-field {
 }
 
 button {
+  grid-column: span 2;
+}
+
+.tag-input{
   grid-column: span 2;
 }
 

@@ -10,8 +10,9 @@
           alt="Inseratbild"
           class="product-image"
         />
-        <button mat-icon-button (click)="deleteImage()">
+        <button class="delete-image" mat-raised-button (click)="deleteImage()">
           <mat-icon>delete</mat-icon>
+          Bild löschen
         </button>
       </ng-container>
       <ng-template #uploadImage>
@@ -102,15 +103,32 @@
       />
       <mat-error>Eingabe erforderlich</mat-error>
     </mat-form-field>
-    <mat-form-field>
-      <input
-        formControlName="paymentDuration"
-        type="text"
-        placeholder="Zahlungsdauer"
-        matInput
-        required
-      />
-      <mat-error>Eingabe erforderlich</mat-error>
+    <mat-form-field class="zahlungsdauer">
+      <mat-label>Zahlungsdauer</mat-label>
+      <mat-select formControlName="paymentDuration">
+        <mat-option
+          *ngFor="let paymentDurationOption of paymentDurationOptions"
+          [value]="paymentDurationOption.value"
+          [disabled]="paymentDurationOption.disabled"
+        >
+          {{ paymentDurationOption.viewValue }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Bitte Zahlungsdauer auswählen</mat-error>
+    </mat-form-field>
+    <mat-form-field class="tag-input">
+      <mat-chip-list #chipList aria-label="Fruit selection">
+        <mat-chip *ngFor="let tag of tags" [selectable]="true"
+                  [removable]="true" (removed)="removeTag(tag)">
+          {{tag}}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="Tags"
+               [matChipInputFor]="chipList"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               [matChipInputAddOnBlur]="true"
+               (matChipInputTokenEnd)="addTag($event)">
+      </mat-chip-list>
     </mat-form-field>
     <button
       mat-raised-button
