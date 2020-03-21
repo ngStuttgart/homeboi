@@ -8,7 +8,6 @@ import { UserPostDto } from './dto/user.post.dto';
 export class UserController {
 
   constructor(private readonly userService: UserService) {
-
   }
 
   @Post('login')
