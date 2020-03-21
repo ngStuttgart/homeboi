@@ -1,8 +1,8 @@
-<homeboi-header notificationsUrl="/user/notifications"></homeboi-header>
+<homeboi-header (productQuery)="filter($event)" notificationsUrl="/user/notifications"></homeboi-header>
 
 <main>
   <homeboi-product-card
-    *ngFor="let product of products$ | async"
+    *ngFor="let product of filteredProducts$ | async"
     [product]="product"
     [routerLink]="['/inserat-details', product.id]"
   >
