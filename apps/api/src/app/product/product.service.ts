@@ -14,7 +14,10 @@ export class ProductService {
   }
 
   async getAllProducts(): Promise<Product[]> {
-    return this.mapToProduct(await getRepository(ProductEntity).find({ relations: ['tags'] })) || [];
+    return this.mapToProduct(await getRepository(ProductEntity).find({
+      where: { available: true },
+      relations: ['tags']
+    })) || [];
   }
 
   async getAllProductsForUser(user: UserEntity): Promise<Product[]> {

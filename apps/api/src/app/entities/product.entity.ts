@@ -27,6 +27,8 @@ export class ProductEntity {
   depth: number;
   @Column('float')
   price: number;
+  @Column({ default: true })
+  available: boolean;
   @Column({ type: 'enum', enum: PaymentDuration, default: PaymentDuration.WEEKLY })
   paymentDuration: PaymentDuration;
   @Column({ nullable: true })
