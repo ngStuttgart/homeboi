@@ -4,6 +4,8 @@
   <homeboi-product-card
     *ngFor="let product of products$ | async"
     [product]="product"
+    [routerLink]="['/inserat-details', product.id]"
   >
   </homeboi-product-card>
 </main>
+
