@@ -6,6 +6,7 @@ import { SharedHeaderModule } from '@homeboi/shared/header';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { MatChipsModule } from '@angular/material/chips';
     SharedHeaderModule,
     MatCardModule,
     MatButtonModule,
-    MatChipsModule
+    MatChipsModule,
+    MatIconModule
   ]
 })
 export class InseratDetailsModule {}

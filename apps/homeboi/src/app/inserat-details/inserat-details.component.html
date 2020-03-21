@@ -1,12 +1,16 @@
 <homeboi-header [showInseratButton]="true"></homeboi-header>
 
 <section>
+  <button class="back-btn" mat-raised-button (click)="goBack()">
+    <mat-icon>chevron_left</mat-icon> Zurück
+  </button>
+
   <h1>Hast du etwas Nützliches gefunden?</h1>
 
   <mat-card *ngIf="product">
     <div class="wrapper">
       <div>
-        <img [alt]="product.title" [src]="product.image" />
+        <img class="product-image" [alt]="product.title" [src]="product.image" />
       </div>
       <div>
         <mat-chip-list aria-label="Type">

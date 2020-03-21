@@ -8,12 +8,20 @@ section {
   margin: 0 auto;
   margin-top: 15px;
 
+  .back-btn {
+    margin-bottom: 15px;
+  }
+
   .wrapper {
     display: grid;
     grid-template-columns: 50% 50%;
     grid-gap: 10px;
     background-color: #fff;
     color: #444;
+
+    .product-image {
+      max-width: 350px;
+    }
   }
 }
 
