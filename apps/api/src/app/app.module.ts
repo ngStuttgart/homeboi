@@ -6,7 +6,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { UserEntity } from './entities/user.entity';
 import { AddressEntity } from './entities/address.entity';
-import { CookieParserMiddleware } from '@nest-middlewares/cookie-parser';
 import { BookingEntity } from './entities/booking.entity';
 import { NotificationEntity } from './entities/notification.entity';
 import { ProductEntity } from './entities/product.entity';
@@ -15,6 +14,7 @@ import { TagEntity } from './entities/tag.entity';
 import { ProductModule } from './product/product.module';
 import { TagModule } from './tag/tag.module';
 import { BookingModule } from './bookings/booking.module';
+import { NotificationModule } from './shared/notification.module';
 
 @Module({
   imports: [
@@ -32,7 +32,8 @@ import { BookingModule } from './bookings/booking.module';
     UserModule,
     ProductModule,
     TagModule,
-    BookingModule
+    BookingModule,
+    NotificationModule
   ],
   controllers: [AppController],
   providers: [
@@ -43,7 +44,5 @@ import { BookingModule } from './bookings/booking.module';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    //consumer.apply(CookieParserMiddleware)
-    //  .forRoutes('');
   }
 }
