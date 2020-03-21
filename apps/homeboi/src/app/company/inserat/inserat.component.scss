@@ -1,0 +1,45 @@
+:host {
+  display: grid;
+  place-items: center;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1em;
+}
+
+mat-form-field {
+  min-width: 300px;
+}
+
+.bild {
+  grid-column: span 2;
+
+  &__input {
+    display: none;
+  }
+
+  &__kachel {
+    display: grid;
+    place-items: center;
+    height: 100px;
+    background-color: lightgrey;
+    cursor: pointer;
+  }
+}
+
+.beschreibung {
+  grid-column: span 2;
+}
+
+button {
+  grid-column: span 2;
+}
+
+.masse-area {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: .5em;
+}
