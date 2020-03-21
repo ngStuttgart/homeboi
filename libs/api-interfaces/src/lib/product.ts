@@ -7,6 +7,7 @@ export interface Product {
   height: number;
   depth: number;
   price: number;
+  available?: boolean;
   paymentDuration: PaymentDuration;
   image: string;
 }

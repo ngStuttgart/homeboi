@@ -1,17 +1,16 @@
-import { Column, CreateDateColumn, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn, Unique } from 'typeorm';
-import { ProductEntity } from './product.entity';
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { RatingValue } from '@homeboi/api-interfaces';
 import { UserEntity } from './user.entity';
+import { BookingEntity } from './booking.entity';
 
 @Entity()
-@Unique(['value'])
 export class RatingEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
   @Column({ type: 'enum', enum: RatingValue })
   value: RatingValue;
-  @ManyToMany(type => ProductEntity, type => type.tags)
-  products: Array<ProductEntity>;
+  @OneToOne(type => BookingEntity, type => type.rating)
+  booking: BookingEntity;
   @Column()
   description: string;
   @CreateDateColumn()

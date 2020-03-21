@@ -1,7 +1,8 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { UserEntity } from './user.entity';
 import { Booking } from '@homeboi/api-interfaces';
 import { ProductEntity } from './product.entity';
+import { RatingEntity } from './rating.entity';
 
 @Entity()
 export class BookingEntity implements Booking {
@@ -20,4 +21,8 @@ export class BookingEntity implements Booking {
 
   @ManyToOne(type => UserEntity, type => type.bookings)
   user: UserEntity;
+
+  @OneToOne(type => RatingEntity, type => type.booking, { nullable: true })
+  @JoinColumn()
+  rating: RatingEntity;
 }
