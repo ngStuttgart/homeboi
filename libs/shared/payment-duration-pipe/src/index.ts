@@ -1,2 +1,2 @@
-export * from './lib/paymentDuration.module';
-export * from './lib/paymentDuration.pipe';
+export * from './lib/payment-duration.module';
+export * from './lib/payment-duration.pipe';

@@ -4,9 +4,13 @@ import {
   submitProductAction,
   submitProductSuccessAction
 } from './company.actions';
-import { exhaustMap, map } from 'rxjs/operators';
+import { exhaustMap, map, switchMap, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '@homeboi/api-interfaces';
+import { select, Store } from '@ngrx/store';
+import { CompanyState } from './company.reducer';
+import { selectProduct } from './company.selectors';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class CompanyEffects {
@@ -14,13 +18,15 @@ export class CompanyEffects {
     () =>
       this.actions$.pipe(
         ofType(submitProductAction),
+        switchMap(() => this.store.pipe(select(selectProduct))),
         exhaustMap(product =>
           this.httpClient.post<Product>('/api/products', product)
         ),
-        map(() => submitProductSuccessAction())
+        map(() => submitProductSuccessAction()),
+        tap(() => this.router.navigateByUrl('/company'))
       ),
     { useEffectsErrorHandler: true }
   );
 
-  constructor(private actions$: Actions, private httpClient: HttpClient) {}
+  constructor(private actions$: Actions, private httpClient: HttpClient, private store: Store<CompanyState>, private router: Router) {}
 }

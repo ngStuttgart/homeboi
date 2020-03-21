@@ -3,7 +3,7 @@
   <div class="text">
     <div>{{ product.title }}</div>
     <div>{{ product.description }}</div>
-    <div>{{ product.price }} € pro {{product.paymentDuration | paymentDuration}}</div>
+    <div>{{ product.price }} € {{product.paymentDuration | paymentDuration}}</div>
   </div>
   <ng-content></ng-content>
 </mat-card>

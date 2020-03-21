@@ -9,7 +9,7 @@ export const selectUser = createSelector(
 );
 export const selectUserId = createSelector(
   selectApp,
-  ({ user }: AppState) => user.userId
+  ({ user }: AppState) => user?.userId
 );
 export const selectProducts = createSelector(
   selectApp,
