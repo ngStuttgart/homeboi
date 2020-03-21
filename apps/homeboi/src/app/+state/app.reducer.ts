@@ -51,7 +51,7 @@ export const reducer: ActionReducer<AppState> = createReducer(
     setNotificationAction,
     (state: AppState, {notification}): AppState => ({
       ...state,
-      notifications: [...state.notifications, notification]
+      notifications: [...(state.notifications || []), notification]
     })
   ),
   on(
