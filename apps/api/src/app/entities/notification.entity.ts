@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Notification, NotificationType } from '@homeboi/api-interfaces';
+import { UserEntity } from './user.entity';
 
 @Entity()
 export class NotificationEntity implements Notification {
@@ -11,4 +12,6 @@ export class NotificationEntity implements Notification {
   message: string;
   @CreateDateColumn()
   date: Date;
+  @ManyToOne(type => UserEntity, type => type.notifications)
+  user: UserEntity;
 }

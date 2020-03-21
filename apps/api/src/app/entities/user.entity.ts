@@ -1,16 +1,9 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-  Unique
-} from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, Unique } from 'typeorm';
 import { AccountType, Signup } from '@homeboi/api-interfaces';
 import { AddressEntity } from './address.entity';
 import { BookingEntity } from './booking.entity';
 import { RatingEntity } from './rating.entity';
+import { NotificationEntity } from './notification.entity';
 
 @Entity()
 @Unique(['email'])
@@ -34,4 +27,6 @@ export class UserEntity implements Omit<Signup, 'accountType'> {
   bookings: Array<BookingEntity>;
   @OneToMany(type => RatingEntity, type => type.user)
   ratings: Array<RatingEntity>;
+  @OneToMany(type => NotificationEntity, type => type.user)
+  notifications: Array<NotificationEntity>;
 }
