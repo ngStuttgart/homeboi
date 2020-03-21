@@ -1,7 +1,11 @@
 <header>
   <mat-toolbar [class.show-searchbar]="showSearchbar">
-    <img alt="logo" class="logo" src="./assets/logo.png" />
-    <button *ngIf="showInputBar" class="show--desktop" mat-raised-button (click)="showFilter = !showFilter">Kategorien</button>
+    <a [routerLink]="accountType" class="logo">
+      <img alt="logo" class="logo__img" src="./assets/logo.png" />
+    </a>
+    <button *ngIf="showInputBar" mat-icon-button (click)="showFilter = !showFilter">
+      <mat-icon>filter_list</mat-icon>
+    </button>
     <mat-expansion-panel *ngIf="showFilter">
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -26,24 +30,13 @@
         <input matInput type="text" [formControl]="formGroup.get('priceMax')" placeholder="Preis max"/>
       </mat-form-field>
     </mat-expansion-panel>
-    <button *ngIf="showInputBar" class="show--mobile" mat-icon-button>
-      <mat-icon>filter_list</mat-icon>
-    </button>
-    <div *ngIf="showInputBar" class="suche search-field search-field--desktop" [class.show]="showSearchbar">
+    <div *ngIf="showInputBar" class="search-field" [class.show]="showSearchbar">
       <mat-icon>search</mat-icon>
       <input type="text" [formControl]="formGroup.get('title')" placeholder="Suche"/>
     </div>
-    <button *ngIf="showInputBar" class="search-field search-field--mobile" mat-icon-button (click)="toggleSearchbar()">
-      <mat-icon>search</mat-icon>
-    </button>
-    <a *ngIf="showInseratButton" mat-raised-button color="accent" class="inserat-button show--desktop"
+    <a *ngIf="showInseratButton" mat-raised-button color="accent" class="inserat-button"
        [routerLink]="'inserat'">
       Inserat anlegen
-    </a>
-    <a *ngIf="showInseratButton" mat-raised-button color="accent" class="inserat-button show--mobile"
-       [routerLink]="'inserat'">
-      <mat-icon>add</mat-icon>
-      Inserat
     </a>
     <div class="align-right">
       <button mat-icon-button>
