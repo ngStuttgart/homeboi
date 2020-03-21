@@ -17,6 +17,7 @@ import { companyReducer } from './+state/company.reducer';
 import { Base64urlModule } from '@homeboi/shared/base64url';
 import { EffectsModule } from '@ngrx/effects';
 import { CompanyEffects } from './+state/company.effects';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [CompanyComponent, InseratComponent],
@@ -33,7 +34,8 @@ import { CompanyEffects } from './+state/company.effects';
     MatIconModule,
     Base64urlModule,
     StoreModule.forFeature('company', companyReducer),
-    EffectsModule.forFeature([CompanyEffects])
+    EffectsModule.forFeature([CompanyEffects]),
+    MatChipsModule
   ]
 })
 export class CompanyModule {}

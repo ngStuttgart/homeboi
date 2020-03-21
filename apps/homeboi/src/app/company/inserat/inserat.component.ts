@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { fromEvent, Observable, Subject } from 'rxjs';
-import { PaymentDuration, Product } from '@homeboi/api-interfaces';
+import { fromEvent, Observable, of, Subject } from 'rxjs';
+import { PaymentDuration, Product, ProductType } from '@homeboi/api-interfaces';
 import { select, Store } from '@ngrx/store';
 import { CompanyState } from '../+state/company.reducer';
 import {
@@ -15,10 +15,13 @@ import {
   setProductAction,
   submitProductAction
 } from '../+state/company.actions';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material/chips';
 
-interface ProductType {
-  value: string;
-  viewValue: string;
+interface Option<T, R> {
+  value: T;
+  viewValue: R;
+  disabled?: boolean;
 }
 
 @Component({
@@ -27,9 +30,17 @@ interface ProductType {
   styleUrls: ['./inserat.component.scss']
 })
 export class InseratComponent implements OnDestroy {
+
+  constructor(private store: Store<CompanyState>) {}
+
+  get imageCtrl(): FormControl {
+    return this.inseratGroup.get('image') as FormControl;
+  }
   product$: Observable<Partial<Product>> = this.store.pipe(
     select(selectProduct)
   );
+
+  tags: string[] = [];
 
   productSubmitted$: Observable<boolean> = this.store.pipe(
     select(selectProductSubmitted)
@@ -43,37 +54,59 @@ export class InseratComponent implements OnDestroy {
     height: new FormControl('', [Validators.required]),
     depth: new FormControl(''),
     price: new FormControl(''),
-    paymentDuration: new FormControl({
-      value: PaymentDuration.WEEKLY,
-      disabled: true
-    }),
+    paymentDuration: new FormControl(PaymentDuration.WEEKLY),
     image: new FormControl('', [Validators.required])
   });
 
-  productTypes: ProductType[] = [
-    { value: 'MONITOR', viewValue: 'Monitor' },
-    { value: 'TISCH', viewValue: 'Tisch' },
-    { value: 'STUHL', viewValue: 'Stuhl' },
-    { value: 'MAUS', viewValue: 'Maus' },
-    { value: 'TASTATUR', viewValue: 'Tastatur' },
-    { value: 'HEADSET', viewValue: 'Headset' },
-    { value: 'DRUCKER', viewValue: 'Drucker' },
-    { value: 'LAUTSPRECHER', viewValue: 'Lautsprecher' },
-    { value: 'WEBCAM', viewValue: 'Webcam' },
-    { value: 'WHITEBOARD', viewValue: 'Whiteboard' },
-    { value: 'SONSTIGES', viewValue: 'Sonstiges' }
+  productTypes: Option<ProductType, string>[] = [
+    { value: ProductType.MONITOR, viewValue: 'Monitor' },
+    { value: ProductType.TISCH, viewValue: 'Tisch' },
+    { value: ProductType.STUHL, viewValue: 'Stuhl' },
+    { value: ProductType.MAUS, viewValue: 'Maus' },
+    { value: ProductType.TASTATUR, viewValue: 'Tastatur' },
+    { value: ProductType.HEADSET, viewValue: 'Headset' },
+    { value: ProductType.DRUCKER, viewValue: 'Drucker' },
+    { value: ProductType.LAUTSPRECHER, viewValue: 'Lautsprecher' },
+    { value: ProductType.WEBCAM, viewValue: 'Webcam' },
+    { value: ProductType.WHITEBOARD, viewValue: 'Whiteboard' },
+    { value: ProductType.SONSTIGES, viewValue: 'Sonstiges' }
   ];
+
+  paymentDurationOptions: Option<PaymentDuration, string>[] = [
+    { value: PaymentDuration.DAILY, viewValue: 'Täglich', disabled: true },
+    { value: PaymentDuration.WEEKLY, viewValue: 'Wöchentlich', disabled: false },
+    { value: PaymentDuration.MONTHLY, viewValue: 'Monatlich', disabled: true },
+    { value: PaymentDuration.ONCE, viewValue: 'Einmalig bei Rückgabe', disabled: true }
+  ];
+
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   private destroy$$ = new Subject<void>();
 
-  constructor(private store: Store<CompanyState>) {}
+  addTag(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    if ((value || '').trim()) {
+      this.tags.push(value.trim());
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  removeTag(tag: string): void {
+    const index = this.tags.indexOf(tag);
+
+    if (index >= 0) {
+      this.tags.splice(index, 1);
+    }
+  }
 
   ngOnDestroy(): void {
     this.destroy$$.next();
-  }
-
-  get imageCtrl(): FormControl {
-    return this.inseratGroup.get('image') as FormControl;
   }
 
   submit(): void {
@@ -81,7 +114,7 @@ export class InseratComponent implements OnDestroy {
 
     if (this.inseratGroup.valid) {
       this.store.dispatch(
-        setProductAction({ product: this.inseratGroup.getRawValue() })
+        setProductAction({ product: { ...this.inseratGroup.getRawValue(), tags: this.tags } })
       );
       this.store.dispatch(submitProductAction());
     }
@@ -99,8 +132,7 @@ export class InseratComponent implements OnDestroy {
     fromEvent(fileReader, 'load')
       .pipe(
         map(() => fileReader.result),
-        filter(Boolean),
-        map((base64: string) => base64.replace('data:image/jpeg;base64,', '')),
+        filter<string>(Boolean),
         takeUntil(this.destroy$$)
       )
       .subscribe(image => {

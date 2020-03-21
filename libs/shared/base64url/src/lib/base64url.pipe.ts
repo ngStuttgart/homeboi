@@ -1,11 +1,14 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Pipe({
   name: 'base64url'
 })
 export class Base64urlPipe implements PipeTransform {
-  transform(value: string): string {
-    const base64UrlPrefix = 'data:image/jpeg;base64,';
-    return base64UrlPrefix.concat(value);
+  constructor(private domSanitizer: DomSanitizer) {
+  }
+
+  transform(value: string): SafeResourceUrl {
+    return this.domSanitizer.bypassSecurityTrustResourceUrl(value);
   }
 }

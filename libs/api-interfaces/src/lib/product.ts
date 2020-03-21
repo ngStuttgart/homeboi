@@ -30,5 +30,5 @@ export enum PaymentDuration {
   DAILY = 'DAILY',
   WEEKLY = 'WEEKLY',
   MONTHLY = 'MONTHLY',
-  ONCE = 'ONCE'
+  ONCE = 'ONCE',
 }

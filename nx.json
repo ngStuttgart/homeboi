@@ -29,6 +29,9 @@
     },
     "shared-product-card": {
       "tags": []
+    },
+    "shared-payment-duration-pipe": {
+      "tags": []
     }
   }
 }

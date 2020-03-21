@@ -1,9 +1,17 @@
 mat-toolbar {
   display: flex;
   align-items: center;
+  height: 90px;
 }
 
 .search-field {
   flex: 1;
   margin: 0 1em;
+}
+
+main {
+  display: grid;
+  grid-template-columns: repeat( auto-fill, minmax(250px, 1fr));
+  grid-gap: 2em;
+  margin: 1em 3em;
 }
