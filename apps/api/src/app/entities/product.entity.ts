@@ -1,5 +1,5 @@
 import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { PaymentDuration, ProductType } from '../../../../../libs/api-interfaces/src/lib/product';
+import { PaymentDuration, ProductType } from '@homeboi/api-interfaces';
 import { TagEntity } from './tag.entity';
 import { BookingEntity } from './booking.entity';
 
