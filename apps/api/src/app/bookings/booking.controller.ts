@@ -25,6 +25,7 @@ export class BookingController {
   async createNewBooking(@Body() createBookingDto: BookingPostDto, @User() user: UserEntity) {
     const bookingResult = await this.bookingsService.createNewBooking(createBookingDto, user);
     if (bookingResult) {
+      console.log(user.userId);
       await this.notificationGateway.sendNotification(user.userId, {
         message: 'Neue Buchung',
         type: NotificationType.BOOKING,

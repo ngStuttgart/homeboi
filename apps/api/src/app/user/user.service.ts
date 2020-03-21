@@ -11,6 +11,10 @@ export class UserService {
   constructor() {
   }
 
+  async getUser(user:UserEntity){
+    return await getRepository(UserEntity).findOne(user.userId);
+  }
+
   async login(email: string, password: string) {
     const userRepository = getRepository(UserEntity);
     const user = await userRepository.findOne({

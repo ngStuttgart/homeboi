@@ -1,8 +1,10 @@
-import { Body, Controller, HttpCode, HttpStatus, Post, Res, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Res, UnauthorizedException } from '@nestjs/common';
 import { Response } from 'express';
 import { LoginPostDto } from './dto/login.post.dto';
 import { UserService } from './user.service';
 import { UserPostDto } from './dto/user.post.dto';
+import { User } from '../shared/user.decorator';
+import { UserEntity } from '../entities/user.entity';
 
 @Controller('user')
 export class UserController {
@@ -29,5 +31,10 @@ export class UserController {
   @Post('signup')
   async signup(@Body() user: UserPostDto) {
     return this.userService.signup(user);
+  }
+
+  @Get()
+  async user(@User() user: UserEntity): Promise<UserEntity> {
+    return await this.userService.getUser(user);
   }
 }

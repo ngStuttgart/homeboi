@@ -2,10 +2,7 @@ import { ApplicationRef, Injectable } from '@angular/core';
 import { RxNgZoneScheduler } from 'ngx-rxjs-zone-scheduler';
 import { Socket, SocketIoConfig } from 'ngx-socket-io';
 import { Observable, ReplaySubject } from 'rxjs';
-import { first, switchMap } from 'rxjs/operators';
-import { Notification } from '@homeboi/api-interfaces';
-import { Store } from '@ngrx/store';
-import { AppState } from '../+state/app.reducer';
+import { first, switchMap, tap } from 'rxjs/operators';
 
 const SOCKET_IO_OPTIONS: SocketIoConfig['options'] = {
   forceNew: true,
@@ -48,10 +45,12 @@ export class SocketService {
   }
 
   public fromEvent<T>(eventName: string): Observable<T> {
+    console.log('test', eventName);
     return this.connected$.pipe(
       first(connected => connected),
       switchMap(() => this.socket.fromEvent<T>(eventName)),
-      this.rxNgZoneScheduler.observeOnNgZone()
+      this.rxNgZoneScheduler.observeOnNgZone(),
+      tap(console.log)
     );
   }
 
