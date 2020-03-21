@@ -85,10 +85,10 @@ export class InseratComponent implements OnDestroy {
 
   addTag(event: MatChipInputEvent): void {
     const input = event.input;
-    const value = event.value;
+    const value = event.value.trim();
 
-    if ((value || '').trim()) {
-      this.tags.push(value.trim());
+    if ((value && this.tags.indexOf(value) < 0)) {
+      this.tags.push(value);
     }
 
     // Reset the input value

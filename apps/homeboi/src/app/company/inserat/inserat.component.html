@@ -109,8 +109,7 @@
         <mat-option
           *ngFor="let paymentDurationOption of paymentDurationOptions"
           [value]="paymentDurationOption.value"
-          [disabled]="paymentDurationOption.disabled"
-        >
+          [disabled]="paymentDurationOption.disabled">
           {{ paymentDurationOption.viewValue }}
         </mat-option>
       </mat-select>
