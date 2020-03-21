@@ -2,11 +2,10 @@ mat-toolbar {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  height: 90px;
   transition: height .3s ease-out;
 
   &.show-searchbar {
-    height: 110px;
+    height: 105px;
   }
 }
 
@@ -39,7 +38,6 @@ mat-toolbar {
         display: flex;
         flex-basis: 80%;
         order: 5;
-        margin-top: 2px;
       }
       &:not(.show) {
         display: none;
