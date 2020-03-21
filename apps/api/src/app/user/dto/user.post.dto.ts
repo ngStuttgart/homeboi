@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { AddressDto } from './address.dto';
 
 export class UserPostDto implements Omit<Signup, 'accountType'> {
-  @ApiProperty({ enum: ['USER', 'COMPANY']})
+  @ApiProperty({ enum: ['USER', 'COMPANY'] })
   accountType: string;
 
   @ApiProperty()

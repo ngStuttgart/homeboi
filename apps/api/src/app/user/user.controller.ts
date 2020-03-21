@@ -16,7 +16,10 @@ export class UserController {
   async login(@Body() credentials: LoginPostDto, @Res() response: Response) {
     const userResponse = await this.userService.login(credentials.email, credentials.password);
     delete userResponse.password;
-    response.setHeader('Set-Cookie', `homeboi-login=${JSON.stringify({ password: userResponse.password, email: userResponse.email })}`);
+    response.setHeader('Set-Cookie', `homeboi-login=${JSON.stringify({
+      password: userResponse.password,
+      email: userResponse.email
+    })}`);
     response.json(userResponse);
   }
 
@@ -24,6 +27,4 @@ export class UserController {
   async signup(@Body() user: UserPostDto) {
     return this.userService.signup(user);
   }
-
-
 }
