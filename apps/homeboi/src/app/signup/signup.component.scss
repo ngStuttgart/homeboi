@@ -1,3 +1,7 @@
+@mixin grid-span-full {
+  grid-column: -1 / 1;
+}
+
 :host {
   max-width: 900px;
   margin: 0 auto;
@@ -14,10 +18,24 @@ mat-card {
   @media(max-width: 500px) {
     margin: 0.25em;
   }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 form {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: 1em;
+}
+
+.account-type {
+  @include grid-span-full;
+}
+
+button {
+  @include grid-span-full;
 }

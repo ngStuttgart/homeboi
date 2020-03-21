@@ -1,143 +1,145 @@
 <homeboi-header [showInseratButton]="false"></homeboi-header>
 
-<h1>Was möchtest du vermieten?</h1>
+<section>
+  <h1>Was möchtest du vermieten?</h1>
 
-<mat-card *ngIf="product$ | async as product">
-  <form (submit)="submit()" [formGroup]="inseratGroup">
-    <div class="image">
-      <ng-container *ngIf="product.image; else uploadImage">
-        <img
-          [src]="product.image | base64url"
-          alt="Inseratbild"
-          class="product-image"
-        />
-        <button class="delete-image" mat-raised-button (click)="deleteImage()">
-          <mat-icon>delete</mat-icon>
-          Bild löschen
-        </button>
-      </ng-container>
-      <ng-template #uploadImage>
+  <mat-card *ngIf="product$ | async as product">
+    <form (submit)="submit()" [formGroup]="inseratGroup">
+      <div class="image">
+        <ng-container *ngIf="product.image; else uploadImage">
+          <img
+            [src]="product.image | base64url"
+            alt="Inseratbild"
+            class="product-image"
+          />
+          <button class="delete-image" mat-raised-button (click)="deleteImage()">
+            <mat-icon>delete</mat-icon>
+            Bild löschen
+          </button>
+        </ng-container>
+        <ng-template #uploadImage>
+          <input
+            #imageUploadInput
+            class="input"
+            type="file"
+            placeholder="Bild"
+            accept="image/*"
+            (change)="uploadFile($event)"
+          />
+          <div role="button" class="kachel" (click)="imageUploadInput.click()">
+            <mat-icon>add_a_photo</mat-icon>
+          </div>
+        </ng-template>
+        <mat-error *ngIf="imageCtrl.touched && imageCtrl.invalid">
+          Bitte laden Sie ein Foto hoch
+        </mat-error>
+      </div>
+      <mat-form-field>
         <input
-          #imageUploadInput
-          class="input"
-          type="file"
-          placeholder="Bild"
-          accept="image/*"
-          (change)="uploadFile($event)"
+          formControlName="title"
+          type="text"
+          placeholder="Titel"
+          matInput
+          required
         />
-        <div role="button" class="kachel" (click)="imageUploadInput.click()">
-          <mat-icon>add_a_photo</mat-icon>
-        </div>
-      </ng-template>
-      <mat-error *ngIf="imageCtrl.touched && imageCtrl.invalid">
-        Bitte laden Sie ein Foto hoch
-      </mat-error>
-    </div>
-    <mat-form-field>
-      <input
-        formControlName="title"
-        type="text"
-        placeholder="Titel"
-        matInput
-        required
-      />
-      <mat-error>Eingabe erforderlich</mat-error>
-    </mat-form-field>
-    <mat-form-field class="product-type">
-      <mat-label>Art des Produkts</mat-label>
-      <mat-select formControlName="productType">
-        <mat-option
-          *ngFor="let productType of productTypes"
-          [value]="productType.value"
-        >
-          {{ productType.viewValue }}
-        </mat-option>
-      </mat-select>
-      <mat-error>Bitte Produkttyp auswählen</mat-error>
-    </mat-form-field>
-    <mat-form-field class="beschreibung">
+        <mat-error>Eingabe erforderlich</mat-error>
+      </mat-form-field>
+      <mat-form-field class="product-type">
+        <mat-label>Art des Produkts</mat-label>
+        <mat-select formControlName="productType">
+          <mat-option
+            *ngFor="let productType of productTypes"
+            [value]="productType.value"
+          >
+            {{ productType.viewValue }}
+          </mat-option>
+        </mat-select>
+        <mat-error>Bitte Produkttyp auswählen</mat-error>
+      </mat-form-field>
+      <mat-form-field class="beschreibung">
       <textarea
         formControlName="description"
         matInput
         placeholder="Beschreibung"
         required></textarea>
-      <mat-error>Eingabe erforderlich</mat-error>
-    </mat-form-field>
-    <div class="masse-area">
-      <mat-form-field>
-        <input
-          formControlName="width"
-          type="number"
-          placeholder="Breite (cm)"
-          matInput
-          required/>
         <mat-error>Eingabe erforderlich</mat-error>
       </mat-form-field>
+      <div class="masse-area">
+        <mat-form-field>
+          <input
+            formControlName="width"
+            type="number"
+            placeholder="Breite (cm)"
+            matInput
+            required/>
+          <mat-error>Eingabe erforderlich</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            formControlName="height"
+            type="number"
+            placeholder="Höhe (cm)"
+            matInput/>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            formControlName="depth"
+            type="number"
+            placeholder="Tiefe (cm)"
+            matInput
+            required/>
+          <mat-error>Eingabe erforderlich</mat-error>
+        </mat-form-field>
+      </div>
       <mat-form-field>
         <input
-          formControlName="height"
+          formControlName="price"
           type="number"
-          placeholder="Höhe (cm)"
-          matInput/>
-      </mat-form-field>
-      <mat-form-field>
-        <input
-          formControlName="depth"
-          type="number"
-          placeholder="Tiefe (cm)"
+          placeholder="Preis (EUR)"
           matInput
           required/>
+        <span matSuffix>&nbsp; €</span>
         <mat-error>Eingabe erforderlich</mat-error>
       </mat-form-field>
-    </div>
-    <mat-form-field>
-      <input
-        formControlName="price"
-        type="number"
-        placeholder="Preis (EUR)"
-        matInput
-        required/>
-      <span matSuffix>&nbsp; €</span>
-      <mat-error>Eingabe erforderlich</mat-error>
-    </mat-form-field>
-    <mat-form-field class="zahlungsdauer">
-      <mat-label>Zahlungsdauer</mat-label>
-      <mat-select formControlName="paymentDuration">
-        <mat-option
-          *ngFor="let paymentDurationOption of paymentDurationOptions"
-          [value]="paymentDurationOption.value"
-          [disabled]="paymentDurationOption.disabled">
-          {{ paymentDurationOption.viewValue }}
-        </mat-option>
-      </mat-select>
-      <mat-error>Bitte Zahlungsdauer auswählen</mat-error>
-    </mat-form-field>
-    <mat-form-field class="tag-input">
-      <mat-chip-list #chipList aria-label="Fruit selection">
-        <mat-chip *ngFor="let tag of tags" [selectable]="true"
-                  [removable]="true" (removed)="removeTag(tag)">
-          {{tag}}
-          <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
-        <input placeholder="Tags"
-               [matChipInputFor]="chipList"
-               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-               [matChipInputAddOnBlur]="true"
-               (matChipInputTokenEnd)="addTag($event)">
-      </mat-chip-list>
-    </mat-form-field>
-    <button
-      mat-raised-button
-      type="button"
-      routerLink="../">
-      zurück
-    </button>
-    <button
-      mat-raised-button
-      [disabled]="productSubmitted$ | async"
-      type="submit"
-      color="primary">
-      Inserat einstellen
-    </button>
-  </form>
-</mat-card>
+      <mat-form-field class="zahlungsdauer">
+        <mat-label>Zahlungsdauer</mat-label>
+        <mat-select formControlName="paymentDuration">
+          <mat-option
+            *ngFor="let paymentDurationOption of paymentDurationOptions"
+            [value]="paymentDurationOption.value"
+            [disabled]="paymentDurationOption.disabled">
+            {{ paymentDurationOption.viewValue }}
+          </mat-option>
+        </mat-select>
+        <mat-error>Bitte Zahlungsdauer auswählen</mat-error>
+      </mat-form-field>
+      <mat-form-field class="tag-input">
+        <mat-chip-list #chipList aria-label="Fruit selection">
+          <mat-chip *ngFor="let tag of tags" [selectable]="true"
+                    [removable]="true" (removed)="removeTag(tag)">
+            {{tag}}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Tags"
+                 [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="true"
+                 (matChipInputTokenEnd)="addTag($event)">
+        </mat-chip-list>
+      </mat-form-field>
+      <button
+        mat-raised-button
+        type="button"
+        routerLink="../">
+        zurück
+      </button>
+      <button
+        mat-raised-button
+        [disabled]="productSubmitted$ | async"
+        type="submit"
+        color="primary">
+        Inserat einstellen
+      </button>
+    </form>
+  </mat-card>
+</section>
