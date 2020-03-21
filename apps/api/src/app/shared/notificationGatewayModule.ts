@@ -5,4 +5,4 @@ import { NotificationGateway } from './notification.gateway';
   exports: [NotificationGateway]
 })
 @Global()
-export class NotificationModule{}
+export class NotificationGatewayModule{}

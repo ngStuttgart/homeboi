@@ -14,7 +14,8 @@ import { TagEntity } from './entities/tag.entity';
 import { ProductModule } from './product/product.module';
 import { TagModule } from './tag/tag.module';
 import { BookingModule } from './bookings/booking.module';
-import { NotificationModule } from './shared/notification.module';
+import { NotificationGatewayModule } from './shared/notificationGatewayModule';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { NotificationModule } from './shared/notification.module';
     ProductModule,
     TagModule,
     BookingModule,
+    NotificationGatewayModule,
     NotificationModule
   ],
   controllers: [AppController],
