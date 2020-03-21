@@ -7,22 +7,24 @@
     </button>
     <div class="suche search-field search-field--desktop" [class.show]="showSearchbar">
       <mat-icon>search</mat-icon>
-      <input type="text" placeholder="Suche" />
+      <input type="text" placeholder="Suche"/>
     </div>
     <button class="search-field search-field--mobile" mat-icon-button (click)="toggleSearchbar()">
       <mat-icon>search</mat-icon>
     </button>
-    <a *ngIf="showInseratButton" mat-raised-button color="accent" class="inserat-button show--desktop" [routerLink]="'inserat'">
+    <a *ngIf="showInseratButton" mat-raised-button color="accent" class="inserat-button show--desktop"
+       [routerLink]="'inserat'">
       Inserat anlegen
     </a>
-    <a *ngIf="showInseratButton" mat-raised-button color="accent" class="inserat-button show--mobile" [routerLink]="'inserat'">
+    <a *ngIf="showInseratButton" mat-raised-button color="accent" class="inserat-button show--mobile"
+       [routerLink]="'inserat'">
       <mat-icon>add</mat-icon>
       Inserat
     </a>
     <button mat-icon-button>
       <mat-icon>local_grocery_store</mat-icon>
     </button>
-    <button mat-icon-button [routerLink]="notificationsUrl">
+    <button mat-icon-button routerLink="/notifications">
       <mat-icon>mail_outline</mat-icon>
     </button>
     <button mat-icon-button>
