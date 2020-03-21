@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Credentials, Signup } from '@homeboi/api-interfaces';
+import { Credentials, Product, Signup } from '@homeboi/api-interfaces';
 
 export const loginAction = createAction(
   '[APP] login',
@@ -11,7 +11,7 @@ export const loginSuccessAction = createAction(
 );
 export const loginErrorAction = createAction(
   '[APP] loginError',
-  props<{loginError: string}>()
+  props<{ loginError: string }>()
 );
 
 export const signupAction = createAction(
@@ -19,6 +19,11 @@ export const signupAction = createAction(
   props<{ signup: Signup }>()
 );
 
-export const signupSuccessAction = createAction(
-  '[APP] signupSuccess'
+export const signupSuccessAction = createAction('[APP] signupSuccess');
+
+export const getProductsAction = createAction('[APP] getProducts');
+
+export const getProductsSuccessAction = createAction(
+  '[APP] getProductsSuccess',
+  props<{ products: Product[] }>()
 );

@@ -1,14 +1,20 @@
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
-import { loginErrorAction, loginSuccessAction } from './app.actions';
-import { Signup } from '@homeboi/api-interfaces';
+import {
+  getProductsSuccessAction,
+  loginErrorAction,
+  loginSuccessAction
+} from './app.actions';
+import { Product, Signup } from '@homeboi/api-interfaces';
 
 export interface AppState {
   user?: Signup;
+  products: Product[];
   loginError?: string;
 }
 
 export const initialAppState: AppState = {
   user: undefined,
+  products: [],
   loginError: undefined
 };
 
@@ -27,9 +33,16 @@ export const reducer: ActionReducer<AppState> = createReducer(
   ),
   on(
     loginErrorAction,
-    (state: AppState, {loginError}): AppState => ({
+    (state: AppState, { loginError }): AppState => ({
       ...state,
       loginError
+    })
+  ),
+  on(
+    getProductsSuccessAction,
+    (state: AppState, { products }): AppState => ({
+      ...state,
+      products
     })
   )
 );
