@@ -1,7 +1,7 @@
 <header>
   <mat-toolbar [class.show-searchbar]="showSearchbar">
     <img alt="logo" class="logo" src="./assets/logo.png" />
-    <button class="show--desktop" mat-raised-button (click)="showFilter = !showFilter">Kategorien</button>
+    <button *ngIf="showInputBar" class="show--desktop" mat-raised-button (click)="showFilter = !showFilter">Kategorien</button>
     <mat-expansion-panel *ngIf="showFilter">
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -26,8 +26,6 @@
         <input matInput type="text" [formControl]="formGroup.get('priceMax')" placeholder="Preis max"/>
       </mat-form-field>
     </mat-expansion-panel>
-    <button class="show--mobile" mat-icon-button>
-    <button *ngIf="showInputBar" class="show--desktop" mat-raised-button>Kategorien</button>
     <button *ngIf="showInputBar" class="show--mobile" mat-icon-button>
       <mat-icon>filter_list</mat-icon>
     </button>
