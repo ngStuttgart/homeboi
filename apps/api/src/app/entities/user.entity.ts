@@ -1,12 +1,23 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  Unique
+} from 'typeorm';
 import { AccountType, Signup } from '@homeboi/api-interfaces';
 import { AddressEntity } from './address.entity';
 import { BookingEntity } from './booking.entity';
 import { RatingEntity } from './rating.entity';
 
 @Entity()
+@Unique(['email'])
 export class UserEntity implements Omit<Signup, 'accountType'> {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
+  userId: string;
+  @Column()
   email: string;
   @Column()
   password: string;
