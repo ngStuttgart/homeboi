@@ -6,7 +6,7 @@ import {
   getProductsSuccessAction,
   loginAction,
   loginErrorAction,
-  loginSuccessAction,
+  loginSuccessAction, setNotificationAction,
   signupAction,
   signupSuccessAction
 } from './app.actions';
@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from './app.reducer';
 import { throwError } from 'rxjs';
+import { NotificationService } from '../notifactions/notification.service';
 
 @Injectable({ providedIn: 'root' })
 export class AppEffects {
@@ -68,10 +69,17 @@ export class AppEffects {
     )
   );
 
+  notifications$ = createEffect(() =>
+    this.notificationService.notification$.pipe(
+      map(notification => setNotificationAction({notification}))
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private httpClient: HttpClient,
     private router: Router,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private notificationService: NotificationService
   ) {}
 }

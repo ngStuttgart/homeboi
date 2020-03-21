@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Credentials, Product, Signup } from '@homeboi/api-interfaces';
+import { Notification } from '@homeboi/api-interfaces';
 
 export const loginAction = createAction(
   '[APP] login',
@@ -26,4 +27,13 @@ export const getProductsAction = createAction('[APP] getProducts');
 export const getProductsSuccessAction = createAction(
   '[APP] getProductsSuccess',
   props<{ products: Product[] }>()
+);
+
+export const setNotificationAction = createAction(
+  '[APP] setNotification',
+  props<{ notification: Notification }>()
+);
+
+export const resetNotificationsAction = createAction(
+  '[APP] resetNotifications'
 );

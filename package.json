@@ -59,6 +59,8 @@
     "@nrwl/angular": "9.1.2",
     "@types/socket.io": "^2.1.4",
     "core-js": "^2.5.4",
+    "ngx-rxjs-zone-scheduler": "^9.0.0",
+    "ngx-socket-io": "^3.0.1",
     "pg": "^7.18.2",
     "postgres": "^1.0.2",
     "reflect-metadata": "^0.1.13",

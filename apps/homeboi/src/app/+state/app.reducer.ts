@@ -2,20 +2,22 @@ import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
 import {
   getProductsSuccessAction,
   loginErrorAction,
-  loginSuccessAction
+  loginSuccessAction, resetNotificationsAction, setNotificationAction
 } from './app.actions';
-import { Product, Signup } from '@homeboi/api-interfaces';
+import { Notification, Product, Signup } from '@homeboi/api-interfaces';
 
 export interface AppState {
   user?: Signup;
   products: Product[];
   loginError?: string;
+  notifications?: Notification[];
 }
 
 export const initialAppState: AppState = {
   user: undefined,
   products: [],
-  loginError: undefined
+  loginError: undefined,
+  notifications: undefined
 };
 
 export function appReducer(state: AppState, action: Action) {
@@ -43,6 +45,20 @@ export const reducer: ActionReducer<AppState> = createReducer(
     (state: AppState, { products }): AppState => ({
       ...state,
       products
+    })
+  ),
+  on(
+    setNotificationAction,
+    (state: AppState, {notification}): AppState => ({
+      ...state,
+      notifications: [...(state.notifications || []), notification]
+    })
+  ),
+  on(
+    resetNotificationsAction,
+    (state): AppState => ({
+      ...state,
+      notifications: undefined
     })
   )
 );
