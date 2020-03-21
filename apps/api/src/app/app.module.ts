@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -8,6 +8,8 @@ import { join } from 'path';
 import { UserModule } from './user/user.module';
 import { UserEntity } from './entities/user.entity';
 import { AddressEntity } from './entities/address.entity';
+import { AuthenticationMiddleware } from './shared/authentication.middleware';
+import { CookieParserMiddleware } from '@nest-middlewares/cookie-parser';
 
 @Module({
   imports: [
@@ -31,9 +33,15 @@ import { AddressEntity } from './entities/address.entity';
     CustomHttpFilter
   ]
 })
-export class AppModule {
+export class AppModule implements NestModule{
   constructor() {
     console.log(join(__dirname, '../../../**/*.entity{.ts,.js}'));
   }
 
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(CookieParserMiddleware).forRoutes( 'user' );
+    consumer
+      .apply(AuthenticationMiddleware)
+      .forRoutes('');
+  }
 }

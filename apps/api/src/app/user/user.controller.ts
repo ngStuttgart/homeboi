@@ -15,11 +15,12 @@ export class UserController {
   @HttpCode(HttpStatus.OK)
   async login(@Body() credentials: LoginPostDto, @Res() response: Response) {
     const userResponse = await this.userService.login(credentials.email, credentials.password);
-    delete userResponse.password;
-    response.setHeader('Set-Cookie', `homeboi-login=${JSON.stringify({
+    const absolutlySecureLogin = Buffer.from(JSON.stringify({
       password: userResponse.password,
       email: userResponse.email
-    })}`);
+    })).toString('base64');
+    response.setHeader('Set-Cookie', `homeboi-login=${absolutlySecureLogin}`);
+    delete userResponse.password;
     response.json(userResponse);
   }
 
