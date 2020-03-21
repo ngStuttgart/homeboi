@@ -1,0 +1,105 @@
+<p>Um einen Account zu erstellen, benötigen wir noch ein paar Daten von dir.</p>
+
+<mat-card>
+  <form #ngForm="ngForm" (submit)="submit()" [formGroup]="signupGroup">
+    <mat-form-field class="account-type">
+      <mat-label>Art des Accounts</mat-label>
+      <mat-select formControlName="accountType">
+        <mat-option *ngFor="let accountType of accountTypes" [value]="accountType.value">
+          {{accountType.viewValue}}
+        </mat-option>
+      </mat-select>
+      <mat-error>Bitte Accounttyp auswählen</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        formControlName="email"
+        type="text"
+        placeholder="E-Mail"
+        matInput
+        required
+      />
+      <mat-error>Bitte korrekte E-Mail eingeben</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        formControlName="password"
+        type="password"
+        placeholder="Passwort"
+        matInput
+        required
+      />
+      <mat-error>Bitte Passwort eingeben</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        formControlName="name"
+        type="text"
+        placeholder="Vorname Nachname oder Firmenname"
+        matInput
+        required
+      />
+      <mat-error>Eingabe erforderlich</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        formControlName="contactPerson"
+        type="text"
+        placeholder="Kontaktperson (nur bei Firmen)"
+        matInput
+      />
+    </mat-form-field>
+    <ng-container formGroupName="address">
+      <mat-form-field>
+        <input
+          formControlName="street"
+          type="text"
+          placeholder="Strasse"
+          matInput
+          required
+        />
+        <mat-error>Eingabe erforderlich</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          formControlName="streetNumber"
+          type="text"
+          placeholder="Hausnummer"
+          matInput
+          required
+        />
+        <mat-error>Eingabe erforderlich</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          formControlName="zipCode"
+          type="text"
+          placeholder="Postleitzahl"
+          matInput
+          required
+        />
+        <mat-error>Eingabe erforderlich</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          formControlName="city"
+          type="text"
+          placeholder="Stadt"
+          matInput
+          required
+        />
+        <mat-error>Eingabe erforderlich</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          formControlName="country"
+          type="text"
+          placeholder="Land"
+          matInput
+        />
+        <mat-error>Eingabe erforderlich</mat-error>
+      </mat-form-field>
+    </ng-container>
+    <button mat-raised-button [disabled]="ngForm.valid && ngForm.submitted" type="submit" color="primary">Anmelden</button>
+  </form>
+</mat-card>
