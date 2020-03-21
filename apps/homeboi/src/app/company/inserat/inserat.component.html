@@ -1,5 +1,4 @@
-<h1>Yeah!</h1>
-<p>Was möchtest du vermieten?</p>
+<h1>Was möchtest du vermieten?</h1>
 
 <mat-card *ngIf="product$ | async as product">
   <form (submit)="submit()" [formGroup]="inseratGroup">
@@ -101,6 +100,7 @@
         matInput
         required
       />
+      <span matSuffix>&nbsp; €</span>
       <mat-error>Eingabe erforderlich</mat-error>
     </mat-form-field>
     <mat-form-field class="zahlungsdauer">
@@ -129,6 +129,13 @@
                (matChipInputTokenEnd)="addTag($event)">
       </mat-chip-list>
     </mat-form-field>
+    <button
+      mat-raised-button
+      type="button"
+      routerLink="../"
+    >
+      zurück
+    </button>
     <button
       mat-raised-button
       [disabled]="productSubmitted$ | async"
