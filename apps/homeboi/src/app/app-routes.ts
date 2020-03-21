@@ -21,6 +21,14 @@ export const APP_ROUTES: Routes = [
       import('./company/company.module').then(m => m.CompanyModule)
   },
   {
+    path: 'user/notifications',
+    loadChildren: () => import('./notifactions/notifications.module').then(m => m.NotificationsModule)
+  },
+  {
+    path: 'company/notifications',
+    loadChildren: () => import('./notifactions/notifications.module').then(m => m.NotificationsModule)
+  },
+  {
     path: '**',
     redirectTo: '',
     pathMatch: 'full'

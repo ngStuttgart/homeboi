@@ -1,5 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { AppState } from './app.reducer';
+import { Notification } from '@homeboi/api-interfaces';
 
 const selectApp = createFeatureSelector('app');
 
@@ -18,4 +19,8 @@ export const selectProducts = createSelector(
 export const selectLoginError = createSelector(
   selectApp,
   ({ loginError }: AppState) => loginError
+);
+export const selectNotifications = createSelector(
+  selectApp,
+  ({notifications}: AppState): Notification[] | undefined => notifications
 );

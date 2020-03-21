@@ -7,6 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class HeaderComponent {
   @Input() showInseratButton: boolean;
+  @Input() notificationsUrl: string;
 
   showSearchbar = false;
 
