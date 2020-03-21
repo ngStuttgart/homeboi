@@ -10,6 +10,7 @@ import { UserEntity } from './entities/user.entity';
 import { AddressEntity } from './entities/address.entity';
 import { AuthenticationMiddleware } from './shared/authentication.middleware';
 import { CookieParserMiddleware } from '@nest-middlewares/cookie-parser';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { CookieParserMiddleware } from '@nest-middlewares/cookie-parser';
       entities: [UserEntity, AddressEntity],
       synchronize: true
     }),
-    UserModule
+    UserModule,
+    ProductModule
   ],
   controllers: [AppController],
   providers: [
