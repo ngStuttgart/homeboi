@@ -1,20 +1,34 @@
+@mixin grid-span-full {
+  grid-column: -1 / 1;
+}
+
 :host {
-  display: grid;
-  place-items: center;
+  display: block;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 0.5em;
+}
+
+mat-card {
+  margin: 3em;
+
+  @media(max-width: 500px) {
+    margin: 0.25em;
+  }
 }
 
 form {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: 1em;
 }
 
-mat-form-field {
-  min-width: 300px;
-}
-
 .image {
-  grid-column: span 2;
+  @include grid-span-full;
   display: flex;
   flex-direction: column;
 
@@ -42,20 +56,20 @@ mat-form-field {
 }
 
 .beschreibung {
-  grid-column: span 2;
+  @include grid-span-full;
 }
 
 button {
-  grid-column: span 2;
+  //@include grid-span-full;
 }
 
 .tag-input{
-  grid-column: span 2;
+  @include grid-span-full;
 }
 
 .masse-area {
-  grid-column: span 2;
+  @include grid-span-full;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 0.5em;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 1em;
 }
