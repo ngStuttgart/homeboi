@@ -23,7 +23,7 @@
             <span><strong>Höhe:</strong> {{ product.height }} cm</span>
           </p>
           <mat-chip-list aria-label="Type">
-            <mat-chip *ngFor="let tag of product.tags" selected>{{ tag }}</mat-chip>
+            <mat-chip *ngFor="let tag of product.tags" selected>{{ tag.value }}</mat-chip>
           </mat-chip-list>
         </section>
         <button mat-raised-button color="accent" (click)="showBookingSection=!showBookingSection" *ngIf="!showBookingSection">
