@@ -1,17 +1,15 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { fromEvent, Observable, of, Subject } from 'rxjs';
+import { fromEvent, Observable, Subject } from 'rxjs';
 import { PaymentDuration, Product, ProductType } from '@homeboi/api-interfaces';
 import { select, Store } from '@ngrx/store';
 import { CompanyState } from '../+state/company.reducer';
-import {
-  selectProduct,
-  selectProductSubmitted
-} from '../+state/company.selectors';
+import { selectProduct, selectProductSubmitted } from '../+state/company.selectors';
 import { filter, map, takeUntil } from 'rxjs/operators';
 import {
   addImageAction,
   resetImageAction,
+  resetProductAction,
   setProductAction,
   submitProductAction
 } from '../+state/company.actions';
@@ -114,6 +112,7 @@ export class InseratComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.destroy$.next();
+    this.store.dispatch(resetProductAction());
   }
 
   submit(): void {
@@ -122,7 +121,7 @@ export class InseratComponent implements OnDestroy {
     if (this.inseratGroup.valid) {
       const product = {
         ...this.removeOptionalProperties(this.inseratGroup.getRawValue()),
-        tags: this.tags
+        tags: [...this.tags]
       };
 
       this.store.dispatch(

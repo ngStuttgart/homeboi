@@ -18,3 +18,8 @@ export const selectProducts = createSelector(
   selectCompany,
   ({products}: CompanyState) => products
 );
+
+export const selectProductLoading = createSelector(
+  selectCompany,
+  ({productLoading}: CompanyState) => productLoading
+);
