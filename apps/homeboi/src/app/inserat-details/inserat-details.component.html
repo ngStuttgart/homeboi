@@ -22,23 +22,40 @@
         <table class="measures-table">
           <tr>
             <td><b>Höhe:</b></td>
-            <td>{{ product.height }}</td>
+            <td>{{ product.height }} cm</td>
           </tr>
           <tr>
             <td><b>Breite:</b></td>
-            <td>{{ product.width }}</td>
+            <td>{{ product.width }} cm</td>
           </tr>
           <tr>
             <td><b>Tiefe:</b></td>
-            <td>{{ product.depth }}</td>
+            <td>{{ product.depth }} cm</td>
           </tr>
         </table>
         <mat-chip-list aria-label="Type">
           <mat-chip *ngFor="let tag of product.tags" selected>{{ tag }}</mat-chip>
         </mat-chip-list>
-        <button mat-raised-button color="accent" class="inserat-button show--desktop" >
-          Jetzt buchen für nur {{ product.price }} € / Woche
+        <button mat-raised-button color="accent" (click)="showBookingSection=!showBookingSection" *ngIf="!showBookingSection">
+          Jetzt mieten
         </button>
+
+        <div *ngIf="showBookingSection">
+          <h3>Wir brauchen noch folgende Informationen von dir</h3>
+          <mat-form-field>
+            <mat-label>Startdatum deiner Buchung</mat-label>
+            <input label="Startdatum" matInput [matDatepicker]="picker" [min]="minDate" [(ngModel)]="startDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-checkbox [(ngModel)]="insurance">Buchung für nur {{ (product.price * 0.1) }}€ extra versichern?</mat-checkbox>
+
+          <button mat-raised-button color="accent" class="book-btn" (click)="book()" [disabled]="!startDate">
+            Endpreis: {{ !insurance ? (product.price) : (product.price) + (product.price * 0.1) }} € / Woche. Jetzt buchen?
+          </button>
+
+        </div>
       </div>
     </div>
 
