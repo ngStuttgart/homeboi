@@ -1,7 +1,7 @@
 <header>
   <mat-toolbar [class.show-searchbar]="showSearchbar">
     <a [routerLink]="userAccountType$ | async" class="logo">
-      <img alt="logo" class="logo__img" src="./assets/logo.png" />
+      <img alt="logo" class="logo__img" src="./assets/logo.png"/>
     </a>
     <button *ngIf="showInputBar" mat-icon-button (click)="showFilter = !showFilter">
       <mat-icon>filter_list</mat-icon>
@@ -42,7 +42,11 @@
       <button *ngIf="(userAccountType$ | async) === '/user'" mat-icon-button routerLink="/user/orders">
         <mat-icon>list</mat-icon>
       </button>
-      <button mat-icon-button routerLink="/notifications">
+      <button mat-icon-button routerLink="/notifications"
+              class="notifications"
+              [matBadge]="(notificationCount$ | async)+''"
+              matBadgeColor="warn"
+              [matBadgeHidden]="(notificationCount$ | async) === 0">
         <mat-icon>mail_outline</mat-icon>
       </button>
       <button mat-icon-button [matMenuTriggerFor]="userProfileMenu">

@@ -11,12 +11,25 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [HeaderComponent],
   imports: [
-    CommonModule, MatToolbarModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, RouterModule, MatExpansionModule, MatSelectModule, ReactiveFormsModule, MatMenuModule
+    CommonModule,
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    RouterModule,
+    MatExpansionModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatMenuModule,
+    MatBadgeModule
   ],
   exports: [HeaderComponent]
 })
-export class HeaderModule { }
+export class HeaderModule {
+}

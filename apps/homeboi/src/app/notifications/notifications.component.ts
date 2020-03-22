@@ -4,7 +4,7 @@ import { AppState } from '../+state/app.reducer';
 import { Observable } from 'rxjs';
 import { selectNotifications, selectUserAccountType } from '../+state/app.selectors';
 import { Notification } from '@homeboi/api-interfaces';
-import { deleteNotificationAction, getNotificationsAction } from '../+state/app.actions';
+import { deleteNotificationAction, deleteNotificationCountAction, getNotificationsAction } from '../+state/app.actions';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -29,6 +29,7 @@ export class NotificationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(getNotificationsAction());
+    this.store.dispatch(deleteNotificationCountAction());
   }
 
   public removeNotification(notification: Notification): void {

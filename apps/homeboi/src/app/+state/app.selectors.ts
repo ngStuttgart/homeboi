@@ -31,12 +31,12 @@ export const selectLoginError = createSelector(
 
 export const selectNotifications = createSelector(
   selectApp,
-  ({notifications}: AppState): Notification[] | undefined => notifications
+  ({ notifications }: AppState): Notification[] | undefined => notifications
 );
 
 export const selectGetUserError = createSelector(
   selectApp,
-  ({getUserError}: AppState): string | undefined => getUserError
+  ({ getUserError }: AppState): string | undefined => getUserError
 );
 
 export const selectUserOrError = createSelector(selectApp,
@@ -50,5 +50,10 @@ export const selectSignupSubmitted = createSelector(
 
 export const selectProductsLoading = createSelector(
   selectApp,
-  ({prodcutsLoading}: AppState): boolean => prodcutsLoading
+  ({ productsLoading }: AppState): boolean => productsLoading
+);
+
+export const selectNotificationCount = createSelector(
+  selectApp,
+  ({ notificationCount }: AppState): number => notificationCount
 );

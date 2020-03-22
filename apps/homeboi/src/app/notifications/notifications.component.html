@@ -15,7 +15,7 @@
     <ng-container matColumnDef="options">
       <th mat-header-cell *matHeaderCellDef>Optionen</th>
       <td mat-cell *matCellDef="let element">
-        <button mat-icon-button matTooltip="Benachrichtigung entfernen" (click)="removeNotification(element)">
+        <button mat-icon-button matTooltip="Benachrichtigung entfernen" (click)="removeNotification(element)" color="warn">
           <mat-icon>remove_circle</mat-icon>
         </button>
       </td>
