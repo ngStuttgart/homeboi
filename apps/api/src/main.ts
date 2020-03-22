@@ -9,6 +9,7 @@ import { authenticationMiddleware } from './app/shared/authentication.middleware
 import * as cookieParser from 'cookie-parser';
 import * as compression from 'compression';
 import * as helmet from 'helmet';
+import * as bodyParser from 'body-parser';
 import { forceSSLMiddleware } from './app/shared/force-ssl.middleware';
 
 async function bootstrap() {
@@ -22,6 +23,7 @@ async function bootstrap() {
   app.use(authenticationMiddleware);
   app.use(compression());
   app.use(helmet());
+  app.use(bodyParser({ limit: '50M' }));
   // Force SSL redirect in Heroku
   app.use(forceSSLMiddleware);
   const options = new DocumentBuilder()
