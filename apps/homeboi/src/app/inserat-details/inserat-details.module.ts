@@ -34,7 +34,7 @@ import { PaymentDurationModule } from '@homeboi/shared/payment-duration-pipe';
     MatNativeDateModule,
     MatCheckboxModule,
     FormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
     FormsModule,
     PaymentDurationModule
   ],
