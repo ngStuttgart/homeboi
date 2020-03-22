@@ -47,3 +47,8 @@ export const selectSignupSubmitted = createSelector(
   selectApp,
   ({ signupSubmitted }: AppState): boolean => signupSubmitted
 );
+
+export const selectProductsLoading = createSelector(
+  selectApp,
+  ({prodcutsLoading}: AppState): boolean => prodcutsLoading
+);

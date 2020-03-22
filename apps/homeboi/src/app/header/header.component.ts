@@ -1,9 +1,13 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { ProductQuery, ProductType } from '@homeboi/api-interfaces';
+import { AccountType, ProductQuery, ProductType } from '@homeboi/api-interfaces';
 import { FormControl, FormGroup } from '@angular/forms';
 import { KeyValue } from '@angular/common';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { AppState } from '../+state/app.reducer';
+import { logoutAction } from '../+state/app.actions';
+import { selectUserAccountType } from '../+state/app.selectors';
 
 @Component({
   selector: 'homeboi-header',
@@ -13,7 +17,6 @@ import { Subject } from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy {
   @Input() showInseratButton: boolean;
   @Input() showInputBar = true;
-  @Input() accountType: '/company' | '/user';
 
   @Output() productQuery = new EventEmitter<ProductQuery>();
 
@@ -40,7 +43,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   });
   showSearchbar = false;
 
+  userAccountType$: Observable<AccountType> = this.store.pipe(
+    select(selectUserAccountType)
+  );
+
   private destroy$ = new Subject<void>();
+
+  constructor(private store: Store<AppState>) {
+  }
 
   ngOnInit(): void {
     this.formGroup.valueChanges
@@ -50,5 +60,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroy$.next();
+  }
+
+  logout(): void {
+    this.store.dispatch(logoutAction());
   }
 }

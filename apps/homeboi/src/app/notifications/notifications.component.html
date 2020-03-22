@@ -1,4 +1,4 @@
-<homeboi-header [accountType]="accountType | async" [showInputBar]="false"></homeboi-header>
+<homeboi-header [showInputBar]="false"></homeboi-header>
 <ng-container *ngIf="notifications$ | async as notifications; else loading">
   <table *ngIf="notifications.length; else noNotifications" mat-table [dataSource]="notifications"
          class="mat-elevation-z0 notifications-table">

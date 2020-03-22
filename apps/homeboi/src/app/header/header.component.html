@@ -1,6 +1,6 @@
 <header>
   <mat-toolbar [class.show-searchbar]="showSearchbar">
-    <a [routerLink]="accountType" class="logo">
+    <a [routerLink]="userAccountType$ | async" class="logo">
       <img alt="logo" class="logo__img" src="./assets/logo.png" />
     </a>
     <button *ngIf="showInputBar" mat-icon-button (click)="showFilter = !showFilter">
@@ -39,15 +39,25 @@
       Inserat anlegen
     </a>
     <div class="align-right">
-      <button *ngIf="accountType === '/user'" mat-icon-button routerLink="/user/orders">
+      <button *ngIf="(userAccountType$ | async) === '/user'" mat-icon-button routerLink="/user/orders">
         <mat-icon>list</mat-icon>
       </button>
       <button mat-icon-button routerLink="/notifications">
         <mat-icon>mail_outline</mat-icon>
       </button>
-      <button mat-icon-button>
+      <button mat-icon-button [matMenuTriggerFor]="userProfileMenu">
         <mat-icon>account_circle</mat-icon>
       </button>
+      <mat-menu #userProfileMenu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>edit</mat-icon>
+          <span>Profil bearbeiten</span>
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>power_settings_new</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
     </div>
   </mat-toolbar>
 </header>
