@@ -12,7 +12,7 @@ import {
 import { AccountType, ProductQuery, ProductType } from '@homeboi/api-interfaces';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DOCUMENT, KeyValue } from '@angular/common';
-import { map, takeUntil } from 'rxjs/operators';
+import { filter, map, takeUntil } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../+state/app.reducer';
@@ -57,10 +57,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     select(selectNotificationCount)
   );
 
-  userAccountType$: Observable<string> = this.store.pipe(
+  userAccountType$: Observable<AccountType> = this.store.pipe(
     select(selectUserAccountType),
-    map(accountType => '/' + accountType.toLowerCase())
+    filter(accountType => !!accountType),
   );
+
+  homeRoute$: Observable<string> = this.userAccountType$.pipe(
+    map(accountType => '/' + accountType.toLowerCase())
+  )
 
   private destroy$ = new Subject<void>();
 

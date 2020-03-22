@@ -20,7 +20,7 @@
     <ng-container matColumnDef="options">
       <th mat-header-cell *matHeaderCellDef> Optionen</th>
       <td mat-cell *matCellDef="let element">
-        <button mat-icon-button matTooltip="Artikel zurückgeben" (click)="handBackBooking(element.id)">
+        <button mat-button matTooltip="Artikel zurückgeben" (click)="handBackBooking(element.id)">
           Zurückgeben
         </button>
       </td>
