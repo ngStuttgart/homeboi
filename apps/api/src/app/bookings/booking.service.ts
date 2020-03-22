@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { BookingPostDto } from './dto/booking.post.dto';
-import { getRepository } from 'typeorm';
+import { getRepository, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 import { BookingEntity } from '../entities/booking.entity';
 import { UserEntity } from '../entities/user.entity';
 import { ProductEntity } from '../entities/product.entity';
@@ -27,10 +27,21 @@ export class BookingService {
     return bookingRepository.findOne(bookingResult, { relations: ['user', 'product'] });
   }
   public async getAllBookingsForUser(user: UserEntity): Promise<BookingEntity[]> {
-    return await getRepository(BookingEntity).find({ where: { user }, relations: ['product', 'user', 'rating'] });
+    return await getRepository(BookingEntity).find({
+      where: {
+        user,
+        returned: false,
+        start: LessThanOrEqual(new Date()),
+        end: MoreThanOrEqual(new Date())
+      }, relations: ['product', 'user', 'rating']
+    });
   }
+
   public async handBackBooking(bookingId: string): Promise<BookingEntity> {
-    const success = (await getRepository(BookingEntity).update({ id: bookingId }, { end: new Date() })).affected === 1;
+    const success = (await getRepository(BookingEntity).update({ id: bookingId }, {
+      end: new Date(),
+      returned: true
+    })).affected === 1;
     if (success) {
       const booking = (await getRepository(BookingEntity).findOne({
         where: { id: bookingId },
