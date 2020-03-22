@@ -1,7 +1,7 @@
 <homeboi-header [showInseratButton]="true"></homeboi-header>
 
 <ng-container *ngIf="products$ | async as products; else loading">
-  <table *ngIf="products.length; else noProducts" mat-table [dataSource]="productsDatabase" class="mat-elevation-z0 products-table">
+  <table *ngIf="products.length; else noProducts" mat-table [dataSource]="productsDatabase" class="mat-elevation-z0 bookings-table">
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef> Titel </th>
       <td mat-cell *matCellDef="let element"> {{element.title}} </td>
@@ -24,19 +24,43 @@
 
     <ng-container matColumnDef="options">
       <th mat-header-cell *matHeaderCellDef> Optionen </th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-icon-button matTooltip="Inserat-Bild anzeigen" (click)="showPicture(element)">
-          <mat-icon>insert_photo</mat-icon>
+      <td class="bookings-table__options" mat-cell *matCellDef="let element">
+        <button mat-icon-button class="bookings-table__options--mobile" [matMenuTriggerFor]="optionsMenu">
+          <mat-icon>more_vert</mat-icon>
         </button>
-        <button mat-icon-button matTooltip="Inserat bearbeiten" [routerLink]="['inserat-edit', element.id]">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button matTooltip="Als Vorlage für neues Inserat" [routerLink]="['inserat-template', element.id]">
-          <mat-icon>post_add</mat-icon>
-        </button>
-        <button mat-icon-button matTooltip="Inserat löschen" (click)="deleteProduct(element.id)">
-          <mat-icon>delete</mat-icon>
-        </button>
+        <mat-menu #optionsMenu="matMenu">
+          <button mat-menu-item (click)="showPicture(element)">
+            <mat-icon>insert_photo</mat-icon>
+            <span>Inserat-Bild anzeigen</span>
+          </button>
+          <button mat-menu-item [routerLink]="['inserat-edit', element.id]">
+            <mat-icon>edit</mat-icon>
+            <span>Inserat bearbeiten</span>
+          </button>
+          <button mat-menu-item [routerLink]="['inserat-template', element.id]">
+            <mat-icon>post_add</mat-icon>
+            <span>Inserat als Vorlage</span>
+          </button>
+          <button mat-menu-item (click)="deleteProduct(element.id)">
+            <mat-icon>delete</mat-icon>
+            <span>Inserat löschen</span>
+          </button>
+        </mat-menu>
+
+        <span class="bookings-table__options--desktop">
+          <button mat-icon-button matTooltip="Inserat-Bild anzeigen" (click)="showPicture(element)">
+            <mat-icon>insert_photo</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="Inserat bearbeiten" [routerLink]="['inserat-edit', element.id]">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="Als Vorlage für neues Inserat" [routerLink]="['inserat-template', element.id]">
+            <mat-icon>post_add</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="Inserat löschen" (click)="deleteProduct(element.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </span>
       </td>
     </ng-container>
 
