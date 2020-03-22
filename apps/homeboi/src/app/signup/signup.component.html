@@ -1,7 +1,7 @@
 <h1>Registrierung</h1>
 <mat-card>
   <div class="logo">
-    <img alt="logo" src="./assets/logo.png">
+    <img alt="logo" src="./assets/homeboi-logo.webp">
   </div>
   <p>Um einen Account zu erstellen, benötigen wir noch ein paar Daten von dir.</p>
   <form (submit)="submit()" [formGroup]="signupGroup">
@@ -108,5 +108,6 @@
       Eventuell existiert bereits ein Account unter Ihrer E-Mail-Adresse.
     </mat-error>
     <button mat-raised-button [disabled]="signupSubmitted$ | async" type="submit" color="primary">Registrieren</button>
+    <button mat-raised-button routerLink="/" type="button">zurück zum Login</button>
   </form>
 </mat-card>

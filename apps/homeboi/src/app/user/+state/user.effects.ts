@@ -26,7 +26,7 @@ export class UserEffects {
       ofType(handBackBookingAction),
       pluck('bookingId'),
       switchMap((bookingId: string) => this.httpClient.put(`/api/bookings/${bookingId}/hand-back`, undefined)),
-      map(() => handBackBookingActionSuccess())
+      map(() => getBookingsAction())
     ),
     { useEffectsErrorHandler: true });
 
