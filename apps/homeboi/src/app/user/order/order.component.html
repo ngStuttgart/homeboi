@@ -1,4 +1,4 @@
-<homeboi-header accountType="/user" [showInseratButton]="true"></homeboi-header>
+<homeboi-header accountType="/user"></homeboi-header>
 
 <ng-container *ngIf="bookings$ | async as bookings; else loading">
   <table *ngIf="bookings.length; else noBookings" mat-table [dataSource]="bookingDataSource"

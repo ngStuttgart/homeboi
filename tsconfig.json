@@ -22,7 +22,6 @@
       "@homeboi/shared/payment-duration-pipe": [
         "libs/shared/payment-duration-pipe/src/index.ts"
       ],
-      "@homeboi/shared/header": ["libs/shared/header/src/index.ts"],
       "@homeboi/shared/product-type": ["libs/shared/product-type/src/index.ts"]
     }
   },
