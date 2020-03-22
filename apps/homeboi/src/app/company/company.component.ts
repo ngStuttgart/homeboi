@@ -11,20 +11,20 @@ import { MatDialog } from '@angular/material/dialog';
 import { ShowPictureDialogComponent } from '../dialogs/show-picture-dialog/show-picture-dialog.component';
 
 class ProductsDataSource extends DataSource<Product> {
-  private destroy$$ = new Subject<void>();
+  private destroy$ = new Subject<void>();
 
   constructor(private readonly products$: Observable<Product[]>) {
     super();
   }
 
-  connect(collectionViewer: CollectionViewer): Observable<Product[] | ReadonlyArray<Product>> {
-    return this.products$.pipe(
-      takeUntil(this.destroy$$)
-    );
+  connect(
+    collectionViewer: CollectionViewer
+  ): Observable<Product[] | ReadonlyArray<Product>> {
+    return this.products$.pipe(takeUntil(this.destroy$));
   }
 
   disconnect(collectionViewer: CollectionViewer): void {
-    this.destroy$$.next();
+    this.destroy$.next();
   }
 }
 
@@ -48,13 +48,13 @@ export class CompanyComponent implements OnInit {
 
   productsDatabase = new ProductsDataSource(this.products$);
 
-  constructor(private store: Store<CompanyState>, private dialog: MatDialog) { }
+  constructor(private store: Store<CompanyState>, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.store.dispatch(getProductsAction());
   }
 
   showPicture(product: Product): void {
-    this.dialog.open(ShowPictureDialogComponent, {data: product});
+    this.dialog.open(ShowPictureDialogComponent, { data: product });
   }
 }

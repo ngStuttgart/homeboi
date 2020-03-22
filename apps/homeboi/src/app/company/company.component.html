@@ -1,4 +1,4 @@
-<homeboi-header [showInseratButton]="true"></homeboi-header>
+<homeboi-header accountType="/company" [showInseratButton]="true"></homeboi-header>
 
 <ng-container *ngIf="products$ | async as products; else loading">
   <table *ngIf="products.length; else noProducts" mat-table [dataSource]="productsDatabase" class="mat-elevation-z0 products-table">

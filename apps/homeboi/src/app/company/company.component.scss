@@ -4,6 +4,7 @@
 
 .products-table {
   margin: 20px;
+
 }
 
 .loading {
@@ -11,4 +12,14 @@
   place-items: center;
   margin-top: 30%;
   height: 100%;
+}
+@media(max-width: 600px) {
+  .products-table {
+    margin: 0;
+
+    th, td {
+      padding-left: 5px;
+      padding-right: 0;
+    }
+  }
 }

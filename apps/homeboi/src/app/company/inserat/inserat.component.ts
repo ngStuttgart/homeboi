@@ -30,7 +30,6 @@ interface Option<T, R> {
   styleUrls: ['./inserat.component.scss']
 })
 export class InseratComponent implements OnDestroy {
-
   constructor(private store: Store<CompanyState>) {}
 
   get imageCtrl(): FormControl {
@@ -74,20 +73,28 @@ export class InseratComponent implements OnDestroy {
 
   paymentDurationOptions: Option<PaymentDuration, string>[] = [
     { value: PaymentDuration.DAILY, viewValue: 'Täglich', disabled: true },
-    { value: PaymentDuration.WEEKLY, viewValue: 'Wöchentlich', disabled: false },
+    {
+      value: PaymentDuration.WEEKLY,
+      viewValue: 'Wöchentlich',
+      disabled: false
+    },
     { value: PaymentDuration.MONTHLY, viewValue: 'Monatlich', disabled: true },
-    { value: PaymentDuration.ONCE, viewValue: 'Einmalig bei Rückgabe', disabled: true }
+    {
+      value: PaymentDuration.ONCE,
+      viewValue: 'Einmalig bei Rückgabe',
+      disabled: true
+    }
   ];
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  private destroy$$ = new Subject<void>();
+  private destroy$ = new Subject<void>();
 
   addTag(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value.trim();
 
-    if ((value && this.tags.indexOf(value) < 0)) {
+    if (value && this.tags.indexOf(value) < 0) {
       this.tags.push(value);
     }
 
@@ -106,7 +113,7 @@ export class InseratComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroy$$.next();
+    this.destroy$.next();
   }
 
   submit(): void {
@@ -114,7 +121,9 @@ export class InseratComponent implements OnDestroy {
 
     if (this.inseratGroup.valid) {
       this.store.dispatch(
-        setProductAction({ product: { ...this.inseratGroup.getRawValue(), tags: this.tags } })
+        setProductAction({
+          product: { ...this.inseratGroup.getRawValue(), tags: this.tags }
+        })
       );
       this.store.dispatch(submitProductAction());
     }
@@ -133,7 +142,7 @@ export class InseratComponent implements OnDestroy {
       .pipe(
         map(() => fileReader.result),
         filter<string>(Boolean),
-        takeUntil(this.destroy$$)
+        takeUntil(this.destroy$)
       )
       .subscribe(image => {
         this.store.dispatch(addImageAction({ image }));

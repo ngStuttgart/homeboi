@@ -23,7 +23,8 @@
             "aot": true,
             "assets": [
               "apps/homeboi/src/favicon.ico",
-              "apps/homeboi/src/assets"
+              "apps/homeboi/src/assets",
+              "apps/homeboi/src/manifest.webmanifest"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
@@ -58,7 +59,9 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "apps/homeboi/ngsw-config.json"
             }
           }
         },

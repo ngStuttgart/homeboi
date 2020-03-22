@@ -5,7 +5,7 @@ import {
   getNotificationsAction,
   getNotificationsSuccessAction,
   getProductsAction,
-  getProductsSuccessAction,
+  getProductsSuccessAction, getUserAction, getUserErrorAction, getUserSuccessAction,
   loginAction,
   loginErrorAction,
   loginSuccessAction,
@@ -13,13 +13,14 @@ import {
   signupAction,
   signupSuccessAction
 } from './app.actions';
-import { catchError, exhaustMap, filter, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, exhaustMap, filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { Notification, Product, Signup } from '@homeboi/api-interfaces';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { AppState } from './app.reducer';
 import { throwError } from 'rxjs';
 import { NotificationService } from '../notifications/notification.service';
+import { selectGetUserError, selectUser, selectUserOrError } from './app.selectors';
 
 @Injectable({ providedIn: 'root' })
 export class AppEffects {
@@ -91,6 +92,23 @@ export class AppEffects {
     );
   }, { useEffectsErrorHandler: true });
 
+  getUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getUserAction),
+      switchMap(() => this.store.pipe(
+        select(selectUserOrError),
+        take(1)
+      )),
+      filter(user => !user),
+      exhaustMap(() => this.httpClient.get<Signup>('/api/user').pipe(
+        catchError(() => {
+          this.store.dispatch(getUserErrorAction({getUserError: 'error'}));
+          return throwError('error');
+        })
+      )),
+      map(user => getUserSuccessAction({user}))
+    ), {useEffectsErrorHandler: true}
+  );
 
   constructor(
     private actions$: Actions,

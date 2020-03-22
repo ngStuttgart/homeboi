@@ -12,6 +12,9 @@ export class UserService {
   }
 
   async getUser(user:UserEntity){
+    if (!user) {
+      throw new UnauthorizedException();
+    }
     return await getRepository(UserEntity).findOne(user.userId);
   }
 
