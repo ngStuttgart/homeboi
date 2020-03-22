@@ -1,5 +1,5 @@
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
-import { Product } from '@homeboi/api-interfaces';
+import { Booking, Product } from '@homeboi/api-interfaces';
 import {
   addImageAction, getProductsSuccessAction,
   resetImageAction,
@@ -13,12 +13,14 @@ export interface CompanyState {
   product: Partial<Product>;
   productSubmitted: boolean;
   products?: Product[];
+  bookings?: Booking[];
 }
 
 export const initialCompanyState: CompanyState = {
   product: {},
   productSubmitted: false,
-  products: undefined
+  products: undefined,
+  bookings: undefined
 };
 
 export function companyReducer(state, action: Action) {
