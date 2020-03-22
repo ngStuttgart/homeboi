@@ -45,3 +45,16 @@ export const getNotificationsSuccessAction = createAction(
   props<{ notifications: Notification[] }>()
 );
 
+export const getUserAction = createAction(
+  '[APP] getUser'
+);
+
+export const getUserSuccessAction = createAction(
+  '[APP] getUserSuccess',
+  props<{ user: Signup }>()
+);
+
+export const getUserErrorAction = createAction(
+  '[APP] getUserError',
+  props<{ getUserError: string }>()
+);

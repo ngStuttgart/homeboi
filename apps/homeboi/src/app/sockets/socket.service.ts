@@ -45,12 +45,10 @@ export class SocketService {
   }
 
   public fromEvent<T>(eventName: string): Observable<T> {
-    console.log('test', eventName);
     return this.connected$.pipe(
       first(connected => connected),
       switchMap(() => this.socket.fromEvent<T>(eventName)),
-      this.rxNgZoneScheduler.observeOnNgZone(),
-      tap(console.log)
+      this.rxNgZoneScheduler.observeOnNgZone()
     );
   }
 

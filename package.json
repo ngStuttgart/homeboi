@@ -54,6 +54,7 @@
     "@nestjs/typeorm": "^7.0.0",
     "@nestjs/websockets": "^7.0.3",
     "@ngrx/effects": "^9.0.0",
+    "@ngrx/router-store": "^9.0.0",
     "@ngrx/store": "^9.0.0",
     "@ngrx/store-devtools": "^9.0.0",
     "@nrwl/angular": "9.1.2",
