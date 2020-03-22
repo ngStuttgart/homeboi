@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
+  deleteProductAction,
   getProductsAction,
   getProductsSuccessAction,
   submitProductAction,
   submitProductSuccessAction
 } from './company.actions';
-import { exhaustMap, map, switchMap, tap } from 'rxjs/operators';
+import { exhaustMap, map, mapTo, pluck, switchMap, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '@homeboi/api-interfaces';
 import { select, Store } from '@ngrx/store';
@@ -34,9 +35,19 @@ export class CompanyEffects {
     () => this.actions$.pipe(
       ofType(getProductsAction),
       switchMap(() => this.httpClient.get<Product[]>('/api/products/foruser')),
-      map(products => getProductsSuccessAction({products}))
+      map(products => getProductsSuccessAction({ products }))
     ),
     { useEffectsErrorHandler: true });
 
-  constructor(private actions$: Actions, private httpClient: HttpClient, private store: Store<CompanyState>, private router: Router) {}
+  deleteProduct$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(deleteProductAction),
+      pluck('productId'),
+      switchMap((productId: string) => this.httpClient.delete(`/api/products/${productId}`)),
+      mapTo(getProductsAction())
+    ),
+    { useEffectsErrorHandler: true });
+
+  constructor(private actions$: Actions, private httpClient: HttpClient, private store: Store<CompanyState>, private router: Router) {
+  }
 }
