@@ -8,8 +8,7 @@ import {
   NotFoundException,
   Param,
   Post,
-  Put
-} from '@nestjs/common';
+  Put } from '@nestjs/common';
 import { BookingService } from './booking.service';
 import { BookingPostDto } from './dto/booking.post.dto';
 import { User } from '../shared/user.decorator';
@@ -37,8 +36,8 @@ export class BookingController {
   async createNewBooking(@Body() createBookingDto: BookingPostDto, @User() user: UserEntity) {
     const bookingResult = await this.bookingsService.createNewBooking(createBookingDto, user);
     if (bookingResult) {
-      await this.notificationGateway.sendNotification(user.userId, {
-        message: 'Neue Buchung',
+      await this.notificationGateway.sendNotification(bookingResult.product.user.userId, {
+        message: `Ihr Objekt ${bookingResult.product.title} wurde gebucht`,
         type: NotificationType.BOOKING,
         date: new Date()
       });
@@ -58,8 +57,8 @@ export class BookingController {
     if (!success) {
       throw new NotFoundException();
     } else {
-      await this.notificationGateway.sendNotification(user.userId, {
-        message: 'Objekt zurückgegeben',
+      await this.notificationGateway.sendNotification(success.product.user.userId, {
+        message: `Ihr Objekt ${success.product.title} wurde zurückgeben`,
         type: NotificationType.RETURN_PRODUCT,
         date: new Date()
       });

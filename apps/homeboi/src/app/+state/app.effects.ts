@@ -2,10 +2,15 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { HttpClient } from '@angular/common/http';
 import {
+  deleteNotificationAction,
+  deleteNotificationSuccessAction,
   getNotificationsAction,
   getNotificationsSuccessAction,
   getProductsAction,
-  getProductsSuccessAction, getUserAction, getUserErrorAction, getUserSuccessAction,
+  getProductsSuccessAction,
+  getUserAction,
+  getUserErrorAction,
+  getUserSuccessAction,
   loginAction,
   loginErrorAction,
   loginSuccessAction,
@@ -20,7 +25,7 @@ import { select, Store } from '@ngrx/store';
 import { AppState } from './app.reducer';
 import { throwError } from 'rxjs';
 import { NotificationService } from '../notifications/notification.service';
-import { selectGetUserError, selectUser, selectUserOrError } from './app.selectors';
+import { selectUserOrError } from './app.selectors';
 
 @Injectable({ providedIn: 'root' })
 export class AppEffects {
@@ -60,6 +65,18 @@ export class AppEffects {
     ), { useEffectsErrorHandler: true }
   );
 
+  deleteNotification$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(deleteNotificationAction),
+      exhaustMap(({ notification }) => {
+        return this.httpClient.delete('/api/notifications/' + notification.id);
+      }),
+      map((notifications: Notification[]) => {
+        return deleteNotificationSuccessAction({ notifications });
+      })
+    );
+  }, { useEffectsErrorHandler: true });
+
   products$ = createEffect(() =>
       this.actions$.pipe(
         ofType(getProductsAction),
@@ -84,7 +101,7 @@ export class AppEffects {
     return this.actions$.pipe(
       ofType(getNotificationsAction),
       switchMap(() => {
-        return this.httpClient.get<Notification[]>('/api/notifications');
+        return this.httpClient.get<Notification[]>('/api/notifications/user');
       }),
       map((notifications) => {
         return getNotificationsSuccessAction({ notifications });
@@ -102,12 +119,12 @@ export class AppEffects {
       filter(user => !user),
       exhaustMap(() => this.httpClient.get<Signup>('/api/user').pipe(
         catchError(() => {
-          this.store.dispatch(getUserErrorAction({getUserError: 'error'}));
+          this.store.dispatch(getUserErrorAction({ getUserError: 'error' }));
           return throwError('error');
         })
       )),
-      map(user => getUserSuccessAction({user}))
-    ), {useEffectsErrorHandler: true}
+      map(user => getUserSuccessAction({ user }))
+    ), { useEffectsErrorHandler: true }
   );
 
   constructor(

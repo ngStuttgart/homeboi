@@ -4,7 +4,7 @@ import { AppState } from '../+state/app.reducer';
 import { Observable } from 'rxjs';
 import { selectNotifications, selectUserAccountType } from '../+state/app.selectors';
 import { Notification } from '@homeboi/api-interfaces';
-import { getNotificationsAction } from '../+state/app.actions';
+import { deleteNotificationAction, getNotificationsAction } from '../+state/app.actions';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -13,9 +13,14 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./notifications.component.scss']
 })
 export class NotificationsComponent implements OnInit {
-  notifications$: Observable<Notification[] | undefined> = this.store.pipe(
+  public notifications$: Observable<Notification[] | undefined> = this.store.pipe(
     select(selectNotifications)
   );
+  public displayedColumns: Array<any> = [
+    'date',
+    'message',
+    'options'
+  ];
 
   accountType = this.store.pipe(select(selectUserAccountType), map(accountType => '/' + accountType.toLowerCase()));
 
@@ -24,5 +29,9 @@ export class NotificationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(getNotificationsAction());
+  }
+
+  public removeNotification(notification: Notification): void {
+    this.store.dispatch(deleteNotificationAction({ notification }));
   }
 }

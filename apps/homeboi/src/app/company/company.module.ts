@@ -53,7 +53,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     ProductTypeModule,
     MatMenuModule,
     MatTooltipModule,
-    MatDialogModule
+    MatDialogModule,
+    MatButtonModule
   ]
 })
-export class CompanyModule {}
+export class CompanyModule {
+}

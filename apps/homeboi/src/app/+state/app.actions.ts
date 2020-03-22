@@ -58,3 +58,14 @@ export const getUserErrorAction = createAction(
   '[APP] getUserError',
   props<{ getUserError: string }>()
 );
+
+export const deleteNotificationAction = createAction(
+  '[APP] deleteNotification',
+  props<{ notification: Notification }>()
+);
+
+export const deleteNotificationSuccessAction = createAction(
+  '[APP] deleteNotificationSuccess',
+  props<{ notifications: Notification[] }>()
+);
+

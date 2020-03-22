@@ -23,22 +23,22 @@ export class BookingService {
     booking.end = createBookingDto.end;
     booking.start = createBookingDto.start;
     await this.setProductAvailable(createBookingDto.productId, false);
-    return await bookingRepository.save(booking);
+    const bookingResult = await bookingRepository.save(booking);
+    return bookingRepository.findOne(bookingResult, { relations: ['user', 'product'] });
   }
-
   public async getAllBookingsForUser(user: UserEntity): Promise<BookingEntity[]> {
     return await getRepository(BookingEntity).find({ where: { user }, relations: ['product', 'user', 'rating'] });
   }
-
-  public async handBackBooking(bookingId: string): Promise<boolean> {
+  public async handBackBooking(bookingId: string): Promise<BookingEntity> {
     const success = (await getRepository(BookingEntity).update({ id: bookingId }, { end: new Date() })).affected === 1;
     if (success) {
-      const productId = (await getRepository(BookingEntity).findOne({
+      const booking = (await getRepository(BookingEntity).findOne({
         where: { id: bookingId },
         relations: ['product']
-      })).product.id;
+      }));
+      const productId = booking.product.id;
       await this.setProductAvailable(productId, true);
-      return true;
+      return booking;
     } else {
       throw new NotFoundException();
     }

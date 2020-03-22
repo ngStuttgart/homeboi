@@ -1,5 +1,6 @@
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
 import {
+  deleteNotificationSuccessAction,
   getNotificationsSuccessAction,
   getProductsSuccessAction, getUserAction, getUserErrorAction, getUserSuccessAction,
   loginErrorAction,
@@ -94,6 +95,13 @@ export const reducer: ActionReducer<AppState> = createReducer(
       ...state,
       user: undefined,
       getUserError
+    })
+  ),
+  on(
+    deleteNotificationSuccessAction,
+    (state: AppState, { notifications }): AppState => ({
+      ...state,
+      notifications
     })
   )
 );
