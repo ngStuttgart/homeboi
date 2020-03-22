@@ -3,7 +3,7 @@ import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { Product, ProductQuery } from '@homeboi/api-interfaces';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../+state/app.reducer';
-import { selectProducts } from '../+state/app.selectors';
+import { selectProducts, selectProductsLoading } from '../+state/app.selectors';
 import { getProductsAction } from '../+state/app.actions';
 import { map } from 'rxjs/operators';
 
@@ -13,6 +13,10 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
+  productsLoading$: Observable<boolean> = this.store.pipe(
+    select(selectProductsLoading)
+  );
+
   products$: Observable<Product[]> = this.store.pipe(
     select(selectProducts)
   );

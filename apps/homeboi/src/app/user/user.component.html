@@ -9,3 +9,6 @@
   </homeboi-product-card>
 </main>
 
+<div *ngIf="productsLoading$ | async" class="loading">
+  <mat-spinner></mat-spinner>
+</div>
