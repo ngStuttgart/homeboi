@@ -5,7 +5,7 @@ import { Observable, Subject } from 'rxjs';
 import { Product } from '@homeboi/api-interfaces';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { takeUntil } from 'rxjs/operators';
-import { getProductsAction } from './+state/company.actions';
+import { deleteProductAction, getProductsAction } from './+state/company.actions';
 import { selectProducts } from './+state/company.selectors';
 import { MatDialog } from '@angular/material/dialog';
 import { ShowPictureDialogComponent } from '../dialogs/show-picture-dialog/show-picture-dialog.component';
@@ -48,7 +48,8 @@ export class CompanyComponent implements OnInit {
 
   productsDatabase = new ProductsDataSource(this.products$);
 
-  constructor(private store: Store<CompanyState>, private dialog: MatDialog) {}
+  constructor(private store: Store<CompanyState>, private dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
     this.store.dispatch(getProductsAction());
@@ -56,5 +57,9 @@ export class CompanyComponent implements OnInit {
 
   showPicture(product: Product): void {
     this.dialog.open(ShowPictureDialogComponent, { data: product });
+  }
+
+  deleteProduct(productId: string): void {
+    this.store.dispatch(deleteProductAction({ productId }));
   }
 }

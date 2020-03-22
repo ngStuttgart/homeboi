@@ -9,6 +9,7 @@ import { authenticationMiddleware } from './app/shared/authentication.middleware
 import * as cookieParser from 'cookie-parser';
 import * as compression from 'compression';
 import * as helmet from 'helmet';
+import { forceSSLMiddleware } from './app/shared/force-ssl.middleware';
 
 async function bootstrap() {
   const app: NestExpressApplication = await NestFactory.create(AppModule);
@@ -21,6 +22,8 @@ async function bootstrap() {
   app.use(authenticationMiddleware);
   app.use(compression());
   app.use(helmet());
+  // Force SSL redirect in Heroku
+  app.use(forceSSLMiddleware);
   const options = new DocumentBuilder()
     .setTitle('HOMEBOI API')
     .setDescription('The homeboi api')

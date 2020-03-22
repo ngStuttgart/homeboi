@@ -23,3 +23,6 @@ export const getProductsSuccessAction = createAction(
   '[COMPANY] getProductsSuccess',
   props<{products: Product[]}>()
 );
+
+export const deleteProductAction = createAction('[COMPANY] deleteProduct', props<{productId: string}>());
+export const deleteProductActionSuccess = createAction('[COMPANY] deleteProductSuccess');
