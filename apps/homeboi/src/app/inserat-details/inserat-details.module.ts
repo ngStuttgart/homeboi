@@ -13,6 +13,7 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { HeaderModule } from '../header/header.module';
+import { PaymentDurationModule } from '@homeboi/shared/payment-duration-pipe';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { HeaderModule } from '../header/header.module';
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
-    FormsModule
+    FormsModule,
+    PaymentDurationModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'de-DE'},

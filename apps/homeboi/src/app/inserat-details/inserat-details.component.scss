@@ -1,3 +1,5 @@
+@import '../../colors';
+
 @mixin grid-span-full {
   grid-column: -1 / 1;
 }
@@ -5,16 +7,21 @@
 section {
   display: block;
   max-width: 900px;
-  margin: 0 auto;
-  margin-top: 15px;
+  margin: 15px auto 0 auto;
 
   .back-btn {
     margin-bottom: 15px;
+    color: $color-black;
+  }
+
+  mat-card {
+    width: fit-content;
+    margin: 0 auto;
   }
 
   .wrapper {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 1fr 1fr;
     grid-gap: 10px;
     background-color: #fff;
     color: #444;
@@ -22,7 +29,18 @@ section {
     .product-image {
       max-width: 350px;
     }
+
+    @media (max-width: 775px) {
+      grid-template-columns: 1fr;
+      justify-items: center;
+    }
   }
+}
+
+.chip {
+  background-color: $color-light-grey !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+  font-weight: lighter;
 }
 
 .measures-table {
@@ -32,4 +50,37 @@ section {
 .book-btn {
   margin-top: 15px;
   margin-bottom: 15px;
+}
+
+.text {
+  margin: 1em 0 2em 0;
+  font-weight: lighter;
+
+  &__title {
+    font-weight: bold;
+  }
+
+  &__masse {
+    span + span {
+      margin-left: .5em;
+    }
+  }
+
+  &__description {
+    color: $color-black;
+  }
+
+  &__information {
+    color: $color-black;
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+}
+
+mat-checkbox {
+  color: $color-black;
+}
+
+.date-field {
+  width: 263px;
 }
