@@ -1,7 +1,7 @@
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
 import {
   deleteNotificationSuccessAction,
-  getNotificationsSuccessAction,
+  getNotificationsSuccessAction, getProductsAction,
   getProductsSuccessAction, getUserAction, getUserErrorAction, getUserSuccessAction,
   loginErrorAction,
   loginSuccessAction, logoutAction,
@@ -13,6 +13,7 @@ import { Notification, Product, Signup } from '@homeboi/api-interfaces';
 export interface AppState {
   user?: Signup;
   products: Product[];
+  prodcutsLoading: boolean;
   loginError?: string;
   notifications?: Notification[];
   getUserError?: string;
@@ -23,6 +24,7 @@ export interface AppState {
 export const initialAppState: AppState = {
   user: undefined,
   products: [],
+  prodcutsLoading: false,
   loginError: undefined,
   notifications: undefined,
   getUserError: undefined,
@@ -65,9 +67,17 @@ export const reducer: ActionReducer<AppState> = createReducer(
     })
   ),
   on(
+    getProductsAction,
+    (state: AppState): AppState => ({
+      ...state,
+      prodcutsLoading: true
+    })
+  ),
+  on(
     getProductsSuccessAction,
     (state: AppState, { products }): AppState => ({
       ...state,
+      prodcutsLoading: false,
       products
     })
   ),

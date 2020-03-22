@@ -136,10 +136,9 @@ export class AppEffects {
     this.actions$.pipe(
       ofType(logoutAction),
       exhaustMap(() => this.httpClient.post<void>('/api/user/logout', null)),
-      tap(() => console.log('NAV')),
       switchMap(() => this.router.navigateByUrl('/')),
       map(() => logoutSuccessAction())
-    ), {useEffectsErrorHandler: true, dispatch: false}
+    ), {useEffectsErrorHandler: true}
   );
 
   constructor(
