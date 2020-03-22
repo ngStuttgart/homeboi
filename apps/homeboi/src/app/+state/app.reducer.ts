@@ -1,35 +1,46 @@
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
 import {
+  addNotificationCountAction, deleteNotificationAction, deleteNotificationCountAction,
   deleteNotificationSuccessAction,
-  getNotificationsSuccessAction, getProductsAction,
-  getProductsSuccessAction, getUserAction, getUserErrorAction, getUserSuccessAction,
+  getNotificationsSuccessAction,
+  getProductsAction,
+  getProductsSuccessAction,
+  getUserAction,
+  getUserErrorAction,
+  getUserSuccessAction,
   loginErrorAction,
-  loginSuccessAction, logoutAction,
+  loginSuccessAction,
+  logoutAction,
   resetNotificationsAction,
-  setNotificationAction, signupAction, signupErrorAction, signupSuccessAction
+  setNotificationAction,
+  signupAction,
+  signupErrorAction,
+  signupSuccessAction
 } from './app.actions';
 import { Notification, Product, Signup } from '@homeboi/api-interfaces';
 
 export interface AppState {
   user?: Signup;
   products: Product[];
-  prodcutsLoading: boolean;
+  productsLoading: boolean;
   loginError?: string;
   notifications?: Notification[];
   getUserError?: string;
   signupSubmitted: boolean;
   signupError?: string;
+  notificationCount: number;
 }
 
 export const initialAppState: AppState = {
   user: undefined,
   products: [],
-  prodcutsLoading: false,
+  productsLoading: false,
   loginError: undefined,
   notifications: undefined,
   getUserError: undefined,
   signupSubmitted: false,
-  signupError: undefined
+  signupError: undefined,
+  notificationCount: 0
 };
 
 export function appReducer(state: AppState, action: Action) {
@@ -46,7 +57,7 @@ export const reducer: ActionReducer<AppState> = createReducer(
     ...state,
     signupSubmitted: false
   })),
-  on(signupErrorAction, (state, {signupError}): AppState => ({
+  on(signupErrorAction, (state, { signupError }): AppState => ({
     ...state,
     signupSubmitted: false,
     signupError
@@ -70,14 +81,14 @@ export const reducer: ActionReducer<AppState> = createReducer(
     getProductsAction,
     (state: AppState): AppState => ({
       ...state,
-      prodcutsLoading: true
+      productsLoading: true
     })
   ),
   on(
     getProductsSuccessAction,
     (state: AppState, { products }): AppState => ({
       ...state,
-      prodcutsLoading: false,
+      productsLoading: false,
       products
     })
   ),
@@ -110,7 +121,7 @@ export const reducer: ActionReducer<AppState> = createReducer(
   ),
   on(
     getUserSuccessAction,
-    (state, {user}): AppState => ({
+    (state, { user }): AppState => ({
       ...state,
       getUserError: undefined,
       user
@@ -118,7 +129,7 @@ export const reducer: ActionReducer<AppState> = createReducer(
   ),
   on(
     getUserErrorAction,
-    (state, {getUserError}): AppState => ({
+    (state, { getUserError }): AppState => ({
       ...state,
       user: undefined,
       getUserError
@@ -132,6 +143,20 @@ export const reducer: ActionReducer<AppState> = createReducer(
     (state: AppState, { notifications }): AppState => ({
       ...state,
       notifications
+    })
+  ),
+  on(
+    addNotificationCountAction,
+    (state: AppState): AppState => ({
+      ...state,
+      notificationCount: state.notificationCount + 1
+    })
+  ),
+  on(
+    deleteNotificationCountAction,
+    (state: AppState): AppState => ({
+      ...state,
+      notificationCount: 0
     })
   )
 );

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { HttpClient } from '@angular/common/http';
 import {
+  addNotificationCountAction,
   deleteNotificationAction,
   deleteNotificationSuccessAction,
   getNotificationsAction,
@@ -13,7 +14,9 @@ import {
   getUserSuccessAction,
   loginAction,
   loginErrorAction,
-  loginSuccessAction, logoutAction, logoutSuccessAction,
+  loginSuccessAction,
+  logoutAction,
+  logoutSuccessAction,
   setNotificationAction,
   signupAction,
   signupErrorAction,
@@ -58,7 +61,7 @@ export class AppEffects {
           .post<Signup>('/api/user/signup', signup)
           .pipe(
             catchError(() => {
-              this.store.dispatch(signupErrorAction({signupError: 'error'}));
+              this.store.dispatch(signupErrorAction({ signupError: 'error' }));
               return throwError('error');
             }),
             tap(() =>
@@ -138,8 +141,15 @@ export class AppEffects {
       exhaustMap(() => this.httpClient.post<void>('/api/user/logout', null)),
       switchMap(() => this.router.navigateByUrl('/')),
       map(() => logoutSuccessAction())
-    ), {useEffectsErrorHandler: true}
+    ), { useEffectsErrorHandler: true }
   );
+
+  notificationCounter = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(setNotificationAction),
+      map(() => addNotificationCountAction())
+    );
+  });
 
   constructor(
     private actions$: Actions,

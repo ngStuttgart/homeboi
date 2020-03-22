@@ -7,7 +7,7 @@ import { Observable, Subject } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../+state/app.reducer';
 import { logoutAction } from '../+state/app.actions';
-import { selectUserAccountType } from '../+state/app.selectors';
+import { selectNotificationCount, selectUserAccountType } from '../+state/app.selectors';
 
 @Component({
   selector: 'homeboi-header',
@@ -42,6 +42,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     priceMax: new FormControl(undefined)
   });
   showSearchbar = false;
+
+  public notificationCount$: Observable<number> = this.store.pipe(
+    select(selectNotificationCount)
+  );
 
   userAccountType$: Observable<AccountType> = this.store.pipe(
     select(selectUserAccountType)

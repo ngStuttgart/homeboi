@@ -82,3 +82,6 @@ export const deleteNotificationSuccessAction = createAction(
   props<{ notifications: Notification[] }>()
 );
 
+export const addNotificationCountAction = createAction('[APP] addNotificationCount');
+export const deleteNotificationCountAction = createAction('[APP] deleteNotificationCount');
+

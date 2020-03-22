@@ -15,6 +15,11 @@ mat-toolbar {
   }
 }
 
+::ng-deep.notifications.mat-badge-medium.mat-badge-overlap.mat-badge-after .mat-badge-content {
+  top: -5px;
+  right: -5px;
+}
+
 mat-expansion-panel {
   position: absolute;
   top: 67px;
