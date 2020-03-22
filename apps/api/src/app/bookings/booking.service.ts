@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { BookingPostDto } from './dto/booking.post.dto';
-import { getRepository, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
+import { getRepository } from 'typeorm';
 import { BookingEntity } from '../entities/booking.entity';
 import { UserEntity } from '../entities/user.entity';
 import { ProductEntity } from '../entities/product.entity';
@@ -27,16 +27,16 @@ export class BookingService {
     const bookingResult = await bookingRepository.save(booking);
     return bookingRepository.findOne(bookingResult, { relations: ['user', 'product'] });
   }
+
   public async getAllBookingsForUser(user: UserEntity): Promise<BookingEntity[]> {
     return await getRepository(BookingEntity).find({
       where: {
         user,
-        returned: false,
-        start: LessThanOrEqual(new Date()),
-        end: MoreThanOrEqual(new Date())
+        returned: false
       }, relations: ['product', 'user', 'rating']
     });
   }
+
   public async handBackBooking(bookingId: string): Promise<BookingEntity> {
     const success = (await getRepository(BookingEntity).update({ id: bookingId }, {
       end: new Date(),
