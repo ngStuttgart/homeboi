@@ -1,7 +1,7 @@
 import { PaymentDuration, Product, ProductType } from '@homeboi/api-interfaces';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class ProductPostDto implements Product {
+export class ProductPostDto implements Omit<Product, 'id'> {
   @ApiProperty({ enum: ProductType })
   productType: ProductType;
   @ApiProperty()
