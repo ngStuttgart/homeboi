@@ -47,8 +47,9 @@ export class AuthGuard implements CanActivate {
     } else {
       const urlForAccountType = accountUrlMap.get(userOrError.accountType);
 
-      const isValidNavigation = url.startsWith(urlForAccountType) ||
-        Boolean(Array.from(accountUrlMap.values()).filter(path => url.includes(path)));
+      const isInUrlScope: boolean = url.startsWith(urlForAccountType);
+      const isInGenericScope: boolean = !Array.from(accountUrlMap.values()).filter(path => url.includes(path))?.length;
+      const isValidNavigation = isInUrlScope || isInGenericScope;
 
       return isValidNavigation || this.router.createUrlTree([urlForAccountType]);
     }
