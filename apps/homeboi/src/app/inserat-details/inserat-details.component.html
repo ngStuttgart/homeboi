@@ -1,0 +1,48 @@
+<homeboi-header [showInseratButton]="true"></homeboi-header>
+
+<section>
+  <button class="back-btn" mat-raised-button (click)="goBack()">
+    <mat-icon>chevron_left</mat-icon> Zurück
+  </button>
+
+  <h1>Hast du etwas Nützliches gefunden?</h1>
+
+  <mat-card *ngIf="product">
+    <div class="wrapper">
+      <div>
+        <img class="product-image" [alt]="product.title" [src]="product.image" />
+      </div>
+      <div>
+        <mat-chip-list aria-label="Type">
+          <mat-chip color="accent" selected>{{ product.productType }}</mat-chip>
+        </mat-chip-list>
+        <br>
+        <h1>{{ product.title }}</h1>
+        <p>{{ product.description }}</p>
+        <table class="measures-table">
+          <tr>
+            <td><b>Höhe:</b></td>
+            <td>{{ product.height }}</td>
+          </tr>
+          <tr>
+            <td><b>Breite:</b></td>
+            <td>{{ product.width }}</td>
+          </tr>
+          <tr>
+            <td><b>Tiefe:</b></td>
+            <td>{{ product.depth }}</td>
+          </tr>
+        </table>
+        <mat-chip-list aria-label="Type">
+          <mat-chip *ngFor="let tag of product.tags" selected>{{ tag }}</mat-chip>
+        </mat-chip-list>
+        <button mat-raised-button color="accent" class="inserat-button show--desktop" >
+          Jetzt buchen für nur {{ product.price }} € / Woche
+        </button>
+      </div>
+    </div>
+
+  </mat-card>
+
+</section>
+

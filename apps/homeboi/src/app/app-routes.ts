@@ -31,6 +31,10 @@ export const APP_ROUTES: Routes = [
     loadChildren: () => import('./notifications/notifications.module').then(m => m.NotificationsModule)
   },
   {
+    path: 'inserat-details',
+    loadChildren: () => import('./inserat-details/inserat-details.module').then(m => m.InseratDetailsModule)
+  },
+  {
     path: '**',
     redirectTo: '',
     pathMatch: 'full'
