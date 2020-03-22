@@ -1,8 +1,15 @@
+@import '../../colors';
+
+header {
+  border-bottom: 1px solid $color-light-grey;
+}
+
 mat-toolbar {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   height: auto;
+  background-color: white;
 }
 
 .logo {
@@ -40,9 +47,14 @@ mat-expansion-panel {
   }
 }
 
+.mat-icon-button {
+  color: $color-black;
+}
+
 .search-field {
-  background-color: white;
-  border: 1px solid grey;
+  background-color: $color-light-grey;
+  border: 1px solid $color-light-grey;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   height: 35px;
@@ -54,12 +66,18 @@ mat-expansion-panel {
   }
 
   &:focus-within {
-    border-color: black;
+    border-color: $color-primary;
+  }
+
+  & > mat-icon {
+    margin-left: 5px;
+    color: $color-black;
   }
 
   & > input {
     border: none;
-    width: 100%;
+    background-color: $color-light-grey;
+    width: 80%;
     outline: none;
     line-height: 1.5;
     font-size: 15px;

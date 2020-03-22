@@ -1,11 +1,9 @@
-<homeboi-header accountType="/user" [showInseratButton]="true"></homeboi-header>
+<homeboi-header accountType="/user"></homeboi-header>
 
 <section>
-  <button class="back-btn" mat-raised-button (click)="goBack()">
+  <button class="back-btn" mat-button (click)="goBack()">
     <mat-icon>chevron_left</mat-icon> Zurück
   </button>
-
-  <h1>Hast du etwas Nützliches gefunden?</h1>
 
   <mat-card *ngIf="product">
     <div class="wrapper">
@@ -14,35 +12,27 @@
       </div>
       <div>
         <mat-chip-list aria-label="Type">
-          <mat-chip color="accent" selected>{{ product.productType }}</mat-chip>
+          <mat-chip class="chip" selected>{{ product.productType }}</mat-chip>
         </mat-chip-list>
-        <br>
-        <h1>{{ product.title }}</h1>
-        <p>{{ product.description }}</p>
-        <table class="measures-table">
-          <tr>
-            <td><b>Höhe:</b></td>
-            <td>{{ product.height }} cm</td>
-          </tr>
-          <tr>
-            <td><b>Breite:</b></td>
-            <td>{{ product.width }} cm</td>
-          </tr>
-          <tr>
-            <td><b>Tiefe:</b></td>
-            <td>{{ product.depth }} cm</td>
-          </tr>
-        </table>
-        <mat-chip-list aria-label="Type">
-          <mat-chip *ngFor="let tag of product.tags" selected>{{ tag }}</mat-chip>
-        </mat-chip-list>
+        <section class="text">
+          <h2 class="text_title">{{ product.title }}</h2>
+          <p class="text__description">{{ product.description }}</p>
+          <p class="text__masse">
+            <span><strong>Höhe:</strong> {{ product.height }} cm</span>
+            <span><strong>Breite:</strong> {{ product.height }} cm</span>
+            <span><strong>Höhe:</strong> {{ product.height }} cm</span>
+          </p>
+          <mat-chip-list aria-label="Type">
+            <mat-chip *ngFor="let tag of product.tags" selected>{{ tag }}</mat-chip>
+          </mat-chip-list>
+        </section>
         <button mat-raised-button color="accent" (click)="showBookingSection=!showBookingSection" *ngIf="!showBookingSection">
           Jetzt mieten
         </button>
 
         <div *ngIf="showBookingSection">
-          <h3>Wir brauchen noch folgende Informationen von dir</h3>
-          <mat-form-field>
+          <h3 class="text__information">Wir brauchen noch folgende Informationen von dir</h3>
+          <mat-form-field class="date-field">
             <mat-label>Startdatum deiner Buchung</mat-label>
             <input label="Startdatum" matInput [matDatepicker]="picker" [min]="minDate" [(ngModel)]="startDate">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>

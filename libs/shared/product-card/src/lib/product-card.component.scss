@@ -1,9 +1,34 @@
+@import '../../../../../apps/homeboi/src/colors.scss';
+
+mat-card {
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 img {
   width: 100%;
   object-fit: contain;
 }
 
 .text {
-  border: 1px solid grey;
   padding: .25em;
+  font-weight: lighter;
+
+  &__title {
+    font-weight: bold;
+  }
+
+  &__description {
+    color: $color-black;
+  }
+  &__price {
+    font-weight: bold;
+  }
+
+  &__duration {
+    color: $color-black;
+  }
 }
