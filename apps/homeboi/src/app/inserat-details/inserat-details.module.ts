@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InseratDetailsComponent } from './inserat-details.component';
 import { InseratDetailsRoutingModule } from './inserat-details-routing.module';
-import { SharedHeaderModule } from '@homeboi/shared/header';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
@@ -13,6 +12,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
+import { HeaderModule } from '../header/header.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     InseratDetailsRoutingModule,
-    SharedHeaderModule,
+    HeaderModule,
     MatCardModule,
     MatButtonModule,
     MatChipsModule,

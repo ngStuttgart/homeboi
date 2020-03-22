@@ -9,7 +9,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SharedProductCardModule } from '@homeboi/shared/product-card';
-import { SharedHeaderModule } from '@homeboi/shared/header';
 import { OrderComponent } from './order/order.component';
 import { StoreModule } from '@ngrx/store';
 import { userReducer } from './+state/user.reducer';
@@ -18,6 +17,7 @@ import { UserEffects } from './+state/user.effects';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { HeaderModule } from '../header/header.module';
 
 @NgModule({
   declarations: [UserComponent, OrderComponent],
@@ -32,7 +32,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatButtonModule,
     MatToolbarModule,
     SharedProductCardModule,
-    SharedHeaderModule,
+    HeaderModule,
     MatTableModule,
     MatCardModule,
     MatProgressSpinnerModule
