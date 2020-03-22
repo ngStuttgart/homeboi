@@ -14,6 +14,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { HeaderModule } from '../header/header.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PaymentDurationModule } from '@homeboi/shared/payment-duration-pipe';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatCheckboxModule,
     FormsModule,
     MatSnackBarModule
+    FormsModule,
+    PaymentDurationModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'de-DE'},

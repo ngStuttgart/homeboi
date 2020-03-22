@@ -1,3 +1,5 @@
+@import 'apps/homeboi/src/colors';
+
 :host {
   position: relative;
   min-height: 100%;
@@ -8,6 +10,7 @@
 footer {
   margin-top: auto;
   width: 100%;
+  padding-top: 20px;
 
   mat-toolbar {
     display: flex;
@@ -16,7 +19,8 @@ footer {
   }
 
   small {
-    font-size: 14px;
+    font-size: 13px;
+    color: $color-primary;
   }
 
   a {

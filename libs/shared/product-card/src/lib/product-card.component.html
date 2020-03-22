@@ -1,9 +1,9 @@
 <mat-card *ngIf="product as product">
   <img [src]="product.image" [alt]="product.title" />
   <div class="text">
-    <div>{{ product.title }}</div>
-    <div>{{ product.description }}</div>
-    <div>{{ product.price }} € {{product.paymentDuration | paymentDuration}}</div>
+    <div class="text__title">{{ product.title }}</div>
+    <div class="text__description">{{ product.description }}</div>
+    <div><span class="text__price">{{ product.price }} €</span>&nbsp;<span class="text__duration">{{product.paymentDuration | paymentDuration}}</span></div>
   </div>
   <ng-content></ng-content>
 </mat-card>
