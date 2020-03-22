@@ -24,5 +24,19 @@ export const getProductsSuccessAction = createAction(
   props<{products: Product[]}>()
 );
 
+export const getProductAction = createAction(
+  '[COMPANY] getProduct'
+);
+
+export const getProductSuccessAction = createAction(
+  '[COMPANY] getProductSuccess',
+  props<{ product: Product }>()
+);
+
 export const deleteProductAction = createAction('[COMPANY] deleteProduct', props<{productId: string}>());
 export const deleteProductActionSuccess = createAction('[COMPANY] deleteProductSuccess');
+
+export const editProductAction = createAction('[COMPANY] editProduct');
+export const editProductSuccessAction = createAction(
+  '[COMPANY] editProductSuccess'
+);

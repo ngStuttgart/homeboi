@@ -14,18 +14,21 @@ export class ProductService {
   }
 
   async getAllProducts(): Promise<Product[]> {
-    return this.mapToProduct(await getRepository(ProductEntity).find({
+    return this.mapToProducts(await getRepository(ProductEntity).find({
       where: { available: true },
       relations: ['tags']
     })) || [];
   }
 
   async getAllProductsForUser(user: UserEntity): Promise<Product[]> {
-    return this.mapToProduct(await getRepository(ProductEntity).find({ where: { user }, relations: ['tags'] }));
+    return this.mapToProducts(await getRepository(ProductEntity).find({ where: { user }, relations: ['tags'] }));
   }
 
-  async getProductById(productId): Promise<ProductEntity> {
-    return await getRepository(ProductEntity).findOne({ where: { productId }, relations: ['tags'] });
+  async getProductById(productId): Promise<Product> {
+    return this.mapToProduct(await getRepository(ProductEntity).findOne({
+      where: { productId },
+      relations: ['tags']
+    }));
   }
 
   async createProduct(productDto: ProductPostDto, userId: string): Promise<ProductEntity> {
@@ -87,11 +90,18 @@ export class ProductService {
     return tags;
   }
 
-  private mapToProduct(productEntity: ProductEntity[]): Product[] {
+  private mapToProducts(productEntity: ProductEntity[]): Product[] {
     return productEntity.map(product => ({
       ...product,
       tags: product.tags.map(tag => tag.value)
     }));
+  }
+
+  private mapToProduct(productEntity: ProductEntity): Product {
+    return {
+      ...productEntity,
+      tags: productEntity.tags.map(tag => tag.value)
+    };
   }
 
 }

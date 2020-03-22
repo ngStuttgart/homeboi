@@ -37,10 +37,6 @@ export const APP_ROUTES: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'inserat-details',
-    loadChildren: () => import('./inserat-details/inserat-details.module').then(m => m.InseratDetailsModule)
-  },
-  {
     path: '**',
     redirectTo: '',
     pathMatch: 'full'

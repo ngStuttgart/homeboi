@@ -48,6 +48,11 @@ export const selectSignupSubmitted = createSelector(
   ({ signupSubmitted }: AppState): boolean => signupSubmitted
 );
 
+export const selectSignupError = createSelector(
+  selectApp,
+  ({ signupError }: AppState): string | undefined => signupError
+);
+
 export const selectProductsLoading = createSelector(
   selectApp,
   ({ productsLoading }: AppState): boolean => productsLoading

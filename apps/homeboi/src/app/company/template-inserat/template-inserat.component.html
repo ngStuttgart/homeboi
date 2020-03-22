@@ -1,9 +1,9 @@
-<homeboi-header [showInseratButton]="false"></homeboi-header>
+<homeboi-header></homeboi-header>
 
-<section>
+<section *ngIf="product$ | async as product">
   <h1>Was möchtest du vermieten?</h1>
 
-  <mat-card *ngIf="product$ | async as product">
+  <mat-card>
     <form (submit)="submit()" [formGroup]="inseratGroup">
       <div class="image">
         <ng-container *ngIf="product.image; else uploadImage">
@@ -138,9 +138,10 @@
         mat-raised-button
         [disabled]="productSubmitted$ | async"
         type="submit"
-        color="accent">
-        Inserat einstellen
+        color="primary">
+        Inserat aktualisieren
       </button>
     </form>
   </mat-card>
 </section>
+

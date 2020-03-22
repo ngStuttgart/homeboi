@@ -40,3 +40,8 @@ form {
 button {
   @include grid-span-full;
 }
+
+.signup-error {
+  margin: 20px 0;
+  @include grid-span-full;
+}

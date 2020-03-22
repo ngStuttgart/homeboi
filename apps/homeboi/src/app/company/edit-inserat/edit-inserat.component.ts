@@ -1,20 +1,18 @@
-import { Component, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { fromEvent, Observable, of, Subject } from 'rxjs';
-import { PaymentDuration, Product, ProductType } from '@homeboi/api-interfaces';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
+import { fromEvent, Observable, Subject } from 'rxjs';
 import { CompanyState } from '../+state/company.reducer';
-import {
-  selectProduct,
-  selectProductSubmitted
-} from '../+state/company.selectors';
+import { PaymentDuration, Product, ProductType } from '@homeboi/api-interfaces';
+import { selectProduct, selectProductSubmitted } from '../+state/company.selectors';
 import { filter, map, takeUntil } from 'rxjs/operators';
 import {
-  addImageAction,
+  addImageAction, editProductAction,
+  getProductAction,
   resetImageAction,
   setProductAction,
   submitProductAction
 } from '../+state/company.actions';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 
@@ -25,19 +23,19 @@ interface Option<T, R> {
 }
 
 @Component({
-  selector: 'homeboi-inserat',
-  templateUrl: './inserat.component.html',
-  styleUrls: ['./inserat.component.scss']
+  selector: 'homeboi-edit-inserat',
+  templateUrl: './edit-inserat.component.html',
+  styleUrls: ['./edit-inserat.component.scss']
 })
-export class InseratComponent implements OnDestroy {
-  constructor(private store: Store<CompanyState>) {}
+export class EditInseratComponent implements OnInit, OnDestroy {
+  product$: Observable<Product> = this.store.pipe(
+    select(selectProduct),
+    filter<Product>(product => !!product.id)
+  );
 
   get imageCtrl(): FormControl {
     return this.inseratGroup.get('image') as FormControl;
   }
-  product$: Observable<Partial<Product>> = this.store.pipe(
-    select(selectProduct)
-  );
 
   tags: string[] = [];
 
@@ -90,6 +88,22 @@ export class InseratComponent implements OnDestroy {
 
   private destroy$ = new Subject<void>();
 
+  constructor(private store: Store<CompanyState>) { }
+
+  ngOnInit(): void {
+    this.store.dispatch(getProductAction());
+    this.initForm();
+  }
+
+  initForm(): void {
+    this.product$.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(product => {
+      this.inseratGroup.patchValue(product);
+      this.tags = product.tags || [];
+    });
+  }
+
   addTag(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value.trim();
@@ -130,7 +144,7 @@ export class InseratComponent implements OnDestroy {
           product
         })
       );
-      this.store.dispatch(submitProductAction());
+      this.store.dispatch(editProductAction());
     }
   }
 

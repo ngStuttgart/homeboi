@@ -103,6 +103,10 @@
         <mat-error>Eingabe erforderlich</mat-error>
       </mat-form-field>
     </ng-container>
+    <mat-error *ngIf="signupError$ | async" class="signup-error">
+      Bei Ihrer Registrierung ist ein Fehler aufgetreten.
+      Eventuell existiert bereits ein Account unter Ihrer E-Mail-Adresse.
+    </mat-error>
     <button mat-raised-button [disabled]="signupSubmitted$ | async" type="submit" color="primary">Registrieren</button>
   </form>
 </mat-card>
