@@ -16,6 +16,9 @@ export class NotificationService {
     return await getRepository(NotificationEntity).find({
       where: {
         user: userId
+      },
+      order: {
+        date: 'DESC'
       }
     });
   }

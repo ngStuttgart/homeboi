@@ -14,7 +14,8 @@ export class BookingController {
 
   constructor(
     private readonly bookingsService: BookingService,
-    private readonly notificationGateway: NotificationGateway) { }
+    private readonly notificationGateway: NotificationGateway) {
+  }
 
   @Get('')
   async getAllBookings(): Promise<BookingEntity[]> {
@@ -25,24 +26,24 @@ export class BookingController {
   async createNewBooking(@Body() createBookingDto: BookingPostDto, @User() user: UserEntity) {
     const bookingResult = await this.bookingsService.createNewBooking(createBookingDto, user);
     if (bookingResult) {
-      await this.notificationGateway.sendNotification(user.userId, {
-        message: 'Neue Buchung',
+      await this.notificationGateway.sendNotification(bookingResult.product.user.userId, {
+        message: `Ihr Objekt ${bookingResult.product.title} wurde gebucht`,
         type: NotificationType.BOOKING,
         date: new Date()
       });
     }
     return bookingResult;
-
   }
 
   @Put('hand-back/:id')
   async handBackBooking(@Param('id') bookingId: string, @User() user: UserEntity): Promise<void> {
     const success = await this.bookingsService.handBackBooking(bookingId);
+    console.dir(success);
     if (!success) {
       throw new NotFoundException();
     } else {
-      await this.notificationGateway.sendNotification(user.userId, {
-        message: 'Objekt zurückgegeben',
+      await this.notificationGateway.sendNotification(success.product.user.userId, {
+        message: `Ihr Objekt ${success.product.title} wurde zurückgeben`,
         type: NotificationType.RETURN_PRODUCT,
         date: new Date()
       });
@@ -53,6 +54,7 @@ export class BookingController {
   async deleteBooking(@Param('id')bookingId: string) {
     return this.bookingsService.deleteBooking(bookingId);
   }
+
   @Post(':id/ratings')
   async createRating(@Param('id') bookingId: string, @User() user: UserEntity, @Body() rating: RatingPostDto): Promise<RatingEntity> {
     return await this.bookingsService.createRatingForBooking(bookingId, rating, user.userId);

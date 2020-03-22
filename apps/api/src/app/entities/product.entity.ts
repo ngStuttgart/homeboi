@@ -1,4 +1,4 @@
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { PaymentDuration, ProductType } from '@homeboi/api-interfaces';
 import { TagEntity } from './tag.entity';
 import { BookingEntity } from './booking.entity';
@@ -10,7 +10,7 @@ export class ProductEntity {
   id: string;
   @Column({ type: 'enum', enum: ProductType, default: ProductType.SONSTIGES })
   productType: ProductType;
-  @ManyToOne(type => UserEntity)
+  @ManyToOne(type => UserEntity, { eager: true })
   user: UserEntity;
   @Column({ nullable: true })
   description: string;
