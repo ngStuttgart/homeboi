@@ -1,7 +1,17 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
 import { AccountType, ProductQuery, ProductType } from '@homeboi/api-interfaces';
 import { FormControl, FormGroup } from '@angular/forms';
-import { KeyValue } from '@angular/common';
+import { DOCUMENT, KeyValue } from '@angular/common';
 import { takeUntil } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 import { select, Store } from '@ngrx/store';
@@ -53,7 +63,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
 
-  constructor(private store: Store<AppState>) {
+  @HostListener('document:click', ['$event'])
+  clickOutside(event) {
+    if (!this.elementRef.nativeElement.contains(event.target) && !this.document.querySelector('div.mat-select-panel')) {
+      this.showFilter = false;
+    }
+  }
+
+  constructor(private store: Store<AppState>, private elementRef: ElementRef, @Inject(DOCUMENT) private document: Document) {
   }
 
   ngOnInit(): void {
