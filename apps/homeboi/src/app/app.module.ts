@@ -27,6 +27,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { RxNgZoneSchedulerModule } from 'ngx-rxjs-zone-scheduler';
 import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
     Base64urlModule,
     MatDialogModule,
     RxNgZoneSchedulerModule,
-    StoreRouterConnectingModule.forRoot()
+    StoreRouterConnectingModule.forRoot(),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]
