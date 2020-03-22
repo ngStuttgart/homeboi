@@ -6,6 +6,7 @@ import { selectNotifications, selectUserAccountType } from '../+state/app.select
 import { Notification } from '@homeboi/api-interfaces';
 import { deleteNotificationAction, deleteNotificationCountAction, getNotificationsAction } from '../+state/app.actions';
 import { map } from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'homeboi-notifications',
@@ -24,7 +25,7 @@ export class NotificationsComponent implements OnInit {
 
   accountType = this.store.pipe(select(selectUserAccountType), map(accountType => '/' + accountType.toLowerCase()));
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private location: Location) {
   }
 
   ngOnInit(): void {
@@ -34,5 +35,9 @@ export class NotificationsComponent implements OnInit {
 
   public removeNotification(notification: Notification): void {
     this.store.dispatch(deleteNotificationAction({ notification }));
+  }
+
+  goBack() {
+    this.location.back();
   }
 }
