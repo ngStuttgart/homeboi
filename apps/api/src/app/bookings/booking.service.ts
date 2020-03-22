@@ -21,6 +21,7 @@ export class BookingService {
     booking.user = user.userId as any;
     booking.product = createBookingDto.productId as any;
     booking.end = createBookingDto.end;
+    booking.description = createBookingDto.description;
     booking.start = createBookingDto.start;
     await this.setProductAvailable(createBookingDto.productId, false);
     const bookingResult = await bookingRepository.save(booking);

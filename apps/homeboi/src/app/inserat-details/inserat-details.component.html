@@ -1,4 +1,4 @@
-<homeboi-header accountType="/user"></homeboi-header>
+<homeboi-header [showInputBar]="false"></homeboi-header>
 
 <section>
   <button class="back-btn" mat-button (click)="goBack()">
@@ -31,14 +31,19 @@
         </button>
 
         <div *ngIf="showBookingSection">
-          <h3 class="text__information">Wir brauchen noch folgende Informationen von dir</h3>
-          <mat-form-field class="date-field">
-            <mat-label>Startdatum deiner Buchung</mat-label>
-            <input label="Startdatum" matInput [matDatepicker]="picker" [min]="minDate" [(ngModel)]="startDate">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-
+          <h3>Wir brauchen noch folgende Informationen von dir</h3>
+          <div>
+            <mat-form-field class="booking-form-field">
+              <mat-label>Startdatum deiner Buchung</mat-label>
+              <input label="Startdatum" matInput [matDatepicker]="picker" [min]="minDate" [(ngModel)]="startDate">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="booking-form-field">
+              <mat-label>Informationen zur Auslieferung</mat-label>
+              <textarea matInput placeholder="Geräte können in der Garage abgeladen werden"  [(ngModel)]="description"></textarea>
+            </mat-form-field>
+          </div>
           <mat-checkbox [(ngModel)]="insurance">Buchung für nur {{ (product.price * 0.1) }}€ extra versichern?</mat-checkbox>
 
           <button mat-raised-button color="accent" class="book-btn" (click)="book()" [disabled]="!startDate">

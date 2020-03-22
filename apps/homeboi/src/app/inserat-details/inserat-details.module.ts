@@ -13,6 +13,7 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { HeaderModule } from '../header/header.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PaymentDurationModule } from '@homeboi/shared/payment-duration-pipe';
 
 @NgModule({
@@ -32,6 +33,8 @@ import { PaymentDurationModule } from '@homeboi/shared/payment-duration-pipe';
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
+    FormsModule,
+    MatSnackBarModule
     FormsModule,
     PaymentDurationModule
   ],

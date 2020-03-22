@@ -16,6 +16,9 @@ export class BookingEntity implements Omit<Booking, 'product'> {
   @Column({ type: 'date', nullable: true })
   end: Date;
 
+  @Column({ nullable: true })
+  description?: string;
+
   @Column({ default: false })
   returned: boolean;
 

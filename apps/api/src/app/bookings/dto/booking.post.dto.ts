@@ -8,4 +8,6 @@ export class BookingPostDto implements Booking {
   start: Date;
   @ApiProperty()
   productId: string;
+  @ApiProperty()
+  description: string;
 }
