@@ -5,6 +5,7 @@ import { UserService } from './user.service';
 import { UserPostDto } from './dto/user.post.dto';
 import { User } from '../shared/user.decorator';
 import { UserEntity } from '../entities/user.entity';
+import { Signup } from '@homeboi/api-interfaces';
 
 @Controller('user')
 export class UserController {
@@ -14,7 +15,7 @@ export class UserController {
 
   @Post('login')
   @HttpCode(HttpStatus.OK)
-  async login(@Body() credentials: LoginPostDto, @Res() response: Response) {
+  async login(@Body() credentials: LoginPostDto, @Res() response: Response): Promise<void> {
     const userResponse = await this.userService.login(credentials.email, credentials.password);
     if (!userResponse) {
       throw new UnauthorizedException();
@@ -28,8 +29,14 @@ export class UserController {
     response.json(userResponse);
   }
 
+  @Post('logout')
+  logout(@Res() response: Response): void {
+    response.cookie('homeboi-login', '', {expires: new Date(Date.now() - 24 * 60 * 60 * 1000)});
+    response.status(HttpStatus.OK).json();
+  }
+
   @Post('signup')
-  async signup(@Body() user: UserPostDto) {
+  async signup(@Body() user: UserPostDto): Promise<UserEntity> {
     return this.userService.signup(user);
   }
 

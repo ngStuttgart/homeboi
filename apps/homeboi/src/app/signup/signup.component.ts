@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AppState } from '../+state/app.reducer';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { signupAction } from '../+state/app.actions';
+import { Observable } from 'rxjs';
+import { selectSignupSubmitted } from '../+state/app.selectors';
 
 interface AccountType {
   value: string;
@@ -15,8 +17,11 @@ interface AccountType {
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent {
-  constructor(private store: Store<AppState>) {}
+  signupSubmitted$: Observable<boolean> = this.store.pipe(
+    select(selectSignupSubmitted)
+  );
 
+  constructor(private store: Store<AppState>) {}
 
   accountTypes: AccountType[] = [
     {value: 'USER', viewValue: 'Mieter (Home-Office Arbeiter)'},

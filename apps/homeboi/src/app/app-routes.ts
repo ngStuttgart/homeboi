@@ -28,11 +28,13 @@ export const APP_ROUTES: Routes = [
   },
   {
     path: 'notifications',
-    loadChildren: () => import('./notifications/notifications.module').then(m => m.NotificationsModule)
+    loadChildren: () => import('./notifications/notifications.module').then(m => m.NotificationsModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'inserat-details',
-    loadChildren: () => import('./inserat-details/inserat-details.module').then(m => m.InseratDetailsModule)
+    loadChildren: () => import('./inserat-details/inserat-details.module').then(m => m.InseratDetailsModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'inserat-details',
