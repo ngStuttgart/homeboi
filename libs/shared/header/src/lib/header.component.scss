@@ -26,6 +26,7 @@ mat-expansion-panel {
 
   @media (max-width: 700px) {
     width: 85%;
+    top: 100px;
 
     ::ng-deep.mat-expansion-panel-body {
       display: flex;
