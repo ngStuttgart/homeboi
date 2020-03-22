@@ -4,7 +4,7 @@
     <img alt="logo" src="./assets/logo.png">
   </div>
   <p>Um einen Account zu erstellen, benötigen wir noch ein paar Daten von dir.</p>
-  <form #ngForm="ngForm" (submit)="submit()" [formGroup]="signupGroup">
+  <form (submit)="submit()" [formGroup]="signupGroup">
     <mat-form-field class="account-type">
       <mat-label>Art des Accounts</mat-label>
       <mat-select formControlName="accountType">
@@ -103,6 +103,6 @@
         <mat-error>Eingabe erforderlich</mat-error>
       </mat-form-field>
     </ng-container>
-    <button mat-raised-button type="submit" color="primary">Registrieren</button>
+    <button mat-raised-button [disabled]="signupSubmitted$ | async" type="submit" color="primary">Registrieren</button>
   </form>
 </mat-card>

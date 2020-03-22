@@ -13,9 +13,10 @@ import {
   getUserSuccessAction,
   loginAction,
   loginErrorAction,
-  loginSuccessAction,
+  loginSuccessAction, logoutAction, logoutSuccessAction,
   setNotificationAction,
   signupAction,
+  signupErrorAction,
   signupSuccessAction
 } from './app.actions';
 import { catchError, exhaustMap, filter, map, switchMap, take, tap } from 'rxjs/operators';
@@ -56,6 +57,10 @@ export class AppEffects {
         this.httpClient
           .post<Signup>('/api/user/signup', signup)
           .pipe(
+            catchError(() => {
+              this.store.dispatch(signupErrorAction({signupError: 'error'}));
+              return throwError('error');
+            }),
             tap(() =>
               this.router.navigateByUrl(`/${signup.accountType.toLowerCase()}`)
             )
@@ -125,6 +130,16 @@ export class AppEffects {
       )),
       map(user => getUserSuccessAction({ user }))
     ), { useEffectsErrorHandler: true }
+  );
+
+  logout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(logoutAction),
+      exhaustMap(() => this.httpClient.post<void>('/api/user/logout', null)),
+      tap(() => console.log('NAV')),
+      switchMap(() => this.router.navigateByUrl('/')),
+      map(() => logoutSuccessAction())
+    ), {useEffectsErrorHandler: true, dispatch: false}
   );
 
   constructor(

@@ -10,7 +10,6 @@ import { filter, map, take } from 'rxjs/operators';
 import { RouterState, selectUrl } from '../+state/router.selectors';
 import { accountUrlMap } from './account-url-map';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -47,7 +46,11 @@ export class AuthGuard implements CanActivate {
       return this.router.createUrlTree(['/']);
     } else {
       const urlForAccountType = accountUrlMap.get(userOrError.accountType);
-      return url.startsWith(urlForAccountType) || this.router.createUrlTree([urlForAccountType]);
+
+      const isValidNavigation = url.startsWith(urlForAccountType) ||
+        Boolean(Array.from(accountUrlMap.values()).filter(path => url.includes(path)));
+
+      return isValidNavigation || this.router.createUrlTree([urlForAccountType]);
     }
   }
 }

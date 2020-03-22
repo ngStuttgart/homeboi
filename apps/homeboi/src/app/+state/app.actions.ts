@@ -21,6 +21,11 @@ export const signupAction = createAction(
 
 export const signupSuccessAction = createAction('[APP] signupSuccess');
 
+export const signupErrorAction = createAction(
+  '[APP] signupError',
+  props<{ signupError: string }>()
+);
+
 export const getProductsAction = createAction('[APP] getProducts');
 
 export const getProductsSuccessAction = createAction(
@@ -57,6 +62,14 @@ export const getUserSuccessAction = createAction(
 export const getUserErrorAction = createAction(
   '[APP] getUserError',
   props<{ getUserError: string }>()
+);
+
+export const logoutAction = createAction(
+  '[APP] logout'
+);
+
+export const logoutSuccessAction = createAction(
+  '[APP] logoutSuccess'
 );
 
 export const deleteNotificationAction = createAction(
