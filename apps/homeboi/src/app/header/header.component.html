@@ -39,7 +39,7 @@
       Inserat anlegen
     </a>
     <div class="align-right">
-      <button *ngIf="(userAccountType$ | async) === '/user'" mat-icon-button routerLink="/user/orders">
+      <button *ngIf="(userAccountType$ | async) === 'USER'" mat-icon-button routerLink="/user/orders">
         <mat-icon>list</mat-icon>
       </button>
       <button mat-icon-button routerLink="/notifications"

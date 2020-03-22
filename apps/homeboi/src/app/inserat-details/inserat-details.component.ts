@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InseratDetailsService } from './inserat-details.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Booking, Product } from '@homeboi/api-interfaces';
+import { Product } from '@homeboi/api-interfaces';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -36,7 +36,7 @@ export class InseratDetailsComponent implements OnInit {
   }
 
   async book() {
-    const booking: Booking = { start: this.startDate, end: null, description: this.description };
+    const booking = { start: this.startDate, end: null, description: this.description, productId: this.productId };
     await this.insertDetailsService.bookInserat(booking).toPromise();
     this.snackbar.open('Buchung war erfolgreich', 'ok', {duration: 5000});
     await this.router.navigate(['/']);
