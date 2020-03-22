@@ -26,7 +26,7 @@ export class ProductService {
 
   async getProductById(productId): Promise<Product> {
     return this.mapToProduct(await getRepository(ProductEntity).findOne({
-      where: { productId },
+      where: { id: productId },
       relations: ['tags']
     }));
   }

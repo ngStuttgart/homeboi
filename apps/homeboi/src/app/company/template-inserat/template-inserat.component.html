@@ -139,9 +139,12 @@
         [disabled]="productSubmitted$ | async"
         type="submit"
         color="primary">
-        Inserat aktualisieren
+        Inserat einstellen
       </button>
     </form>
   </mat-card>
 </section>
 
+<div class="loading" *ngIf="productLoading$ | async">
+  <mat-spinner color="primary"></mat-spinner>
+</div>

@@ -75,3 +75,10 @@ form {
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-gap: 1em;
 }
+
+.loading {
+  display: grid;
+  place-items: center;
+  margin-top: 30%;
+  height: 100%;
+}

@@ -145,3 +145,6 @@
   </mat-card>
 </section>
 
+<div class="loading" *ngIf="productLoading$ | async">
+  <mat-spinner color="primary"></mat-spinner>
+</div>

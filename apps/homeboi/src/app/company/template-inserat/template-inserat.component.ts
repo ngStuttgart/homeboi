@@ -3,12 +3,12 @@ import { select, Store } from '@ngrx/store';
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { CompanyState } from '../+state/company.reducer';
 import { PaymentDuration, Product, ProductType } from '@homeboi/api-interfaces';
-import { selectProduct, selectProductSubmitted } from '../+state/company.selectors';
+import { selectProduct, selectProductLoading, selectProductSubmitted } from '../+state/company.selectors';
 import { filter, map, takeUntil } from 'rxjs/operators';
 import {
   addImageAction,
   getProductAction,
-  resetImageAction,
+  resetImageAction, resetProductAction,
   setProductAction,
   submitProductAction
 } from '../+state/company.actions';
@@ -28,6 +28,10 @@ interface Option<T, R> {
   styleUrls: ['./template-inserat.component.scss']
 })
 export class TemplateInseratComponent implements OnInit, OnDestroy {
+  productLoading$: Observable<boolean> = this.store.pipe(
+    select(selectProductLoading)
+  );
+
   product$: Observable<Product> = this.store.pipe(
     select(selectProduct),
     filter<Product>(product => !!product.id)
@@ -100,7 +104,7 @@ export class TemplateInseratComponent implements OnInit, OnDestroy {
       takeUntil(this.destroy$)
     ).subscribe(product => {
       this.inseratGroup.patchValue(product);
-      this.tags = product.tags || [];
+      this.tags = [...product.tags] || [];
     });
   }
 
@@ -128,15 +132,17 @@ export class TemplateInseratComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroy$.next();
+    this.store.dispatch(resetProductAction());
   }
 
   submit(): void {
     this.imageCtrl.markAsTouched();
 
     if (this.inseratGroup.valid) {
-      const product = {
+      const product: Product = {
         ...this.removeOptionalProperties(this.inseratGroup.getRawValue()),
-        tags: this.tags
+        tags: [...this.tags],
+        id: undefined
       };
 
       this.store.dispatch(

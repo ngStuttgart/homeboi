@@ -4,9 +4,9 @@ export interface Product {
   description: string;
   title: string;
   tags: string[];
-  width: number;
-  height: number;
-  depth: number;
+  width?: number;
+  height?: number;
+  depth?: number;
   price: number;
   available?: boolean;
   paymentDuration: PaymentDuration;
