@@ -36,7 +36,6 @@ export class BookingService {
       }, relations: ['product', 'user', 'rating']
     });
   }
-
   public async handBackBooking(bookingId: string): Promise<BookingEntity> {
     const success = (await getRepository(BookingEntity).update({ id: bookingId }, {
       end: new Date(),
