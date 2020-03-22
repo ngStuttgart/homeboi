@@ -38,7 +38,7 @@ export class InseratDetailsComponent implements OnInit {
   async book() {
     const booking: Booking = { start: this.startDate, end: null, description: this.description };
     await this.insertDetailsService.bookInserat(booking).toPromise();
-    this.snackbar.open('Buchung war erfolgreich');
+    this.snackbar.open('Buchung war erfolgreich', 'ok', {duration: 5000});
     await this.router.navigate(['/']);
   }
 
