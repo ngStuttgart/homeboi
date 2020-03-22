@@ -1,7 +1,7 @@
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
 import {
   getNotificationsSuccessAction,
-  getProductsSuccessAction,
+  getProductsSuccessAction, getUserAction, getUserErrorAction, getUserSuccessAction,
   loginErrorAction,
   loginSuccessAction,
   resetNotificationsAction,
@@ -14,13 +14,15 @@ export interface AppState {
   products: Product[];
   loginError?: string;
   notifications?: Notification[];
+  getUserError?: string;
 }
 
 export const initialAppState: AppState = {
   user: undefined,
   products: [],
   loginError: undefined,
-  notifications: undefined
+  notifications: undefined,
+  getUserError: undefined
 };
 
 export function appReducer(state: AppState, action: Action) {
@@ -33,6 +35,7 @@ export const reducer: ActionReducer<AppState> = createReducer(
     loginSuccessAction,
     (state: AppState, { user }): AppState => ({
       ...state,
+      getUserError: undefined,
       user
     })
   ),
@@ -69,6 +72,28 @@ export const reducer: ActionReducer<AppState> = createReducer(
     (state: AppState, { notifications }): AppState => ({
       ...state,
       notifications
+    })
+  ),
+  on(
+    getUserAction,
+    (state): AppState => ({
+      ...state
+    })
+  ),
+  on(
+    getUserSuccessAction,
+    (state, {user}): AppState => ({
+      ...state,
+      getUserError: undefined,
+      user
+    })
+  ),
+  on(
+    getUserErrorAction,
+    (state, {getUserError}): AppState => ({
+      ...state,
+      user: undefined,
+      getUserError
     })
   )
 );
