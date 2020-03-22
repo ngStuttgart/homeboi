@@ -2,13 +2,15 @@ mat-toolbar {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  transition: height .3s ease-out;
+  height: auto;
+}
 
-  &.show-searchbar {
-    height: 105px;
-  }
+.logo {
+  position: relative;
+  top: 3px;
+  margin-right: auto;
 
-  .logo {
+  &__img {
     width: 130px;
   }
 }
@@ -21,14 +23,29 @@ mat-expansion-panel {
   mat-form-field + mat-form-field {
     margin-left: 0.5em;
   }
+
+  @media (max-width: 700px) {
+    width: 85%;
+
+    ::ng-deep.mat-expansion-panel-body {
+      display: flex;
+      flex-direction: column;
+    }
+  }
 }
 
-.suche {
+.search-field {
   background-color: white;
   border: 1px solid grey;
   display: flex;
   align-items: center;
   height: 35px;
+  margin: 0 1em;
+  flex: 1 0 auto;
+
+  @media (max-width: 550px) {
+    margin: 0;
+  }
 
   &:focus-within {
     border-color: black;
@@ -43,29 +60,12 @@ mat-expansion-panel {
   }
 }
 
-.search-field {
-  &--desktop {
-    margin: 0 1em;
-    flex: 1 0 auto;
-    @media(max-width: 640px) {
-      &.show {
-        display: flex;
-        flex-basis: 80%;
-        order: 5;
-      }
-      &:not(.show) {
-        display: none;
-      }
-    }
-  }
+.align-right {
+  float: right;
 
-  &--mobile {
-    display: none;
-
-    @media(max-width: 640px) {
-      margin: 0 auto 0 .5em;
-      display: block;
-    }
+  &::after {
+    content: " ";
+    clear: both;
   }
 }
 
@@ -73,19 +73,6 @@ mat-expansion-panel {
   margin: 0 3em;
 
   @media(max-width: 800px) {
-    margin: 0;
-  }
-}
-
-.show--desktop {
-  @media(max-width: 800px) {
-    display: none;
-  }
-}
-
-.show--mobile {
-  display: none;
-  @media(max-width: 800px) {
-    display: block;
+    margin: 0 0 0 5px;
   }
 }

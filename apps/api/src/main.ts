@@ -7,6 +7,8 @@ import { join } from 'path';
 import { CustomHttpFilter } from './app/filter/custom-http.filter';
 import { authenticationMiddleware } from './app/shared/authentication.middleware';
 import * as cookieParser from 'cookie-parser';
+import * as compression from 'compression';
+import * as helmet from 'helmet';
 
 async function bootstrap() {
   const app: NestExpressApplication = await NestFactory.create(AppModule);
@@ -17,6 +19,8 @@ async function bootstrap() {
   app.useGlobalFilters(app.get(CustomHttpFilter));
   app.use(cookieParser());
   app.use(authenticationMiddleware);
+  app.use(compression());
+  app.use(helmet());
   const options = new DocumentBuilder()
     .setTitle('HOMEBOI API')
     .setDescription('The homeboi api')

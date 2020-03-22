@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Credentials, Product, Signup } from '@homeboi/api-interfaces';
-import { Notification } from '@homeboi/api-interfaces';
+import { Credentials, Notification, Product, Signup } from '@homeboi/api-interfaces';
 
 export const loginAction = createAction(
   '[APP] login',
@@ -36,4 +35,26 @@ export const setNotificationAction = createAction(
 
 export const resetNotificationsAction = createAction(
   '[APP] resetNotifications'
+);
+
+export const getNotificationsAction = createAction(
+  '[APP] getNotifications'
+);
+export const getNotificationsSuccessAction = createAction(
+  '[APP] getNotificationsSuccess',
+  props<{ notifications: Notification[] }>()
+);
+
+export const getUserAction = createAction(
+  '[APP] getUser'
+);
+
+export const getUserSuccessAction = createAction(
+  '[APP] getUserSuccess',
+  props<{ user: Signup }>()
+);
+
+export const getUserErrorAction = createAction(
+  '[APP] getUserError',
+  props<{ getUserError: string }>()
 );

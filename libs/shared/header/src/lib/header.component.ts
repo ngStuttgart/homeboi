@@ -12,7 +12,8 @@ import { Subject } from 'rxjs';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   @Input() showInseratButton: boolean;
-  @Input() notificationsUrl: string;
+  @Input() showInputBar = true;
+  @Input() accountType: '/company' | '/user';
 
   @Output() productQuery = new EventEmitter<ProductQuery>();
 
