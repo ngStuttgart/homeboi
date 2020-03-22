@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { HttpClient } from '@angular/common/http';
 import {
+  deleteNotificationAction,
+  deleteNotificationSuccessAction,
   getNotificationsAction,
   getNotificationsSuccessAction,
   getProductsAction,
@@ -62,6 +64,18 @@ export class AppEffects {
       map(() => signupSuccessAction())
     ), { useEffectsErrorHandler: true }
   );
+
+  deleteNotification$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(deleteNotificationAction),
+      exhaustMap(({ notification }) => {
+        return this.httpClient.delete('/api/notifications/' + notification.id);
+      }),
+      map((notifications: Notification[]) => {
+        return deleteNotificationSuccessAction({ notifications });
+      })
+    );
+  }, { useEffectsErrorHandler: true });
 
   products$ = createEffect(() =>
       this.actions$.pipe(

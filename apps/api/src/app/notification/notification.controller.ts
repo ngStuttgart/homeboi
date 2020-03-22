@@ -20,7 +20,8 @@ export class NotificationController {
   }
 
   @Delete(':id')
-  async deleteNotification(@Param('id') notificationId: string): Promise<any> {
-    return await this.notificationService.deleteNotification(notificationId);
+  async deleteNotification(@Param('id') notificationId: string, @User() user: UserEntity): Promise<Array<NotificationEntity>> {
+    await this.notificationService.deleteNotification(notificationId);
+    return await this.notificationService.getAllNotificationsByUser(user.userId);
   }
 }

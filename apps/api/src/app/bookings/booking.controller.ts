@@ -38,7 +38,6 @@ export class BookingController {
   @Put('hand-back/:id')
   async handBackBooking(@Param('id') bookingId: string, @User() user: UserEntity): Promise<void> {
     const success = await this.bookingsService.handBackBooking(bookingId);
-    console.dir(success);
     if (!success) {
       throw new NotFoundException();
     } else {
