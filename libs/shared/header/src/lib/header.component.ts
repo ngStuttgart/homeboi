@@ -48,10 +48,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe((productQuery: ProductQuery) => this.productQuery.emit(productQuery));
   }
 
-  toggleSearchbar(): void {
-    this.showSearchbar = !this.showSearchbar;
-  }
-
   ngOnDestroy(): void {
     this.destroy$.next();
   }
