@@ -77,6 +77,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.formGroup.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((productQuery: ProductQuery) => this.productQuery.emit(productQuery));
+
+    this.store.pipe(
+      select(selectUserAccountType),
+      takeUntil(this.destroy$)
+    ).subscribe(userAccountType => {
+      this.showInputBar = userAccountType === AccountType.USER;
+    });
   }
 
   ngOnDestroy(): void {

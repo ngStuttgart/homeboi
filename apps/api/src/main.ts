@@ -23,7 +23,8 @@ async function bootstrap() {
   app.use(authenticationMiddleware);
   app.use(compression());
   app.use(helmet());
-  app.use(bodyParser({ limit: '50M' }));
+  app.use(bodyParser.json({limit: '50mb'}));
+  app.use(bodyParser.urlencoded({limit: '50mb'}));
   // Force SSL redirect in Heroku
   app.use(forceSSLMiddleware);
   const options = new DocumentBuilder()
