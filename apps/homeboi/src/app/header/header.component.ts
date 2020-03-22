@@ -64,7 +64,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   homeRoute$: Observable<string> = this.userAccountType$.pipe(
     map(accountType => '/' + accountType.toLowerCase())
-  )
+  );
 
   private destroy$ = new Subject<void>();
 
