@@ -28,6 +28,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RxNgZoneSchedulerModule } from 'ngx-rxjs-zone-scheduler';
 import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,10 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     ReactiveFormsModule,
     EffectsModule.forRoot([AppEffects]),
     StoreModule.forRoot({ app: appReducer, router: routerReducer }),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production
+    }),
     MatSelectModule,
     MatToolbarModule,
     MatIconModule,
@@ -56,7 +60,10 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     MatDialogModule,
     RxNgZoneSchedulerModule,
     StoreRouterConnectingModule.forRoot(),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production
+    }),
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
