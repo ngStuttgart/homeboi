@@ -13,7 +13,7 @@ export class BookingEntity implements Omit<Booking, 'product'> {
   @Column({ type: 'date' })
   start: Date;
 
-  @Column({ type: 'date' })
+  @Column({ type: 'date', nullable: true })
   end: Date;
 
   @ManyToOne(type => ProductEntity, type => type.bookings)
