@@ -3,7 +3,7 @@
   <div class="text">
     <div class="text__title">{{ product.title }}</div>
     <div class="text__description">{{ product.description }}</div>
-    <div><span class="text__price">{{ product.price }} €</span>&nbsp;<span class="text__duration">{{product.paymentDuration | paymentDuration}}</span></div>
+    <div><span class="text__price">{{ product.price | currency: 'EUR' }}</span>&nbsp;<span class="text__duration">{{product.paymentDuration | paymentDuration}}</span></div>
   </div>
   <ng-content></ng-content>
 </mat-card>
