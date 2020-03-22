@@ -34,7 +34,7 @@ export class UserComponent implements OnInit {
   private filterProducts([products, query]): Product[] {
     let filtered: Product[] = products;
     if (query.title) {
-      filtered = filtered.filter(product => product.title.toLowerCase().startsWith(query.title.toLowerCase()));
+      filtered = filtered.filter(product => product.title.toLowerCase().includes(query.title.toLowerCase()));
     }
     if (query.productType && query.productType.length > 0) {
       filtered = filtered.filter(product => query.productType.includes(product.productType));

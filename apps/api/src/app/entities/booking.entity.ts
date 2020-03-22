@@ -5,7 +5,7 @@ import { ProductEntity } from './product.entity';
 import { RatingEntity } from './rating.entity';
 
 @Entity()
-export class BookingEntity implements Booking {
+export class BookingEntity implements Omit<Booking, 'product'> {
 
   @PrimaryGeneratedColumn('uuid')
   id: string;

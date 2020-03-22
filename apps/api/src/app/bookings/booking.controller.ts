@@ -1,4 +1,14 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  NotFoundException,
+  Param,
+  Post,
+  Put } from '@nestjs/common';
 import { BookingService } from './booking.service';
 import { BookingPostDto } from './dto/booking.post.dto';
 import { User } from '../shared/user.decorator';
@@ -35,7 +45,13 @@ export class BookingController {
     return bookingResult;
   }
 
-  @Put('hand-back/:id')
+  @Get('foruser')
+  async getBookingsForUser(@User() user: UserEntity): Promise<BookingEntity[]> {
+    return this.bookingsService.getAllBookingsForUser(user);
+  }
+
+  @Put(':id/hand-back')
+  @HttpCode(HttpStatus.NO_CONTENT)
   async handBackBooking(@Param('id') bookingId: string, @User() user: UserEntity): Promise<void> {
     const success = await this.bookingsService.handBackBooking(bookingId);
     if (!success) {
@@ -50,7 +66,7 @@ export class BookingController {
   }
 
   @Delete(':id')
-  async deleteBooking(@Param('id')bookingId: string) {
+  async deleteBooking(@Param('id') bookingId: string) {
     return this.bookingsService.deleteBooking(bookingId);
   }
 
