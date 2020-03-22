@@ -26,6 +26,10 @@ export class BookingService {
     return await bookingRepository.save(booking);
   }
 
+  public async getAllBookingsForUser(user: UserEntity): Promise<BookingEntity[]> {
+    return await getRepository(BookingEntity).find({ where: { user }, relations: ['product', 'user', 'rating'] });
+  }
+
   public async handBackBooking(bookingId: string): Promise<boolean> {
     const success = (await getRepository(BookingEntity).update({ id: bookingId }, { end: new Date() })).affected === 1;
     if (success) {

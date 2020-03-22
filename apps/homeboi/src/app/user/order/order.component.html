@@ -1,0 +1,49 @@
+<homeboi-header accountType="/user" [showInseratButton]="true"></homeboi-header>
+
+<ng-container *ngIf="bookings$ | async as bookings; else loading">
+  <table *ngIf="bookings.length; else noBookings" mat-table [dataSource]="bookingDataSource"
+         class="mat-elevation-z0 bookings-table">
+    <ng-container matColumnDef="product">
+      <th mat-header-cell *matHeaderCellDef> Produkt</th>
+      <td mat-cell *matCellDef="let element"> {{element.product.title}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="start">
+      <th mat-header-cell *matHeaderCellDef> Start</th>
+      <td mat-cell *matCellDef="let element"> {{element.start}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="end">
+      <th mat-header-cell *matHeaderCellDef> Ende</th>
+      <td mat-cell *matCellDef="let element"> {{element.end}} </td>
+    </ng-container>
+    <ng-container matColumnDef="options">
+      <th mat-header-cell *matHeaderCellDef> Optionen</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button matTooltip="Artikel zurückgeben" (click)="handBackBooking(element.id)">
+          Zurückgeben
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <ng-template #noBookings>
+    <mat-card class="mat-elevation-z0">
+      <h1>Aktuell noch keine Bestellungen vorhanden</h1>
+      <mat-card-content>
+        <p>
+          Suche in der Übersicht nach Produkten welche dich interessieren könnten. Diese werden nach der Bestellung hier
+          angezeigt.
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+</ng-container>
+<ng-template #loading>
+  <div class="loading">
+    <mat-spinner color="primary"></mat-spinner>
+  </div>
+</ng-template>
+

@@ -5,7 +5,7 @@ import { ProductEntity } from './product.entity';
 import { RatingEntity } from './rating.entity';
 
 @Entity()
-export class BookingEntity implements Booking {
+export class BookingEntity implements Omit<Booking, 'product'> {
 
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -13,7 +13,7 @@ export class BookingEntity implements Booking {
   @Column({ type: 'date' })
   start: Date;
 
-  @Column({ type: 'date', nullable: true })
+  @Column({ type: 'date' })
   end: Date;
 
   @ManyToOne(type => ProductEntity, type => type.bookings)
