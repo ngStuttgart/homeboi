@@ -7,4 +7,4 @@ export interface RouterState {
 
 export const selectRouter = createFeatureSelector<RouterState, RouterReducerState<any>>('router');
 
-export const { selectUrl } = getSelectors(selectRouter);
+export const { selectUrl, selectRouteParam } = getSelectors(selectRouter);

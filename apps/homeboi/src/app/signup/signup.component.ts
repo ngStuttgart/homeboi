@@ -4,7 +4,7 @@ import { AppState } from '../+state/app.reducer';
 import { select, Store } from '@ngrx/store';
 import { signupAction } from '../+state/app.actions';
 import { Observable } from 'rxjs';
-import { selectSignupSubmitted } from '../+state/app.selectors';
+import { selectSignupError, selectSignupSubmitted } from '../+state/app.selectors';
 
 interface AccountType {
   value: string;
@@ -19,6 +19,9 @@ interface AccountType {
 export class SignupComponent {
   signupSubmitted$: Observable<boolean> = this.store.pipe(
     select(selectSignupSubmitted)
+  );
+  signupError$: Observable<string> = this.store.pipe(
+    select(selectSignupError)
   );
 
   constructor(private store: Store<AppState>) {}

@@ -27,9 +27,16 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HeaderModule } from '../header/header.module';
+import { EditInseratComponent } from './edit-inserat/edit-inserat.component';
+import { TemplateInseratComponent } from './template-inserat/template-inserat.component';
 
 @NgModule({
-  declarations: [CompanyComponent, InseratComponent],
+  declarations: [
+    CompanyComponent,
+    InseratComponent,
+    EditInseratComponent,
+    TemplateInseratComponent
+  ],
   imports: [
     CommonModule,
     CompanyRoutingModule,
